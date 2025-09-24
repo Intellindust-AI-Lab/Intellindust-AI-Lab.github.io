@@ -1,0 +1,167 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>DEIM</title>
+  <meta name="description" content="DEIM: DETR with Improved Matching for Fast Convergence">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+  <meta charset="utf-8">
+
+  <!--Facebook preview-->
+  <meta property="og:image" content="https://imagine.enpc.fr/~monniert/DTIClustering/thumbnail.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="600">
+  <meta property="og:image:height" content="400">
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://yutingli0606.github.io/HTR-VT/"/>
+  <meta property="og:title" content="DEIM"/>
+  <meta property="og:description" content="Project page for DEIM: DETR with Improved Matching for Fast Convergence."/>
+
+  <!--Twitter preview-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DEIM" />
+  <meta name="twitter:description" content="Project page for DEIM: DETR with Improved Matching for Fast Convergence."/>
+  <meta name="twitter:image" content="https://imagine.enpc.fr/~monniert/DTIClustering/thumbnail_twitter.png">
+
+  <!--Style-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="style.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div class="container" style="text-align:center; padding:2rem 15px">
+  <div class="row" style="text-align:center">
+    <h1>DEIM: DETR with Improved Matching for Fast Convergence.</h1>
+  </div>
+  <div class="row" style="text-align:center">
+    <div class="col-xs-0 col-md-2"></div>
+    <div class="col-xs-12 col-md-8">
+      <h4>
+        <a href="http://www.shihuahuang.cn/"><nobr>Shihua Huang</nobr></a><sup>1</sup> &emsp;
+        <a href="https://scholar.google.com/citations?user=tIFWBcQAAAAJ&hl=en"><nobr>Zhichao Lu<sup></sup></nobr></a><sup>2</sup> &emsp;
+        <a href="https://vinthony.github.io/academic/"><nobr>Xiaodong Cun<sup></sup></nobr></a><sup>3</sup> &emsp;
+        <a href=""><nobr>Yongjun Yu</nobr></a><sup>1</sup> &emsp;
+        <a href=""><nobr>Xiao Zhou</nobr></a><sup>4</sup> &emsp;
+        <a href="https://xishen0220.github.io/"><nobr>Xi Shen<sup>&dagger;</sup></nobr></a><sup>1</sup> &emsp;
+
+      </h4>
+      <sup>1</sup>  Intellindust AI Lab &emsp;
+      <sup>2</sup> City University of Hong Kong &emsp;
+      <sup>3</sup> Great Bay University &emsp;
+      <sup>4</sup> Hefei Normal University
+      
+    </div>
+  </div>
+</div>
+
+
+<div style="display: flex; justify-content: center; align-items: center;">
+  <h3 style="text-align:center; padding-top:1rem">
+    <a class="label label-info" href="https://arxiv.org/abs/2412.04234">arXiv</a>
+    <a class="label label-info" href="https://https://github.com/ShihuaHuang95/DEIM">GitHub</a>
+    <a class="label label-info" href="resrc/DEIM-Slides.pdf">Slides</a>
+    
+  </h3>
+</div>
+
+<div class="container">
+  <h3>Abstract</h3>
+  <hr/>
+  <p>
+    &nbsp;&nbsp;&nbsp;&nbsp;We introduce DEIM, an innovative and efficient training framework designed to accelerate convergence in real-time object detection with Transformer-based architectures (DETR). 
+    To mitigate the sparse supervision inherent in one-to-one (O2O) matching in DETR models, DEIM employs a Dense O2O matching strategy. This approach increases the number of positive samples per image by incorporating additional targets, using standard data augmentation techniques. 
+    While Dense O2O matching speeds up convergence, it also introduces numerous low-quality matches that could affect performance. To address this, we propose the Matchability-Aware Loss (MAL), a novel loss function that optimizes matches across various quality levels, enhancing the effectiveness of Dense O2O. 
+    Extensive experiments on the COCO dataset validate the efficacy of DEIM. When integrated with RT-DETR and D-FINE, it consistently boosts performance while reducing training time by 50%. <strong>Notably, paired with RT-DETRv2, DEIM achieves 53.2% AP in a single day of training on an NVIDIA 4090 GPU.</strong> 
+    Additionally, DEIM-trained real-time models outperform leading real-time object detectors, with DEIM-D-FINE-L and DEIM-D-FINE-X achieving 54.7% and 56.5% AP at 124 and 78 FPS on an NVIDIA T4 GPU, respectively, without the need for additional data. We believe DEIM sets a new baseline for advancements in real-time object detection.
+  </p>
+
+  <h3>Method</h3>
+  <hr/>
+  <div class="row" style="text-align: center; padding-left:1rem; padding-right:1rem; padding-bottom:1rem;">
+    <img src="resrc/DEIM.png" alt="DEIM.jpg" class="text-center" style="width: 120%; max-width: 1100px;">
+  </div>
+
+  <h3>Results</h3>
+  <hr/>
+  <p><font color=#00BBFF>Please refer to our paper for more experiments.</font></p>
+
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-xs-6">
+        <h4><u>Faster Convergence on COCO</u></h4>
+      </div>
+      <div class="col-xs-6">
+        <h4><u>Better performance on COCO</u></h4>
+      </div>
+      
+    </div>
+    <div class="row text-center">
+      <div class="col-xs-6">
+        <img src="resrc/teaser_a.png" alt="clothing1m.jpg" class="img-responsive" style="width: 100%; max-width: 900px">
+      </div>
+      <div class="col-xs-6">
+        <img src="resrc/teaser_b.png" alt="clothing1m.jpg" class="img-responsive" style="width: 100%; max-width: 900px">
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+  <h3>Resources</h3>
+  <hr/>
+  <div class="row" style="text-align: center">
+    <div class="col-xs-0 col-lg-0"></div>
+    
+    <div class="col-xs-3 col-lg-3">
+      <h4>arXiv</h4>
+      <a href="https://arxiv.org/pdf/2409.08573" style="color:inherit;">
+        <img src="resrc/arxiv.png" alt="github_repo.jpg" class="text-center"
+             style="max-width:80%; border:0.15em solid;border-radius:0.5em;"></a>
+    </div>
+    <div class="col-xs-3 col-lg-3">
+      <h4>Code</h4>
+      <a href="https://github.com/YutingLi0606/HTR-VT" style="color:inherit;">
+        <img src="resrc/github.png" alt="github_repo.jpg" class="text-center"
+             style="max-width:87%; border:0.15em solid;border-radius:0.5em;"></a>
+    </div>
+    <div class="col-xs-6 col-lg-6">
+      <h4>Slides</h4>
+      <a href="resrc/DEIM-Slides.pdf" style="color:inherit;">
+        <img src="resrc/slides.png" alt="github_repo.jpg" class="text-center"
+             style="max-width:82%; border:0.15em solid;border-radius:0.5em;"></a>
+    </div>
+    <div class="col-xs-0 col-lg-0"></div>
+  </div>
+    <h4 style="padding-top:0.5em">BibTeX</h4>
+    If you find this work useful for your research, please cite:
+    <div class="card">
+      <div class="card-block">
+        <pre class="card-text clickselect">
+          @misc{huang2024deim,
+            title={DEIM: DETR with Improved Matching for Fast Convergence},
+            author={Shihua Huang, Zhichao Lu, Xiaodong Cun, Yongjun Yu, Xiao Zhou, and Xi Shen},
+            year={2024},
+            eprint={2412.04234},
+            archivePrefix={arXiv},
+            primaryClass={cs.CV}
+      }</pre>
+      </div>
+    </div>
+
+</div>
+
+<div class="container" style="padding-top:3rem; padding-bottom:3rem">
+  <p style="text-align:center">
+  &#169; This webpage was in part inspired from this
+  <a href="https://github.com/monniert/project-webpage">template</a>.
+  </p>
+</div>
+
+</body>
+</html>
