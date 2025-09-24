@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intellindust AI Lab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, #0a84ff, #6f42c1);
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+    }
+    header p {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+    section {
+      padding: 10px 10px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #58a6ff;
+    }
+    .card {
+      background: #161b22;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .pub-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 30px;
+    }
+    .pub-item img, .pub-item video {
+      width: 200px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .pub-details {
+      flex: 1;
+    }
+    .pub-details h3 {
+      margin: 0;
+      font-size: 1.3em;
+      color: #e6edf3;
+    }
+    .pub-details p {
+      margin: 5px 0;
+      color: #8b949e;
+      font-size: 0.95em;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #0a0f16;
+      font-size: 0.9em;
+      color: #8b949e;
+    }
+    a {
+      color: #58a6ff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Intellindust AI Lab</h1>
+    <p>Pioneering Vision AI for Edge Intelligence</p>
+  </header>
+
+  <section>
+    <h2>About Us</h2>
+    <div class="about-container">
+      <!-- Logo -->
+      <div class="about-logo">
+        <img src="src/logo.jpg" alt="Intellindust AI Lab Logo">
+      </div>
+  
+      <!-- Text -->
+      <div class="about-text card">
+        <p>
+          Intellindust AI Lab, 
+          is dedicated to advancing computer vision and artificial intelligence for edge devices. 
+          With expertise in imaging systems, efficient deep learning, and multimodal AI, 
+          our mission is to create high-performance, reliable, and efficient AI solutions 
+          for real-world applications.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <style>
+    .about-container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 15px;
+    }
+  
+    .about-logo img {
+      max-width: 200px; /* adjust size */
+      border-radius: 12px;
+    }
+  
+    .about-text {
+      flex: 1;
+    }
+  </style>
+
+  <section>
+    <h2>Research Directions</h2>
+    <div class="card">
+      <ul>
+        <li>Vision-Language Models for Edge Devices</li>
+        <li>Lightweight Real-Time Object Detection</li>
+        <li>Multimodal Sensor Fusion and Embodied Perception</li>
+        <li>RAW-Domain Video Enhancement and Detection</li>
+        <li>Trustworthy and Interpretable AI</li>
+      </ul>
+      <p style="margin-top: 15px;">
+        We are actively looking for talented <strong>interns</strong> and <strong>researchers</strong>. 
+        If you are interested, please contact us at 
+        <a href="mailto:shenxi@intellindust.com">shenxi@intellindust.com</a>.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Awards & Honors</h2>
+    <div class="card">
+      <!-- Award 1 -->
+      <div class="award-item">
+        <img src="src/osr_1st_eccv24.png" alt="Open-set Recognition ECCV 2024">
+        <div class="award-details">
+          <h3>1st place in the Open-set Recognition challenge</h3>
+          <p>Computer Vision Workshop, ECCV 2024</p>
+        </div>
+      </div>
+  
+      <!-- Award 2 -->
+      <div class="award-item">
+        <img src="src/low_light_1st_cvpr24.jpg" alt="Low-light Detection CVPR 2024">
+        <div class="award-details">
+          <h3>1st place in Low-light Object Detection challenge</h3>
+          <p>Physics-Based Vision meets Deep Learning Workshop, CVPR 2024</p>
+        </div>
+      </div>
+  
+      <!-- Award 3 -->
+      <div class="award-item">
+        <img src="src/low_light_3rd_cvpr24.jpg" alt="Low-light Segmentation CVPR 2024">
+        <div class="award-details">
+          <h3>3rd place in Low-light Instance Segmentation challenge</h3>
+          <p>Physics-Based Vision meets Deep Learning Workshop, CVPR 2024</p>
+        </div>
+      </div>
+
+      <!-- Award 4 -->
+      <div class="award-item">
+        <img src="src/fsod_honor_cvpr25.png" alt="Few-shot Object Detection CVPR 2025">
+        <div class="award-details">
+          <h3>Honorable Mention in Foundational Few-Shot Object Detection challenge</h3>
+          <p>Foundational FSOD Workshop, CVPR 2025</p>
+        </div>
+      </div>
+
+
+      <!-- Award 5 -->
+      <div class="award-item">
+        <img src="src/NITRE_2nd_cvpr25.jpg" alt="NITRE Denoising and Demosaic CVPR 2025">
+        <div class="award-details">
+          <h3>2nd Place in Track 1 Joint Denoising and Demosaicing challenge</h3>
+          <p>New Trends in Image Restoration and Enhancement Workshop, CVPR 2025</p>
+        </div>
+      </div>
+
+
+      <!-- Award 6 -->
+      <div class="award-item">
+        <img src="src/soccer_2nd_cvpr25.png" alt="Soccer Net CVPR 2025">
+        <div class="award-details">
+          <h3>2nd Place in Ball Action Spotting challenge</h3>
+          <p>CVsports Workshop, CVPR 2025</p>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+  
+  <style>
+  .award-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 25px;
+  }
+  
+  .award-item img {
+    width: 120px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  
+  .award-details h3 {
+    margin: 0;
+    font-size: 1.1em;
+    color: #e6edf3;
+  }
+  
+  .award-details p {
+    margin: 5px 0 0;
+    color: #8b949e;
+    font-size: 0.95em;
+  }
+  </style>
+
+  <section>
+    <h2>Selected Publications</h2>
+    <div class="card">
+      
+      <div class="pub-item">
+        <img src="src/deimv2.png" alt="DEIMv2 Thumbnail">
+        <div class="pub-details">
+          <h3>[DEIMv2] Real-Time Object Detection Meets DINOv3</h3>
+          <p>arXiv 2025</p>
+          
+          <p><a href="https://intellindust-ai-lab.github.io/projects/DEIMv2/">[Project page]</a> &nbsp;
+            <a href="https://arxiv.org/abs/2412.04234">[PDF]</a> &nbsp;
+            <a href="https://github.com/Intellindust-AI-Lab/DEIMv2">[Code (GitHub)]</a> &nbsp;
+            <a class="github-button" href="https://github.com/Intellindust-AI-Lab/DEIMv2" data-icon="octicon-star" data-size="medium" data-show-count="true">Star</a>
+          </p>
+        </div>
+      </div>
+
+      
+      <div class="pub-item">
+        <img src="src/deim.png" alt="DEIM Thumbnail">
+        <div class="pub-details">
+          <h3>DEIM: DETR with Improved Matching for Fast Convergence</h3>
+          <p><strong>Conference:</strong> CVPR 2025</p>
+          
+          <p><a href="https://www.shihuahuang.cn/DEIM/">[Project page]</a> &nbsp;
+            <a href="https://arxiv.org/abs/2412.04234">[PDF]</a> &nbsp;
+            <a href="https://www.shihuahuang.cn/DEIM/resrc/DEIM-Slides.pdf">[Slides]</a> &nbsp;
+            <a href="https://github.com/Intellindust-AI-Lab/DEIM">[Code (GitHub)]</a> &nbsp;
+            <a class="github-button" href="https://github.com/Intellindust-AI-Lab/DEIM" data-icon="octicon-star" data-size="medium" data-show-count="true">Star</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <img src="src/sure.jpeg" alt="DEIM Thumbnail">
+        <div class="pub-details">
+          <h3>SURE: SUrvey REcipes for building reliable and robust deep networks</h3>
+          <p><strong>Conference:</strong> CVPR 2024</p>
+          <p><a href="https://yutingli0606.github.io/SURE/">[Project page]</a> &nbsp;
+            <a href="https://arxiv.org/pdf/2403.00543.pdf">[PDF]</a> &nbsp;
+            <a href="https://github.com/Intellindust-AI-Lab/SURE">[Code (GitHub)]</a> &nbsp;
+            <a class="github-button" href="https://github.com/Intellindust-AI-Lab/SURE" data-icon="octicon-star" data-size="medium" data-show-count="true">Star</a>
+          </br>
+            <a href="https://github.com/LIYangggggg/SSB-OSR/blob/main/docs/SURE_OOD.pdf">[Tech. Report SURE-OOD]</a> &nbsp;
+            <a href="https://github.com/Intellindust-AI-Lab/SSB-OSR">[Code SURE-OOD (GitHub)]</a> &nbsp;
+            <a class="github-button" href="https://github.com/Intellindust-AI-Lab/SSB-OSR" data-icon="octicon-star" data-size="medium" data-show-count="true">Star</a>
+             </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <div class="card">
+      <p>Email: <a href="mailto:contact@intellindust.ai">shenxi@intellindust.com</a></p>
+      <p>GitHub: <a href="https://github.com/Intellindust-AI-Lab" target="_blank">Intellindust-AI-Lab</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Intellindust AI Lab. All rights reserved.</p>
+  </footer>
+</body>
+</html>
