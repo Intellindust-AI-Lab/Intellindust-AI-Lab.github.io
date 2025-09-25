@@ -10,14 +10,14 @@
   <meta property="og:title" content="DEIMv2"/>
   <meta property="og:description" content="Real-Time Object Detection Meets DINOv3"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://xishen0220.github.io/DEIMv2/"/>
+  <meta property="og:url" content="https://intellindust-ai-lab.github.io/projects/DEIMv2/"/>
   <meta property="og:image" content="resrc/DEIM.png"/>
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="DEIMv2"/>
   <meta name="twitter:description" content="Real-Time Object Detection Meets DINOv3"/>
-  <meta name="twitter:image" content="resrc/DEIM.png"/>
+  <meta name="twitter:image" content="resrc/teaser_a.png"/>
 
   <!-- Fonts & CSS -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -50,7 +50,7 @@
       padding: 0.6rem 1.4rem;
     }
 
-    .section { padding: 3rem 1rem; }
+    .section { padding: 1.5rem 1rem; }
     .img-hover:hover { transform: scale(1.03); transition: 0.3s ease; }
     pre { background: #f8f9fa; padding: 1rem; border-radius: 0.5rem; }
     footer { padding: 2rem; text-align: center; background: #f8f9fa; margin-top: 2rem; }
@@ -125,8 +125,8 @@
   <div class="d-flex justify-content-center flex-wrap">
     <a href="https://arxiv.org/abs/2412.04234" class="btn btn-light btn-custom"><i class="fas fa-book"></i> arXiv</a>
     <a href="https://github.com/Intellindust-AI-Lab/DEIMv2" class="btn btn-light btn-custom"><i class="fab fa-github"></i> Code</a>
-    <a href="resrc/DEIM-Slides.pdf" class="btn btn-light btn-custom"><i class="fas fa-file-powerpoint"></i> Slides</a>
-    <a href="resrc/CVPR2025_DEIM_poster.pdf" class="btn btn-light btn-custom"><i class="fas fa-image"></i> Poster</a>
+    <!--  <a href="resrc/DEIM-Slides.pdf" class="btn btn-light btn-custom"><i class="fas fa-file-powerpoint"></i> Slides</a>
+    <a href="resrc/CVPR2025_DEIM_poster.pdf" class="btn btn-light btn-custom"><i class="fas fa-image"></i> Poster</a>-->
   </div>
 </div>
 
@@ -171,8 +171,8 @@
 <div class="container section text-center">
   <h3>Resources</h3>
   <br>
-  <div class="row g-4">
-    <div class="col-md-4 col-12">
+  <div class="row g-6">
+    <div class="col-md-6 col-12">
       <div class="res-card">
         <a href="https://arxiv.org/abs/2412.04234">
           <img src="resrc/arxiv.png" alt="arxiv" class="img-fluid img-hover">
@@ -181,7 +181,7 @@
       </div>
     </div>
 
-    <div class="col-md-4 col-12">
+    <div class="col-md-6 col-12">
       <div class="res-card">
         <a href="https://github.com/Intellindust-AI-Lab/DEIMv2">
           <img src="resrc/github.png" alt="github" class="img-fluid img-hover">
@@ -189,7 +189,7 @@
         <h5>Code</h5>
       </div>
     </div>
-
+    <!-- 
     <div class="col-md-4 col-12">
       <div class="res-card">
         <a href="resrc/DEIM-Slides.pdf">
@@ -197,15 +197,17 @@
         </a>
         <h5>Slides</h5>
       </div>
-    </div>
+    </div>-- >
   </div>
 </div>
 
 <!-- BibTeX -->
-<div class="container section">
+<div class="container section text-center">
   <h3>BibTeX</h3>
   <p>If you find this work useful, please cite:</p>
-  <pre>
+</div>
+<div class="container section">
+  <pre style="background-color: #f9f9f9; padding: 20px; border-radius: 5px; border: 1px solid #ddd; font-size: 14px; text-align: left; white-space: pre-wrap; word-wrap: break-word;">
 @article{huang2025deimv2,
   title={Real-Time Object Detection Meets DINOv3},
   author={Huang, Shihua and Hou, Yongjie and Liu, Longfei and Yu, Xuanlong and Shen, Xi},
