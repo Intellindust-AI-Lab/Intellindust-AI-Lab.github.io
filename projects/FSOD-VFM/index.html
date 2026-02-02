@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>FSOD-VFM</title>
+  <meta name="venue" content="ICLR 2026">
+  <meta charset="utf-8">
+  <meta name="description" content="FSOD-VFM: Few-Shot Object Detection with Vision Foundation Models and Graph Diffusion">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="FSOD-VFM"/>
+  <meta property="og:description" content="FSOD-VFM: Few-Shot Object Detection with Vision Foundation Models and Graph Diffusion"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://intellindust-ai-lab.github.io/projects/FSOD-VFM/"/>
+  <meta property="og:image" content="resrc/DEIM.png"/>
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="FSOD-VFM"/>
+  <meta name="twitter:description" content="FSOD-VFM: Few-Shot Object Detection with Vision Foundation Models and Graph Diffusion"/>
+  <meta name="twitter:image" content="resrc/teaser_a.png"/>
+
+  <!-- Fonts & CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    body { 
+      font-family: 'Inter', sans-serif; 
+      background-color: #ffffff;
+      color: #1a202c;
+    }
+    h1, h2, h3, h4 { 
+      font-weight: 700; 
+      color: #1a202c;
+    }
+    .container {
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 1rem;
+      background: linear-gradient(135deg, #f0f4f8, #e2e8f0);
+      color: #1a202c;
+    }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; }
+    .hero p { font-size: 1.1rem; }
+    .hero .lead { font-size: 1.75rem; font-weight: 600; color: #0ea5e9; }
+            .hero a {
+              color: #2563eb !important;
+              font-weight: 600;
+            }
+            .hero a:hover {
+              color: #1d4ed8 !important; /* blue hover */
+            }
+
+    .btn-custom {
+      margin: 0.3rem;
+      border-radius: 2rem;
+      padding: 0.6rem 1.4rem;
+    }
+
+    .section { padding: 1.5rem 1rem; }
+    .img-hover:hover { transform: scale(1.03); transition: 0.3s ease; }
+    pre { background: #f1f5f9; color: #1e293b; padding: 1rem; border-radius: 0.5rem; border: 1px solid #e2e8f0; }
+    footer { padding: 2rem; text-align: center; background: linear-gradient(135deg, #f0f4f8, #e2e8f0); color: #1a202c; margin-top: 2rem; }
+
+    /* 📱 Mobile adjustments */
+    @media (max-width: 768px) {
+      .hero { padding: 2rem 1rem; }
+      .hero h1 { font-size: 1.8rem; }
+      .hero p { font-size: 1rem; }
+      .section { padding: 2rem 1rem; }
+      pre { font-size: 0.85rem; overflow-x: auto; }
+    }
+
+    /* 让所有资源卡片里的图片统一高度、底端对齐 */
+  .res-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    padding: 15px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .res-card img {
+    max-height: 200px; /* 控制统一高度 */
+    object-fit: contain; /* 保证比例 */
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+    padding: 8px;
+    background: #ffffff;
+    transition: border-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .res-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
+  }
+
+  .res-card img:hover {
+    border-color: #2563eb;
+    transform: scale(1.05);
+  }
+
+  .res-card h5 {
+    margin-top: 12px;
+    font-weight: 600;
+    color: #1a202c;
+}
+
+  /* PDF容器样式 */
+  .pdf-container {
+    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 100%;
+    height: 70vh; /* 使用视口高度的70%，自适应屏幕 */
+    min-height: 500px; /* 最小高度确保可读性 */
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .pdf-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+  }
+  
+  /* 图片容器样式 */
+  .pdf-container img {
+    border: none !important;
+    outline: none !important;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 保持图片比例，完整显示 */
+    display: block;
+  }
+
+  /* PDF容器在移动设备上的响应式调整 */
+  @media (max-width: 768px) {
+    .pdf-container {
+      height: 50vh; /* 移动设备上使用较小的视口高度 */
+      min-height: 400px;
+    }
+  }
+  </style>
+</head>
+<body>
+
+<!-- Hero Section -->
+<div class="hero">
+  <h1>FSOD-VFM: Few-Shot Object Detection with Vision Foundation Models and Graph Diffusion</h1>
+  <p class="lead">ICLR 2026</p>
+  <p class="author-list">
+    <a href="https://fcbfcb1998.github.io">Chenbin Feng</a><sup>*1,2</sup> &emsp;
+    Youyang Sha<sup>*1</sup> &emsp;
+    <a href="https://capsule2077.github.io/">Longfei Liu</a>&emsp;
+    Yongjun Yu<sup>1</sup> &emsp;
+    <a href="https://www.fst.um.edu.mo/personal/cmvong/">Chiman Vong</a><sup>†2</sup> &emsp;
+    <a href="https://xuanlong-yu.github.io/"> Xuanlong Yu<sup>†1</sup></a> &emsp;
+    <a href="https://xishen0220.github.io/">Xi Shen<sup>†1</sup></a>
+  </p>
+  <p>
+    <sup>1</sup> <a href="https://github.com/Intellindust-AI-Lab">Intellindust AI Lab</a> &nbsp;|&nbsp;
+    <sup>2</sup> University of Macau <br>
+    <sup>*</sup> Equal Contribution &nbsp; <sup>†</sup> Corresponding
+  </p>
+  <div class="d-flex justify-content-center flex-wrap">
+    <a href="https://arxiv.org/abs/2412.04234" class="btn btn-light btn-custom"><i class="fas fa-book"></i> arXiv</a>
+    <a href="https://github.com/Intellindust-AI-Lab/FSOD-VFM" class="btn btn-light btn-custom"><i class="fab fa-github"></i> Code</a>
+    <!--  <a href="resrc/DEIM-Slides.pdf" class="btn btn-light btn-custom"><i class="fas fa-file-powerpoint"></i> Slides</a>
+    <a href="resrc/CVPR2025_DEIM_poster.pdf" class="btn btn-light btn-custom"><i class="fas fa-image"></i> Poster</a>-->
+  </div>
+</div>
+
+
+<!-- Abstract -->
+<div class="container section text-center">
+  <h3>Abstract</h3>
+</div>
+<div class="container section">
+  <p style="line-height:1.6;">
+    In this paper, we present FSOD-VFM: Few-Shot Object Detectors with Vision Foundation Models, a framework that leverages vision foundation models to tackle the challenge of few-shot object detection. FSOD-VFM integrates three key components: a universal proposal network (UPN) for category-agnostic bounding box generation, SAM2 for accurate mask extraction, and DINOv2 features for efficient adaptation to new object categories. Despite the strong generalization capabilities of foundation models, the bounding boxes generated by UPN often suffer from overfragmentation, covering only partial object regions and leading to numerous small, false-positive proposals rather than accurate, complete object detections. To address this issue, we introduce a novel graph-based confidence reweighting method. In our approach, predicted bounding boxes are modeled as nodes in a directed graph, with graph diffusion operations applied to propagate confidence scores across the network. This reweighting process refines the scores of proposals, assigning higher confidence to whole objects and lower confidence to local, fragmented parts. This strategy improves detection granularity and effectively reduces the occurrence of false-positive bounding box proposals. Through extensive experiments on Pascal-5
+    , COCO-20, and CD-FSOD datasets, we demonstrate that our method substantially outperforms existing approaches, achieving superior performance without requiring additional training. Notably, on the challenging CD-FSOD dataset, which spans multiple datasets and domains, our FSOD-VFM achieves 31.6 AP in the 10-shot setting, substantially outperforming previous training-free methods that reach only 21.4 AP. Codes and pretrained weights are available at: <a href="https://github.com/Intellindust-AI-Lab/FSOD-VFM">https://github.com/Intellindust-AI-Lab/FSOD-VFM</a>
+  </p>
+</div>
+
+<!-- Method -->
+<div class="container section text-center">
+  <h3>Method</h3>
+  <img src="resrc/overv.png" alt="FSOD-VFM STA method diagram" class="img-fluid img-hover">
+</div>
+
+<!-- Visualization -->
+<div class="container section text-center">
+  <h3>Visualization</h3>
+  <div class="pdf-container">
+    <img src="resrc/IG2.png" alt="Visualization" class="img-fluid img-hover">
+  </div>
+</div>
+
+<!-- Experimental Results -->
+<div class="container section text-center">
+  <h3>Experimental Results of Pascal</h3>
+  <div class="pdf-container">
+    <img src="resrc/exp1.png" alt="Experimental Results" class="img-fluid img-hover">
+  </div>
+</div>
+
+<!-- Experimental Results -->
+<div class="container section text-center">
+  <h3>Experimental Results of COCO</h3>
+  <div class="pdf-container">
+    <img src="resrc/exp2.png" alt="Experimental Results2" class="img-fluid img-hover">
+  </div>
+</div>
+<!-- Experimental Results -->
+<div class="container section text-center">
+  <h3>Experimental Results of CD-FSOD</h3>
+  <div class="pdf-container">
+    <img src="resrc/exp3.png" alt="Experimental Results3" class="img-fluid img-hover">
+  </div>
+</div>
+
+<!-- Resources -->
+<!-- <div class="container section text-center">
+  <h3>Resources</h3>
+  <br>
+  <div class="row g-6">
+    <div class="col-md-6 col-12">
+      <div class="res-card">
+        <a href="https://arxiv.org/abs/2412.04234">
+          <img src="resrc/arxiv.png" alt="arxiv" class="img-fluid img-hover">
+        </a>
+        <h5>arXiv</h5>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-12">
+      <div class="res-card">
+        <a href="https://github.com/Intellindust-AI-Lab/FSOD-VFM">
+          <img src="resrc/github.png" alt="github" class="img-fluid img-hover">
+        </a>
+        <h5>Code</h5>
+      </div>
+    </div> -->
+    <!-- 
+    <div class="col-md-4 col-12">
+      <div class="res-card">
+        <a href="resrc/DEIM-Slides.pdf">
+          <img src="resrc/slides.png" alt="slides" class="img-fluid img-hover">
+        </a>
+        <h5>Slides</h5>
+      </div>
+    </div>-- >
+  </div>
+</div>
+
+<!-- BibTeX -->
+<div class="container section text-center">
+  <h3>BibTeX</h3>
+  <p>If you find this work useful, please cite:</p>
+</div>
+<div class="container section">
+  <pre style="background-color: #f1f5f9; color: #1e293b; padding: 20px; border-radius: 5px; border: 1px solid #e2e8f0; font-size: 14px; text-align: left; white-space: pre-wrap; word-wrap: break-word;">
+@article{huang2025FSOD-VFM,
+  title={FSOD-VFM: Few-Shot Object Detection with Vision Foundation Models and Graph Diffusion},
+  author={Huang, Shihua and Hou, Yongjie and Liu, Longfei and Yu, Xuanlong and Shen, Xi},
+  journal={arXiv},
+  year={2025}
+}
+  </pre>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>&#169; 2026 FSOD-VFM Authors.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootst
