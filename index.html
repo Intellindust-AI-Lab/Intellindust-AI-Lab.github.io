@@ -75,7 +75,17 @@
       transition: transform 0.2s ease;
     }
     .award-item:hover, .pub-item:hover { transform: scale(1.02); }
-    .award-item img, .pub-item img { width: 120px; border-radius: 8px; flex-shrink: 0; }
+    /* 
+    .award-item img, .pub-item img { width: 120px; border-radius: 8px; flex-shrink: 0; }*/
+    .award-item img,
+    .pub-item img {
+      width: 120px;
+      height: 90px;          /* 固定高度，可按需要改 */
+      object-fit: cover;     /* 关键：裁剪而非拉伸 */
+      border-radius: 8px;
+      flex-shrink: 0;
+    background: #0d1117;   /* 防止透明图露白 */
+  }
     .award-item img,
     .pub-item img,
     .about-logo img {
