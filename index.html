@@ -778,33 +778,34 @@
       markMetric('downloads', downloadsOk);
     };
 
+    const fetchVisitorCounter = async (endpoint) => {
+      const res = await fetch(endpoint, { cache: 'no-store' });
+      if (!res.ok) throw new Error('visitor counter fetch failed');
+      const data = await res.json();
+      return Number(data && data.value ? data.value : 0);
+    };
+
     const loadVisitorCountNoCacheFirstHit = async () => {
       const visitorNamespace = 'intellindust-ai-lab.github.io';
       const visitorKey = 'uv-homepage';
       const localMarker = 'uv-counted-homepage';
+      const getUrl = `https://api.countapi.xyz/get/${visitorNamespace}/${visitorKey}`;
+      const hitUrl = `https://api.countapi.xyz/hit/${visitorNamespace}/${visitorKey}`;
       try {
         const counted = localStorage.getItem(localMarker) === '1';
+        let visitors = 0;
+
         if (!counted) {
-          const res = await fetch(`https://api.countapi.xyz/hit/${visitorNamespace}/${visitorKey}`);
-          if (!res.ok) throw new Error('uv hit');
-          const data = await res.json();
-          writeCache('uv_counter_get', data);
-          const visitors = Number(data && data.value ? data.value : 0);
-          if (statsEls.visitors && visitors > 0) {
-            animateCounterTo(statsEls.visitors, visitors);
-          } else {
-            setStatLoading('visitors');
-          }
+          visitors = await fetchVisitorCounter(hitUrl);
           localStorage.setItem(localMarker, '1');
-          markMetric('visitors', visitors > 0);
-          return;
+        } else {
+          visitors = await fetchVisitorCounter(getUrl);
+          // If key was reset remotely or returned an invalid low value, heal by one hit.
+          if (visitors <= 0) {
+            visitors = await fetchVisitorCounter(hitUrl);
+          }
         }
-        const data = await fetchJsonWithCache(
-          'uv_counter_get',
-          `https://api.countapi.xyz/get/${visitorNamespace}/${visitorKey}`,
-          5 * 60 * 1000
-        );
-        const visitors = Number(data && data.value ? data.value : 0);
+
         if (statsEls.visitors && visitors > 0) {
           animateCounterTo(statsEls.visitors, visitors);
         } else {
