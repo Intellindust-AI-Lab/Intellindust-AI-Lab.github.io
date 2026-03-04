@@ -4,213 +4,856 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Intellindust AI Lab</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
-    /* Base */
+    :root {
+      --bg: #040b14;
+      --bg-soft: #071324;
+      --card: #0a182b;
+      --text: #e7f2ff;
+      --muted: #9eb7d6;
+      --line: rgba(106, 174, 255, 0.2);
+      --edge-cyan: #37d9ff;
+      --edge-blue: #63a6ff;
+      --edge-lime: #57ffbd;
+      --glow: 0 0 45px rgba(55, 217, 255, 0.25);
+      --radius: 14px;
+      --container: 1080px;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background: #0d1117;
-      color: #e6edf3;
-      line-height: 1.6;
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--text);
+      line-height: 1.65;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(55, 217, 255, 0.2), transparent 45%),
+        radial-gradient(circle at 95% 15%, rgba(87, 255, 189, 0.13), transparent 35%),
+        linear-gradient(160deg, #040b14 0%, #061120 35%, #07172a 100%);
+      min-height: 100vh;
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
-    a { color: #58a6ff; text-decoration: none; }
-    a:hover { text-decoration: underline; }
 
-    /* Header */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(125, 196, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(125, 196, 255, 0.08) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), transparent 92%);
+      z-index: -2;
+    }
+
+    a {
+      color: var(--edge-cyan);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    a:hover { color: var(--edge-lime); }
+
+    .page {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
     header {
-      background: linear-gradient(135deg, #0a84ff, #6f42c1);
-      color: white;
-      padding: 80px 20px;
+      padding: 84px 20px 54px;
       text-align: center;
+      position: relative;
     }
-    header h1 { font-size: 3em; margin: 0; }
-    header p { font-size: 1.2em; margin-top: 10px; }
-
-    /* Sections */
-    section {
-      padding: 10px 10px;
-      max-width: 1000px;
-      margin: auto;
+    .lang-switch {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      display: inline-flex;
+      gap: 8px;
+      border: 1px solid var(--line);
+      background: rgba(5, 15, 27, 0.85);
+      border-radius: 999px;
+      padding: 5px;
+      backdrop-filter: blur(6px);
     }
-    h2 {
-      font-size: 2em;
-      margin-bottom: 20px;
-      color: #58a6ff;
-      text-align: center;
-    }
-
-    /* Cards */
-    .card {
-      background: #161b22;
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.6); }
-
-    /* About */
-    .about-container {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 20px;
-      justify-content: center;
-      margin-top: 15px;
-    }
-    .about-logo img { max-width: 200px; border-radius: 12px; }
-    .about-text { flex: 1; min-width: 250px; }
-
-    /* Awards & Publications */
-    .award-item, .pub-item {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      gap: 20px;
-      margin-bottom: 25px;
+    .lang-btn {
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: #9ac6ef;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      padding: 6px 10px;
       cursor: pointer;
-      transition: transform 0.2s ease;
+      transition: background 0.2s ease, color 0.2s ease;
     }
-    .award-item:hover, .pub-item:hover { transform: scale(1.02); }
-    /* 
-    .award-item img, .pub-item img { width: 120px; border-radius: 8px; flex-shrink: 0; }*/
-    .award-item img,
-    .pub-item img {
-      width: 120px;
-      height: 70px;          /* 固定高度，可按需要改 */
-      object-fit: fill;     /* 关键：裁剪而非拉伸 */
-      border-radius: 8px;
-      flex-shrink: 0;
-    background: #0d1117;   /* 防止透明图露白 */
-  }
-    .award-item img,
-    .pub-item img,
-    .about-logo img {
-      transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    .lang-btn.active {
+      background: rgba(87, 255, 189, 0.2);
+      color: #d7fff0;
     }
 
-    .award-item img:hover,
-    .pub-item img:hover,
-    .about-logo img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-      filter: brightness(1.1);
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      text-shadow: var(--glow);
     }
-    .award-details h3, .pub-details h3 { margin: 0; font-size: 1.1em; color: #e6edf3; }
-    .award-details p, .pub-details p { margin: 5px 0 0; color: #8b949e; font-size: 0.95em; }
 
-    /* Collapsible content */
-    .collapsible { background-color: #1c222a; border: none; outline: none; width: 100%; text-align: left; cursor: pointer; padding: 12px 20px; font-size: 1em; color: #58a6ff; border-radius: 8px; margin-bottom: 10px; transition: background 0.3s; }
-    .collapsible:hover { background-color: #292f3a; }
-    .content { padding: 0 20px; display: none; overflow: hidden; }
+    .hero-sub {
+      margin: 12px auto 0;
+      max-width: 720px;
+      color: #b8d4f4;
+      font-size: 1.08rem;
+    }
 
-    /* Contact */
-    footer {
+    .hero-stats {
+      margin: 30px auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 760px;
+    }
+    .hero-follow {
+      margin: 14px auto 0;
+      color: #b9d7f5;
+      font-size: 0.95rem;
+    }
+    .hero-follow a {
+      font-weight: 700;
+      color: var(--edge-lime);
+    }
+    .status-strip {
+      margin: 10px auto 0;
+      max-width: 760px;
+      border: 1px solid rgba(255, 200, 120, 0.45);
+      background: rgba(110, 64, 12, 0.28);
+      color: #ffd9a4;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
       text-align: center;
-      padding: 30px;
-      background: #0a0f16;
-      font-size: 0.9em;
-      color: #8b949e;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      header h1 { font-size: 2em; }
-      header p { font-size: 1em; }
-      .award-item img, .pub-item img { width: 100%; max-width: 180px; margin: auto; }
-      .about-container { flex-direction: column; text-align: center; }
-      .about-text { text-align: center; }
+    .stat {
+      border: 1px solid var(--line);
+      background: linear-gradient(165deg, rgba(99, 166, 255, 0.13), rgba(7, 22, 41, 0.75));
+      border-radius: 12px;
+      padding: 14px 10px;
+      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+    }
+    .stat-link {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+      border-radius: 12px;
+    }
+    .stat-link:hover .stat,
+    .stat-link:focus-visible .stat {
+      transform: translateY(-2px);
+      border-color: rgba(87, 255, 189, 0.55);
+      box-shadow: 0 10px 24px rgba(0, 17, 30, 0.45);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #e9f7ff;
+      text-shadow: 0 0 20px rgba(99, 166, 255, 0.5);
+    }
+
+    .stat span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.03em;
+      color: #7eb6ec;
+      text-transform: none;
+    }
+
+    section {
+      margin-top: 20px;
+      position: relative;
+    }
+
+    h2 {
+      font-size: clamp(1.45rem, 3.3vw, 2rem);
+      margin: 28px 0 14px;
+      letter-spacing: -0.01em;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 16px;
+    }
+    .md-section h2 {
+      font-size: clamp(1.45rem, 3.3vw, 2rem);
+      margin: 0 0 14px;
+      letter-spacing: -0.01em;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 10px;
+    }
+    .md-section p {
+      margin: 8px 0 0;
+    }
+
+    .card {
+      background:
+        linear-gradient(165deg, rgba(99, 166, 255, 0.09), rgba(9, 22, 37, 0.88));
+      border: 1px solid rgba(125, 186, 255, 0.25);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: inset 0 1px 0 rgba(210, 235, 255, 0.08), 0 10px 35px rgba(0, 8, 18, 0.45);
+      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+      transform-style: preserve-3d;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(87, 255, 189, 0.45);
+      box-shadow: inset 0 1px 0 rgba(210, 235, 255, 0.12), 0 16px 45px rgba(2, 17, 31, 0.62);
+    }
+
+    .about-container {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .about-logo {
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(10, 25, 43, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    .about-logo img {
+      width: 100%;
+      max-width: 180px;
+      border-radius: 12px;
+      transition: transform 0.5s ease;
+    }
+
+    .about-logo:hover img { transform: scale(1.06) rotate(1.2deg); }
+
+    ul { margin: 0; padding-left: 20px; }
+
+    .award-item,
+    .pub-item {
+      display: grid;
+      grid-template-columns: 122px minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+      padding: 10px;
+      border-radius: 12px;
+      transition: background 0.24s ease, transform 0.24s ease;
+      margin-bottom: 6px;
+    }
+
+    .award-item {
+      grid-template-columns: 180px minmax(0, 1fr);
+    }
+
+    .pub-item {
+      grid-template-columns: 196px minmax(0, 1fr);
+    }
+
+    .award-item:hover,
+    .pub-item:hover {
+      background: rgba(83, 171, 255, 0.1);
+      transform: translateX(4px);
+    }
+
+    .award-item img {
+      width: 180px;
+      height: 106px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid rgba(120, 190, 255, 0.35);
+      background: #040f1d;
+      transition: transform 0.26s ease, box-shadow 0.26s ease;
+      image-rendering: auto;
+    }
+
+    .pub-item img {
+      width: 196px;
+      height: 112px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid rgba(120, 190, 255, 0.35);
+      background: #040f1d;
+      transition: transform 0.26s ease, box-shadow 0.26s ease;
+      image-rendering: auto;
+    }
+
+    .award-item:hover img,
+    .pub-item:hover img {
+      transform: scale(1.06);
+      box-shadow: 0 10px 24px rgba(0, 17, 30, 0.6);
+    }
+
+    .award-details h3,
+    .pub-details h3 {
+      margin: 0;
+      font-size: 1.03rem;
+      line-height: 1.45;
+      color: #e4f2ff;
+    }
+
+    .award-details p,
+    .pub-details p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .pub-details p:last-child {
+      margin-top: 7px;
+      color: #b7d2ef;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.77rem;
+      letter-spacing: 0.03em;
+    }
+    .github-button {
+      display: inline-block;
+      border: 1px solid rgba(120, 190, 255, 0.45);
+      border-radius: 999px;
+      padding: 2px 10px;
+      line-height: 1.6;
+      background: rgba(28, 67, 112, 0.25);
+      color: #cbe6ff;
+      font-weight: 500;
+    }
+    .github-button.loading {
+      opacity: 0.8;
+      animation: starPulse 1.05s ease-in-out infinite;
+    }
+    @keyframes starPulse {
+      0%, 100% { opacity: 0.65; }
+      50% { opacity: 1; }
+    }
+    .github-button:hover {
+      border-color: rgba(87, 255, 189, 0.65);
+      color: #d8fff1;
+    }
+
+    footer {
+      margin-top: 24px;
+      text-align: center;
+      padding: 26px 12px;
+      border-top: 1px solid var(--line);
+      color: #8db3da;
+      font-size: 0.88rem;
+    }
+    .footer-visitors {
+      margin-top: 6px;
+      color: #9cc2e4;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 860px) {
+      .lang-switch {
+        position: static;
+        margin: 0 auto 14px;
+      }
+      .hero-stats { grid-template-columns: 1fr; max-width: 420px; }
+      .about-container { grid-template-columns: 1fr; }
+      .about-logo { min-height: 150px; }
+      .award-item,
+      .pub-item {
+        grid-template-columns: 1fr;
+      }
+      .award-item img,
+      .pub-item img {
+        width: 100%;
+        height: auto;
+      }
+      .award-item img {
+        max-width: 320px;
+      }
+      .pub-item img {
+        max-width: 320px;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Intellindust AI Lab</h1>
-    <p>Pioneering Vision AI for Edge Intelligence</p>
+  <header class="reveal">
+    <div class="lang-switch" role="group" aria-label="Language switch">
+      <button class="lang-btn active" data-lang="en" type="button">EN</button>
+      <button class="lang-btn" data-lang="fr" type="button">FR</button>
+      <button class="lang-btn" data-lang="zh" type="button">中文</button>
+    </div>
+    <h1 data-i18n="heroTitle">Intellindust AI Lab</h1>
+    <p class="hero-sub" data-i18n="heroSub">Pioneering vision AI for edge intelligence with fast, efficient, and robust models deployed in real-world environments.</p>
+    <div class="hero-stats">
+      <a class="stat-link" href="https://github.com/orgs/Intellindust-AI-Lab/repositories" target="_blank" rel="noopener noreferrer" aria-label="Open Intellindust AI Lab repositories on GitHub">
+        <div class="stat"><strong data-stat="stars">0</strong><span data-i18n="statStars">GitHub Stars</span></div>
+      </a>
+      <a class="stat-link" href="https://huggingface.co/Intellindust/models" target="_blank" rel="noopener noreferrer" aria-label="Open Intellindust models on Hugging Face">
+        <div class="stat"><strong data-stat="downloads">0</strong><span data-i18n="statDownloads">Hugging Face Model Downloads</span></div>
+      </a>
+      <a class="stat-link" href="https://github.com/orgs/Intellindust-AI-Lab/repositories" target="_blank" rel="noopener noreferrer" aria-label="Open Intellindust AI Lab repositories on GitHub">
+        <div class="stat"><strong data-stat="repos">0</strong><span data-i18n="statRepos">Open Repositories</span></div>
+      </a>
+    </div>
+    <p class="hero-follow" data-i18n-html="followLine">Follow our <a href="https://github.com/Intellindust-AI-Lab" target="_blank" rel="noopener noreferrer">GitHub repos</a> for latest code, checkpoints, and updates.</p>
+    <p class="status-strip" data-api-status hidden></p>
   </header>
 
-  <section>
-    <h2>About Us</h2>
-    <div class="about-container">
-      <div class="about-logo"><img src="src/logo.jpg" alt="Intellindust AI Lab Logo"></div>
-      <div class="about-text card">
-        <p>Intellindust AI Lab is dedicated to advancing computer vision and artificial intelligence for edge devices. With expertise in imaging systems, efficient deep learning, and multimodal AI, our mission is to create high-performance, reliable, and efficient AI solutions for real-world applications.</p>
-      </div>
-    </div>
-  </section>
+  <main class="page">
+    <section class="reveal md-section" data-md-section="about"><div class="card">Loading...</div></section>
+    <section class="reveal md-section" data-md-section="research"><div class="card">Loading...</div></section>
+    <section class="reveal md-section" data-md-section="awards"><div class="card">Loading...</div></section>
+    <section class="reveal md-section" data-md-section="publications"><div class="card">Loading...</div></section>
+    <section class="reveal md-section" data-md-section="contact"><div class="card">Loading...</div></section>
 
-  <section>
-    <h2>Research Directions</h2>
-    <div class="card">
-      <ul>
-        <li>Vision-Language Models for Edge Devices</li>
-        <li>Lightweight Real-Time Object Detection</li>
-        <li>Multimodal Sensor Fusion and Embodied Perception</li>
-        <li>RAW-Domain Video Enhancement and Detection</li>
-        <li>Trustworthy and Interpretable AI</li>
-      </ul>
-      <p style="margin-top: 15px;">We are actively looking for talented <strong>interns</strong> and <strong>researchers</strong>. Contact: <a href="mailto:shenxi@intellindust.com">shenxi@intellindust.com</a>.</p>
-    </div>
-  </section>
+    <footer>
+      <p data-i18n="footerText">&copy; 2025 Intellindust AI Lab. All rights reserved.</p>
+      <p class="footer-visitors"><span data-i18n="statVisitors">Visitors</span>: <span data-stat="visitors">0</span></p>
+    </footer>
+  </main>
 
-  <section>
-    <h2>Awards & Honors</h2>
-    <div class="card">
-      <!-- Awards -->
-      <div class="award-item"><img src="src/osr_1st_eccv24.png" alt="Open-set Recognition ECCV 2024"><div class="award-details"><h3>1st place in Open-set Recognition challenge</h3><p>Computer Vision Workshop, ECCV 2024</p></div></div>
-      <div class="award-item"><img src="src/low_light_1st_cvpr24.jpg" alt="Low-light Detection CVPR 2024"><div class="award-details"><h3>1st place in Low-light Object Detection challenge</h3><p>Physics-Based Vision meets Deep Learning Workshop, CVPR 2024</p></div></div>
-      <div class="award-item"><img src="src/low_light_3rd_cvpr24.jpg" alt="Low-light Segmentation CVPR 2024"><div class="award-details"><h3>3rd place in Low-light Instance Segmentation challenge</h3><p>Physics-Based Vision meets Deep Learning Workshop, CVPR 2024</p></div></div>
-      <div class="award-item"><img src="src/fsod_honor_cvpr25.png" alt="Few-shot Object Detection CVPR 2025"><div class="award-details"><h3>Honorable Mention in Foundational Few-Shot Object Detection challenge</h3><p>Foundational FSOD Workshop, CVPR 2025</p></div></div>
-      <div class="award-item"><img src="src/NITRE_2nd_cvpr25.jpg" alt="NITRE Denoising and Demosaic CVPR 2025"><div class="award-details"><h3>2nd Place in Track 1 Joint Denoising and Demosaicing challenge</h3><p>New Trends in Image Restoration and Enhancement Workshop, CVPR 2025</p></div></div>
-      <div class="award-item"><img src="src/soccer_2nd_cvpr25.png" alt="Soccer Net CVPR 2025"><div class="award-details"><h3>2nd Place in Ball Action Spotting challenge</h3><p>CVsports Workshop, CVPR 2025</p></div></div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Selected Publications</h2>
-    <div class="card">
-      <div class="pub-item"><img src="projects/FSOD-VFM/resrc/overv.png" alt="FSOD Thumbnail"><div class="pub-details">
-        <h3>FSOD-VFM: Few-Shot Object Detection with Vision Foundation Models and Graph Diffusion</h3>
-        <p>ICLR 2026</p>
-        <p><a href="https://intellindust-ai-lab.github.io/projects/FSOD-VFM/">[Project]</a> &nbsp; <a href="https://arxiv.org/abs/2602.03137">[PDF]</a> &nbsp; <a href="https://github.com/Intellindust-AI-Lab/FSOD-VFM">[Code]</a> &nbsp; <a class="github-button" href="https://github.com/Intellindust-AI-Lab/FSOD-VFM" data-icon="octicon-star" data-size="medium" data-show-count="true">Star</a> </p>
-      </div>
-    </div>
-
-
-      <div class="pub-item"><img src="src/skel_cf.gif" alt="SKEL Thumbnail"><div class="pub-details"><h3>SKEL-CF: Coarse-to-Fine Biomechanical Skeleton and Surface Mesh Recovery</h3><p>arXiv 2025</p><p><a href="https://pokerman8.github.io/SKEL-CF//">[Project]</a> &nbsp; <a href="https://arxiv.org/abs/2511.20157">[PDF]</a> &nbsp; <a href="https://github.com/Intellindust-AI-Lab/SKEL-CF">[Code]</a> &nbsp; <a class="github-button" href="https://github.com/Intellindust-AI-Lab/SKEL-CF" data-icon="octicon-star" data-size="medium" data-show-count="true">Star</a> </p></div></div>
-
-      <div class="pub-item"><img src="src/deimv2.png" alt="DEIMv2 Thumbnail"><div class="pub-details"><h3>[DEIMv2] Real-Time Object Detection Meets DINOv3</h3><p>arXiv 2025</p><p><a href="https://intellindust-ai-lab.github.io/projects/DEIMv2/">[Project]</a> &nbsp; <a href="https://arxiv.org/pdf/2509.20787">[PDF]</a> &nbsp; <a href="https://github.com/Intellindust-AI-Lab/DEIMv2">[Code]</a> &nbsp; <a class="github-button" href="https://github.com/Intellindust-AI-Lab/DEIMv2" data-icon="octicon-star" data-size="medium" data-show-count="true">Star</a></p></div></div>
-
-      <div class="pub-item"><img src="src/deim.png" alt="DEIM Thumbnail"><div class="pub-details"><h3>DEIM: DETR with Improved Matching for Fast Convergence</h3><p>CVPR 2025</p><p><a href="https://www.shihuahuang.cn/DEIM/">[Project]</a> &nbsp; <a href="https://arxiv.org/abs/2412.04234">[PDF]</a> &nbsp; <a href="https://www.shihuahuang.cn/DEIM/resrc/DEIM-Slides.pdf">[Slides]</a> &nbsp; <a href="https://github.com/Intellindust-AI-Lab/DEIM">[Code]</a> &nbsp; <a class="github-button" href="https://github.com/Intellindust-AI-Lab/DEIM" data-icon="octicon-star" data-size="medium" data-show-count="true">Star</a></p></div></div>
-
-      <div class="pub-item"><img src="src/sure.jpeg" alt="SURE Thumbnail"><div class="pub-details"><h3>SURE: SUrvey REcipes for building reliable and robust deep networks</h3><p>CVPR 2024</p><p><a href="https://yutingli0606.github.io/SURE/">[Project]</a> &nbsp; <a href="https://arxiv.org/pdf/2403.00543.pdf">[PDF]</a> &nbsp; <a href="https://github.com/Intellindust-AI-Lab/SURE">[Code]</a> &nbsp; <a class="github-button" href="https://github.com/Intellindust-AI-Lab/SURE" data-icon="octicon-star" data-size="medium" data-show-count="true">Star</a></p></div></div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Contact</h2>
-    <div class="card">
-      <p>Email: <a href="mailto:contact@intellindust.ai">shenxi@intellindust.com</a></p>
-      <p>GitHub: <a href="https://github.com/Intellindust-AI-Lab" target="_blank">Intellindust-AI-Lab</a></p>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Intellindust AI Lab. All rights reserved.</p>
-  </footer>
-
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
-    const collapsibles = document.querySelectorAll(".collapsible");
-    collapsibles.forEach(btn => {
-      btn.addEventListener("click", () => {
-        btn.classList.toggle("active");
-        const content = btn.nextElementSibling;
-        content.style.display = content.style.display === "block" ? "none" : "block";
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
       });
+    }, { threshold: 0.12 });
+    reveals.forEach((el, idx) => {
+      el.style.transitionDelay = `${idx * 60}ms`;
+      revealObserver.observe(el);
     });
+
+    const compactNumber = (value) => new Intl.NumberFormat(undefined, { notation: 'compact', maximumFractionDigits: 1 }).format(value);
+    const nowMs = () => Date.now();
+    const cacheKey = (key) => `cache:${key}`;
+    const readCache = (key, ttlMs) => {
+      try {
+        const raw = localStorage.getItem(cacheKey(key));
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed.ts !== 'number') return null;
+        if (ttlMs > 0 && (nowMs() - parsed.ts > ttlMs)) return null;
+        return parsed.value;
+      } catch (_) {
+        return null;
+      }
+    };
+    const readStaleCache = (key) => {
+      try {
+        const raw = localStorage.getItem(cacheKey(key));
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        return parsed ? parsed.value : null;
+      } catch (_) {
+        return null;
+      }
+    };
+    const writeCache = (key, value) => {
+      try {
+        localStorage.setItem(cacheKey(key), JSON.stringify({ ts: nowMs(), value }));
+      } catch (_) {
+        // Ignore cache write failures.
+      }
+    };
+    const fetchJsonWithCache = async (key, url, ttlMs) => {
+      const cached = readCache(key, ttlMs);
+      if (cached !== null) return cached;
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`fetch ${url}`);
+        const data = await res.json();
+        writeCache(key, data);
+        return data;
+      } catch (_) {
+        const stale = readStaleCache(key);
+        if (stale !== null) return stale;
+        throw _;
+      }
+    };
+    const animateCounterTo = (element, target) => {
+      const safeTarget = Number.isFinite(target) && target >= 0 ? target : 0;
+      const start = Number(element.dataset.value || 0);
+      const startTime = performance.now();
+      const duration = 900;
+      const step = (now) => {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const current = Math.round(start + (safeTarget - start) * progress);
+        element.textContent = compactNumber(current);
+        if (progress < 1) {
+          requestAnimationFrame(step);
+          return;
+        }
+        element.dataset.value = String(safeTarget);
+      };
+      requestAnimationFrame(step);
+    };
+
+    const statsEls = {
+      stars: document.querySelector('[data-stat=\"stars\"]'),
+      downloads: document.querySelector('[data-stat=\"downloads\"]'),
+      repos: document.querySelector('[data-stat=\"repos\"]'),
+      visitors: document.querySelector('[data-stat=\"visitors\"]')
+    };
+    if (statsEls.stars) animateCounterTo(statsEls.stars, 0);
+    if (statsEls.downloads) animateCounterTo(statsEls.downloads, 0);
+    if (statsEls.visitors) animateCounterTo(statsEls.visitors, 0);
+    const apiStatusEl = document.querySelector('[data-api-status]');
+    let currentLocale = 'en';
+    const metricStatus = {
+      stars: { done: false, ok: false },
+      downloads: { done: false, ok: false },
+      visitors: { done: false, ok: false }
+    };
+    const markMetric = (name, ok) => {
+      if (!metricStatus[name]) return;
+      metricStatus[name].done = true;
+      metricStatus[name].ok = !!ok;
+      renderDataStatus();
+    };
+
+    const tiltedCards = new WeakSet();
+    const bindCardTilt = (root = document) => {
+      root.querySelectorAll('.card').forEach((card) => {
+        if (tiltedCards.has(card)) return;
+        card.addEventListener('mousemove', (e) => {
+          if (window.innerWidth < 860) return;
+          const rect = card.getBoundingClientRect();
+          const px = (e.clientX - rect.left) / rect.width;
+          const py = (e.clientY - rect.top) / rect.height;
+          const rotateY = (px - 0.5) * 5;
+          const rotateX = (0.5 - py) * 4;
+          card.style.transform = `translateY(-2px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = '';
+        });
+        tiltedCards.add(card);
+      });
+    };
+    bindCardTilt();
+
+    const i18n = {
+      en: {
+        heroTitle: 'Intellindust AI Lab',
+        heroSub: 'Pioneering vision AI for edge intelligence with fast, efficient, and robust models deployed in real-world environments.',
+        statStars: 'GitHub Stars',
+        statDownloads: 'Hugging Face Model Downloads',
+        statRepos: 'Open Repositories',
+        statVisitors: 'Unique Visitors',
+        followLine: 'Follow our <a href=\"https://github.com/Intellindust-AI-Lab\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub repos</a> for latest code, checkpoints, and updates.',
+        dataStatusPartial: 'Some live metrics are temporarily unavailable.',
+        footerText: '\u00a9 2025 Intellindust AI Lab. All rights reserved.'
+      },
+      fr: {
+        heroTitle: 'Intellindust AI Lab',
+        heroSub: "Nous propulsons l'IA visuelle pour l'intelligence en périphérie, avec des modèles haute performance, efficients et robustes, conçus pour un impact concret.",
+        statStars: 'Total des stars GitHub',
+        statDownloads: 'Téléchargements de modèles Hugging Face',
+        statRepos: 'Dépôts open source',
+        statVisitors: 'Visiteurs uniques',
+        followLine: 'Rejoignez notre communauté sur <a href=\"https://github.com/Intellindust-AI-Lab\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a> pour accéder en priorité à nos derniers codes, checkpoints et annonces.',
+        dataStatusPartial: 'Certaines métriques en direct sont temporairement indisponibles.',
+        footerText: '\u00a9 2025 Intellindust AI Lab. Tous droits réservés.'
+      },
+      zh: {
+        heroTitle: '英特灵达人工智能实验室',
+        heroSub: '面向边缘智能场景，打造快速、高效、可靠的视觉 AI 模型与系统。',
+        statStars: 'GitHub 总 Star',
+        statDownloads: 'Hugging Face 模型下载量',
+        statRepos: '开源仓库',
+        statVisitors: '独立访客',
+        followLine: '欢迎关注我们的 <a href=\"https://github.com/Intellindust-AI-Lab\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub 仓库</a>，获取最新代码、权重与更新。',
+        dataStatusPartial: '部分实时数据暂时不可用。',
+        footerText: '\u00a9 2025 Intellindust AI Lab。保留所有权利。'
+      }
+    };
+    const renderDataStatus = () => {
+      if (!apiStatusEl) return;
+      const allDone = Object.values(metricStatus).every((m) => m.done);
+      const allFailed = Object.values(metricStatus).every((m) => m.done && !m.ok);
+      if (!allDone || !allFailed) {
+        apiStatusEl.hidden = true;
+        apiStatusEl.textContent = '';
+        return;
+      }
+      const pack = i18n[currentLocale] || i18n.en;
+      apiStatusEl.hidden = false;
+      apiStatusEl.textContent = pack.dataStatusPartial || i18n.en.dataStatusPartial;
+    };
+
+    const fetchMarkdown = async (locale, section) => {
+      const preferred = `content/${locale}/${section}.md`;
+      const fallback = `content/en/${section}.md`;
+      const first = await fetch(preferred, { cache: 'no-store' });
+      if (first.ok) return first.text();
+      const second = await fetch(fallback, { cache: 'no-store' });
+      if (!second.ok) throw new Error(`Missing markdown for ${section}`);
+      return second.text();
+    };
+
+    const starCache = new Map();
+    const fetchRepoStarCount = async (repoPath) => {
+      if (starCache.has(repoPath)) return starCache.get(repoPath);
+      const data = await fetchJsonWithCache(
+        `gh_repo_${repoPath}`,
+        `https://api.github.com/repos/${repoPath}`,
+        15 * 60 * 1000
+      );
+      const count = Number(data.stargazers_count || 0);
+      starCache.set(repoPath, count);
+      return count;
+    };
+
+    const hydratePublicationStars = async () => {
+      const starLinks = Array.from(document.querySelectorAll('a.github-button'));
+      starLinks.forEach((link) => {
+        link.textContent = 'Star ...';
+        link.classList.add('loading');
+      });
+      await Promise.all(starLinks.map(async (link) => {
+        try {
+          const url = new URL(link.href);
+          const seg = url.pathname.split('/').filter(Boolean);
+          if (seg.length < 2) return;
+          const repoPath = `${seg[0]}/${seg[1]}`;
+          const stars = await fetchRepoStarCount(repoPath);
+          link.textContent = `Star ${compactNumber(stars)}`;
+        } catch (_) {
+          link.textContent = 'Star';
+        } finally {
+          link.classList.remove('loading');
+        }
+      }));
+    };
+
+    const loadMarkdownSections = async (locale) => {
+      const resolved = locale === 'zh' || locale === 'fr' ? locale : 'en';
+      const parser = window.marked || null;
+      if (!parser) return;
+      const sections = document.querySelectorAll('[data-md-section]');
+      await Promise.all(Array.from(sections).map(async (host) => {
+        const section = host.dataset.mdSection;
+        try {
+          const mdText = await fetchMarkdown(resolved, section);
+          host.innerHTML = parser.parse(mdText);
+        } catch (_) {
+          host.innerHTML = '<div class="card">Content unavailable.</div>';
+        }
+      }));
+      bindCardTilt(document);
+      await hydratePublicationStars();
+    };
+
+    const trackedRepos = ['FSOD-VFM', 'SKEL-CF', 'DEIMv2', 'DEIM', 'SURE'];
+    if (statsEls.repos) animateCounterTo(statsEls.repos, trackedRepos.length);
+
+    const fetchRepoStars = async (repoName) => {
+      const data = await fetchJsonWithCache(
+        `gh_org_repo_${repoName}`,
+        `https://api.github.com/repos/Intellindust-AI-Lab/${repoName}`,
+        15 * 60 * 1000
+      );
+      return Number(data.stargazers_count || 0);
+    };
+
+    const fetchGitHubReleaseDownloads = async (repoName) => {
+      const releases = await fetchJsonWithCache(
+        `gh_releases_${repoName}`,
+        `https://api.github.com/repos/Intellindust-AI-Lab/${repoName}/releases?per_page=5`,
+        30 * 60 * 1000
+      );
+      return releases.reduce((sum, rel) => {
+        const assets = Array.isArray(rel.assets) ? rel.assets : [];
+        return sum + assets.reduce((assetSum, asset) => assetSum + Number(asset.download_count || 0), 0);
+      }, 0);
+    };
+
+    const parseNextLink = (linkHeader) => {
+      if (!linkHeader) return null;
+      const parts = linkHeader.split(',');
+      for (const part of parts) {
+        const sections = part.split(';').map((s) => s.trim());
+        if (sections.length < 2) continue;
+        const url = sections[0].replace(/^<|>$/g, '');
+        const rel = sections[1];
+        if (rel === 'rel=\"next\"') return url;
+      }
+      return null;
+    };
+
+    const fetchAllHfModelsByAuthor = async (author) => {
+      const cacheK = `hf_models_${author}`;
+      const cached = readCache(cacheK, 30 * 60 * 1000);
+      if (cached !== null) return cached;
+      let url = `https://huggingface.co/api/models?author=${encodeURIComponent(author)}&full=false&limit=100`;
+      const all = [];
+      while (url) {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`hf author ${author}`);
+        const models = await res.json();
+        if (Array.isArray(models)) all.push(...models);
+        url = parseNextLink(res.headers.get('Link'));
+      }
+      writeCache(cacheK, all);
+      return all;
+    };
+
+    const fetchHfDownloads = async () => {
+      const models = await fetchAllHfModelsByAuthor('Intellindust');
+      const uniqueById = new Map();
+      models.forEach((model) => {
+        if (model && model.id) uniqueById.set(model.id, model);
+      });
+      return Array.from(uniqueById.values()).reduce((sum, model) => sum + Number(model.downloads || 0), 0);
+    };
+
+    const loadImpactStats = async () => {
+      const starResults = await Promise.allSettled(trackedRepos.map((repo) => fetchRepoStars(repo)));
+      const totalStars = starResults.reduce((sum, item) => sum + (item.status === 'fulfilled' ? item.value : 0), 0);
+      const starOk = totalStars > 0;
+      if (statsEls.stars && starOk) {
+        animateCounterTo(statsEls.stars, totalStars);
+      }
+      markMetric('stars', starOk);
+
+      let downloads = 0;
+      try {
+        downloads = await fetchHfDownloads();
+      } catch (_) {}
+      if (downloads <= 0) {
+        const releaseResults = await Promise.allSettled(trackedRepos.map((repo) => fetchGitHubReleaseDownloads(repo)));
+        downloads = releaseResults.reduce((sum, item) => sum + (item.status === 'fulfilled' ? item.value : 0), 0);
+      }
+      const downloadsOk = downloads > 0;
+      if (statsEls.downloads && downloadsOk) {
+        animateCounterTo(statsEls.downloads, downloads);
+      }
+      markMetric('downloads', downloadsOk);
+    };
+
+    const loadVisitorCountNoCacheFirstHit = async () => {
+      const visitorNamespace = 'intellindust-ai-lab.github.io';
+      const visitorKey = 'uv-homepage';
+      const localMarker = 'uv-counted-homepage';
+      try {
+        const counted = localStorage.getItem(localMarker) === '1';
+        if (!counted) {
+          const res = await fetch(`https://api.countapi.xyz/hit/${visitorNamespace}/${visitorKey}`);
+          if (!res.ok) throw new Error('uv hit');
+          const data = await res.json();
+          writeCache('uv_counter_get', data);
+          const visitors = Number(data && data.value ? data.value : 0);
+          if (statsEls.visitors) animateCounterTo(statsEls.visitors, visitors);
+          localStorage.setItem(localMarker, '1');
+          markMetric('visitors', visitors > 0);
+          return;
+        }
+        const data = await fetchJsonWithCache(
+          'uv_counter_get',
+          `https://api.countapi.xyz/get/${visitorNamespace}/${visitorKey}`,
+          5 * 60 * 1000
+        );
+        const visitors = Number(data && data.value ? data.value : 0);
+        if (statsEls.visitors) animateCounterTo(statsEls.visitors, visitors);
+        markMetric('visitors', visitors > 0);
+      } catch (_) {
+        markMetric('visitors', false);
+      }
+    };
+
+    loadImpactStats();
+    loadVisitorCountNoCacheFirstHit();
+
+    const setLanguage = async (lang) => {
+      const locale = i18n[lang] ? lang : 'en';
+      currentLocale = locale;
+      document.documentElement.lang = locale === 'zh' ? 'zh-CN' : (locale === 'fr' ? 'fr' : 'en');
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const key = el.dataset.i18n;
+        if (i18n[locale][key]) el.textContent = i18n[locale][key];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+        const key = el.dataset.i18nHtml;
+        if (i18n[locale][key]) el.innerHTML = i18n[locale][key];
+      });
+      document.querySelectorAll('.lang-btn').forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset.lang === locale);
+      });
+      localStorage.setItem('site-lang', locale);
+      await loadMarkdownSections(locale);
+      renderDataStatus();
+    };
+
+    document.querySelectorAll('.lang-btn').forEach((btn) => {
+      btn.addEventListener('click', () => { setLanguage(btn.dataset.lang); });
+    });
+
+    const detectLanguageByIP = async () => {
+      try {
+        const res = await fetch('https://ipwho.is/');
+        if (!res.ok) return 'en';
+        const data = await res.json();
+        const countryCode = data && data.country_code ? String(data.country_code).toUpperCase() : '';
+        if (countryCode === 'CN') return 'zh';
+
+        const frenchCountries = new Set([
+          'FR', 'BE', 'CH', 'CA', 'LU', 'MC',
+          'DZ', 'MA', 'TN', 'SN', 'CI', 'CM',
+          'ML', 'NE', 'BF', 'TG', 'BJ', 'GN',
+          'CD', 'CG', 'GA', 'DJ', 'TD', 'CF',
+          'RW', 'BI', 'KM', 'MG', 'MU', 'SC',
+          'VU', 'HT', 'GQ'
+        ]);
+        if (frenchCountries.has(countryCode)) return 'fr';
+        return 'en';
+      } catch (_) {
+        return 'en';
+      }
+    };
+
+    const initLanguage = async () => {
+      const saved = localStorage.getItem('site-lang');
+      if (saved === 'en' || saved === 'zh' || saved === 'fr') {
+        await setLanguage(saved);
+        return;
+      }
+      const detected = await detectLanguageByIP();
+      await setLanguage(detected);
+    };
+
+    initLanguage();
   </script>
 </body>
 </html>
