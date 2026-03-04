@@ -414,13 +414,13 @@
     <p class="hero-sub" data-i18n="heroSub">Pioneering vision AI for edge intelligence with fast, efficient, and robust models deployed in real-world environments.</p>
     <div class="hero-stats">
       <a class="stat-link" href="https://github.com/orgs/Intellindust-AI-Lab/repositories" target="_blank" rel="noopener noreferrer" aria-label="Open Intellindust AI Lab repositories on GitHub">
-        <div class="stat"><strong data-stat="stars">0</strong><span data-i18n="statStars">GitHub Stars</span></div>
+        <div class="stat"><strong data-stat="stars">Loading...</strong><span data-i18n="statStars">GitHub Stars</span></div>
       </a>
       <a class="stat-link" href="https://huggingface.co/Intellindust/models" target="_blank" rel="noopener noreferrer" aria-label="Open Intellindust models on Hugging Face">
-        <div class="stat"><strong data-stat="downloads">0</strong><span data-i18n="statDownloads">Hugging Face Model Downloads</span></div>
+        <div class="stat"><strong data-stat="downloads">Loading...</strong><span data-i18n="statDownloads">Hugging Face Model Downloads</span></div>
       </a>
       <a class="stat-link" href="https://github.com/orgs/Intellindust-AI-Lab/repositories" target="_blank" rel="noopener noreferrer" aria-label="Open Intellindust AI Lab repositories on GitHub">
-        <div class="stat"><strong data-stat="repos">0</strong><span data-i18n="statRepos">Open Repositories</span></div>
+        <div class="stat"><strong data-stat="repos">Loading...</strong><span data-i18n="statRepos">Open Repositories</span></div>
       </a>
     </div>
     <p class="hero-follow" data-i18n-html="followLine">Follow our <a href="https://github.com/Intellindust-AI-Lab" target="_blank" rel="noopener noreferrer">GitHub repos</a> for latest code, checkpoints, and updates.</p>
@@ -436,7 +436,7 @@
 
     <footer>
       <p data-i18n="footerText">&copy; 2025 Intellindust AI Lab. All rights reserved.</p>
-      <p class="footer-visitors"><span data-i18n="statVisitors">Visitors</span>: <span data-stat="visitors">0</span></p>
+      <p class="footer-visitors"><span data-i18n="statVisitors">Visitors</span>: <span data-stat="visitors">Loading...</span></p>
     </footer>
   </main>
 
@@ -526,11 +526,19 @@
       repos: document.querySelector('[data-stat=\"repos\"]'),
       visitors: document.querySelector('[data-stat=\"visitors\"]')
     };
-    if (statsEls.stars) animateCounterTo(statsEls.stars, 0);
-    if (statsEls.downloads) animateCounterTo(statsEls.downloads, 0);
-    if (statsEls.visitors) animateCounterTo(statsEls.visitors, 0);
     const apiStatusEl = document.querySelector('[data-api-status]');
     let currentLocale = 'en';
+    const getLoadingText = () => {
+      if (currentLocale === 'zh') return '加载中...';
+      if (currentLocale === 'fr') return 'Chargement...';
+      return 'Loading...';
+    };
+    const setStatLoading = (name) => {
+      const el = statsEls[name];
+      if (!el) return;
+      el.textContent = getLoadingText();
+      delete el.dataset.value;
+    };
     const metricStatus = {
       stars: { done: false, ok: false },
       downloads: { done: false, ok: false },
@@ -574,6 +582,7 @@
         statVisitors: 'Unique Visitors',
         followLine: 'Follow our <a href=\"https://github.com/Intellindust-AI-Lab\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub repos</a> for latest code, checkpoints, and updates.',
         dataStatusPartial: 'Some live metrics are temporarily unavailable.',
+        loadingText: 'Loading...',
         footerText: '\u00a9 2025 Intellindust AI Lab. All rights reserved.'
       },
       fr: {
@@ -585,6 +594,7 @@
         statVisitors: 'Visiteurs uniques',
         followLine: 'Rejoignez notre communauté sur <a href=\"https://github.com/Intellindust-AI-Lab\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a> pour accéder en priorité à nos derniers codes, checkpoints et annonces.',
         dataStatusPartial: 'Certaines métriques en direct sont temporairement indisponibles.',
+        loadingText: 'Chargement...',
         footerText: '\u00a9 2025 Intellindust AI Lab. Tous droits réservés.'
       },
       zh: {
@@ -596,6 +606,7 @@
         statVisitors: '独立访客',
         followLine: '欢迎关注我们的 <a href=\"https://github.com/Intellindust-AI-Lab\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub 仓库</a>，获取最新代码、权重与更新。',
         dataStatusPartial: '部分实时数据暂时不可用。',
+        loadingText: '加载中...',
         footerText: '\u00a9 2025 Intellindust AI Lab。保留所有权利。'
       }
     };
@@ -745,6 +756,8 @@
       const starOk = totalStars > 0;
       if (statsEls.stars && starOk) {
         animateCounterTo(statsEls.stars, totalStars);
+      } else {
+        setStatLoading('stars');
       }
       markMetric('stars', starOk);
 
@@ -759,6 +772,8 @@
       const downloadsOk = downloads > 0;
       if (statsEls.downloads && downloadsOk) {
         animateCounterTo(statsEls.downloads, downloads);
+      } else {
+        setStatLoading('downloads');
       }
       markMetric('downloads', downloadsOk);
     };
@@ -775,7 +790,11 @@
           const data = await res.json();
           writeCache('uv_counter_get', data);
           const visitors = Number(data && data.value ? data.value : 0);
-          if (statsEls.visitors) animateCounterTo(statsEls.visitors, visitors);
+          if (statsEls.visitors && visitors > 0) {
+            animateCounterTo(statsEls.visitors, visitors);
+          } else {
+            setStatLoading('visitors');
+          }
           localStorage.setItem(localMarker, '1');
           markMetric('visitors', visitors > 0);
           return;
@@ -786,13 +805,21 @@
           5 * 60 * 1000
         );
         const visitors = Number(data && data.value ? data.value : 0);
-        if (statsEls.visitors) animateCounterTo(statsEls.visitors, visitors);
+        if (statsEls.visitors && visitors > 0) {
+          animateCounterTo(statsEls.visitors, visitors);
+        } else {
+          setStatLoading('visitors');
+        }
         markMetric('visitors', visitors > 0);
       } catch (_) {
+        setStatLoading('visitors');
         markMetric('visitors', false);
       }
     };
 
+    setStatLoading('stars');
+    setStatLoading('downloads');
+    setStatLoading('visitors');
     loadImpactStats();
     loadVisitorCountNoCacheFirstHit();
 
@@ -812,6 +839,9 @@
         btn.classList.toggle('active', btn.dataset.lang === locale);
       });
       localStorage.setItem('site-lang', locale);
+      Object.keys(metricStatus).forEach((k) => {
+        if (!metricStatus[k].ok) setStatLoading(k);
+      });
       await loadMarkdownSections(locale);
       renderDataStatus();
     };
