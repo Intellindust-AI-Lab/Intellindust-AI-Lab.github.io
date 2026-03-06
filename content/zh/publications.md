@@ -2,6 +2,44 @@
 
 <div class="card">
   <div class="pub-item">
+    <img src="projects/SUREPlus/CE_vs_CutMix_F1_surface.png" alt="SUREPlus Thumbnail">
+    <div class="pub-details">
+      <h3>[SURE+] From Misclassifications to Outliers: Joint Reliability Assessment for Classification</h3>
+      <p>arXiv 2026</p>
+      <p>
+        <a href="https://intellindust-ai-lab.github.io/projects/SUREPlus/">[项目主页]</a> &nbsp;
+        <a href="https://arxiv.org/abs/2603.03903">[论文链接]</a> &nbsp;
+        <a href="https://github.com/Intellindust-AI-Lab/SUREPlus">[代码仓库]</a> &nbsp;
+        <a class="github-button" href="https://github.com/Intellindust-AI-Lab/SUREPlus" aria-label="Star Intellindust-AI-Lab/SUREPlus on GitHub" data-icon="octicon-star" data-size="medium" data-show-count="true">[Star]</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="pub-item">
+    <img src="src/hed.png" alt="HED Thumbnail">
+    <div class="pub-details">
+      <h3>A Closer Look at Cross-Domain Few-Shot Object Detection: Fine-Tuning Matters and Parallel Decoder Helps</h3>
+      <p>CVPR 2026</p>
+      <p>
+        <span>[项目主页] WIP</span> &nbsp;
+        <span>[PDF] WIP</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="pub-item">
+    <img src="src/movie.png" alt="MoVie Thumbnail">
+    <div class="pub-details">
+      <h3>MoVie: Broaden Your Views with Human Motion for Action Detection</h3>
+      <p>CVPR 2026</p>
+      <p>
+        <span>[项目主页] WIP</span> &nbsp;
+        <span>[PDF] WIP</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="pub-item">
     <img src="projects/FSOD-VFM/resrc/overv.png" alt="FSOD Thumbnail">
     <div class="pub-details">
       <h3>FSOD-VFM: Few-Shot Object Detection with Vision Foundation Models and Graph Diffusion</h3>
@@ -68,44 +106,6 @@
         <a href="https://arxiv.org/pdf/2403.00543.pdf">[论文链接]</a> &nbsp;
         <a href="https://github.com/Intellindust-AI-Lab/SURE">[代码仓库]</a> &nbsp;
         <a class="github-button" href="https://github.com/Intellindust-AI-Lab/SURE" aria-label="Star Intellindust-AI-Lab/SURE on GitHub" data-icon="octicon-star" data-size="medium" data-show-count="true">[Star]</a>
-      </p>
-    </div>
-  </div>
-
-  <div class="pub-item">
-    <img src="projects/SUREPlus/CE_vs_CutMix_F1_surface.png" alt="SUREPlus Thumbnail">
-    <div class="pub-details">
-      <h3>[SURE+] From Misclassifications to Outliers: Joint Reliability Assessment for Classification</h3>
-      <p>arXiv 2026</p>
-      <p>
-        <a href="https://intellindust-ai-lab.github.io/projects/SUREPlus/">[项目主页]</a> &nbsp;
-        <a href="https://arxiv.org/abs/2603.03903">[论文链接]</a> &nbsp;
-        <a href="https://github.com/Intellindust-AI-Lab/SUREPlus">[代码仓库]</a> &nbsp;
-        <a class="github-button" href="https://github.com/Intellindust-AI-Lab/SUREPlus" aria-label="Star Intellindust-AI-Lab/SUREPlus on GitHub" data-icon="octicon-star" data-size="medium" data-show-count="true">[Star]</a>
-      </p>
-    </div>
-  </div>
-
-  <div class="pub-item">
-    <img src="src/hed.png" alt="HED Thumbnail">
-    <div class="pub-details">
-      <h3>HED: Hybrid Ensemble Decoder for Transformer-based Object Detection</h3>
-      <p>WIP</p>
-      <p>
-        <span>[项目主页] WIP</span> &nbsp;
-        <span>[PDF] WIP</span>
-      </p>
-    </div>
-  </div>
-
-  <div class="pub-item">
-    <img src="src/movie.png" alt="MoVie Thumbnail">
-    <div class="pub-details">
-      <h3>MoVie: Motion-guided Multi-modal Learning for Action Detection</h3>
-      <p>WIP</p>
-      <p>
-        <span>[项目主页] WIP</span> &nbsp;
-        <span>[PDF] WIP</span>
       </p>
     </div>
   </div>
