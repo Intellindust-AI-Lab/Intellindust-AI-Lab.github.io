@@ -85,4 +85,28 @@
       </p>
     </div>
   </div>
+
+  <div class="pub-item">
+    <img src="src/hed.png" alt="HED Thumbnail">
+    <div class="pub-details">
+      <h3>HED: Hybrid Ensemble Decoder for Transformer-based Object Detection</h3>
+      <p>WIP</p>
+      <p>
+        <span>[Project Page] WIP</span> &nbsp;
+        <span>[PDF] WIP</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="pub-item">
+    <img src="src/movie.png" alt="MoVie Thumbnail">
+    <div class="pub-details">
+      <h3>MoVie: Motion-guided Multi-modal Learning for Action Detection</h3>
+      <p>WIP</p>
+      <p>
+        <span>[Project Page] WIP</span> &nbsp;
+        <span>[PDF] WIP</span>
+      </p>
+    </div>
+  </div>
 </div>
