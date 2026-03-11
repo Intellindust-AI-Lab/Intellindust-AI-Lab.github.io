@@ -502,6 +502,21 @@
         throw _;
       }
     };
+    const fetchTextWithCache = async (key, url, ttlMs) => {
+      const cached = readCache(key, ttlMs);
+      if (cached !== null) return cached;
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`fetch ${url}`);
+        const text = await res.text();
+        writeCache(key, text);
+        return text;
+      } catch (error) {
+        const stale = readStaleCache(key);
+        if (stale !== null) return stale;
+        throw error;
+      }
+    };
     const animateCounterTo = (element, target) => {
       const safeTarget = Number.isFinite(target) && target >= 0 ? target : 0;
       const start = Number(element.dataset.value || 0);
@@ -587,12 +602,12 @@
       },
       fr: {
         heroTitle: 'Intellindust AI Lab',
-        heroSub: "Nous propulsons l'IA visuelle pour l'intelligence en périphérie, avec des modèles haute performance, efficients et robustes, conçus pour un impact concret.",
+        heroSub: "Nous concevons des systèmes de vision par ordinateur pour l'edge, avec des modèles rapides, efficaces et robustes, pensés pour des usages réels.",
         statStars: 'Total des stars GitHub',
         statDownloads: 'Téléchargements de modèles Hugging Face',
         statRepos: 'Dépôts open source',
         statVisitors: 'Visiteurs uniques',
-        followLine: 'Rejoignez notre communauté sur <a href=\"https://github.com/Intellindust-AI-Lab\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a> pour accéder en priorité à nos derniers codes, checkpoints et annonces.',
+        followLine: 'Suivez nos <a href=\"https://github.com/Intellindust-AI-Lab\" target=\"_blank\" rel=\"noopener noreferrer\">dépôts GitHub</a> pour accéder à nos derniers codes, checkpoints et mises à jour.',
         dataStatusPartial: 'Certaines métriques en direct sont temporairement indisponibles.',
         loadingText: 'Chargement...',
         footerText: '\u00a9 2025 Intellindust AI Lab. Tous droits réservés.'
@@ -627,11 +642,11 @@
     const fetchMarkdown = async (locale, section) => {
       const preferred = `content/${locale}/${section}.md`;
       const fallback = `content/en/${section}.md`;
-      const first = await fetch(preferred, { cache: 'no-store' });
-      if (first.ok) return first.text();
-      const second = await fetch(fallback, { cache: 'no-store' });
-      if (!second.ok) throw new Error(`Missing markdown for ${section}`);
-      return second.text();
+      try {
+        return await fetchTextWithCache(`md_${locale}_${section}`, preferred, 10 * 60 * 1000);
+      } catch (_) {
+        return fetchTextWithCache(`md_en_${section}`, fallback, 10 * 60 * 1000);
+      }
     };
 
     const starCache = new Map();
@@ -687,8 +702,35 @@
       await hydratePublicationStars();
     };
 
-    const trackedRepos = ['FSOD-VFM', 'SKEL-CF', 'DEIMv2', 'DEIM', 'SURE'];
-    if (statsEls.repos) animateCounterTo(statsEls.repos, trackedRepos.length);
+    const fetchAllOrgRepos = async (org) => {
+      const cacheK = `gh_org_repos_${org}`;
+      const cached = readCache(cacheK, 15 * 60 * 1000);
+      if (cached !== null) return cached;
+      let page = 1;
+      const all = [];
+      while (true) {
+        const url = `https://api.github.com/orgs/${encodeURIComponent(org)}/repos?type=public&per_page=100&page=${page}`;
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`github org repos ${org}`);
+        const repos = await res.json();
+        if (!Array.isArray(repos) || repos.length === 0) break;
+        all.push(...repos);
+        if (repos.length < 100) break;
+        page += 1;
+      }
+      writeCache(cacheK, all);
+      return all;
+    };
+
+    const fetchAllOrgReposWithFallback = async (org) => {
+      try {
+        return await fetchAllOrgRepos(org);
+      } catch (error) {
+        const stale = readStaleCache(`gh_org_repos_${org}`);
+        if (stale !== null) return stale;
+        throw error;
+      }
+    };
 
     const fetchRepoStars = async (repoName) => {
       const data = await fetchJsonWithCache(
@@ -741,18 +783,43 @@
       return all;
     };
 
+    const fetchAllHfModelsByAuthorWithFallback = async (author) => {
+      try {
+        return await fetchAllHfModelsByAuthor(author);
+      } catch (error) {
+        const stale = readStaleCache(`hf_models_${author}`);
+        if (stale !== null) return stale;
+        throw error;
+      }
+    };
+
     const fetchHfDownloads = async () => {
-      const models = await fetchAllHfModelsByAuthor('Intellindust');
+      const authors = ['Intellindust', 'Intellindust-AI-Lab'];
+      const modelGroups = await Promise.allSettled(authors.map((author) => fetchAllHfModelsByAuthorWithFallback(author)));
       const uniqueById = new Map();
-      models.forEach((model) => {
-        if (model && model.id) uniqueById.set(model.id, model);
+      modelGroups.forEach((result) => {
+        if (result.status !== 'fulfilled' || !Array.isArray(result.value)) return;
+        result.value.forEach((model) => {
+          if (model && model.id) uniqueById.set(model.id, model);
+        });
       });
       return Array.from(uniqueById.values()).reduce((sum, model) => sum + Number(model.downloads || 0), 0);
     };
 
     const loadImpactStats = async () => {
-      const starResults = await Promise.allSettled(trackedRepos.map((repo) => fetchRepoStars(repo)));
-      const totalStars = starResults.reduce((sum, item) => sum + (item.status === 'fulfilled' ? item.value : 0), 0);
+      let orgRepos = [];
+      try {
+        orgRepos = await fetchAllOrgReposWithFallback('Intellindust-AI-Lab');
+      } catch (_) {}
+
+      const repoCount = orgRepos.length;
+      if (statsEls.repos && repoCount > 0) {
+        animateCounterTo(statsEls.repos, repoCount);
+      } else {
+        setStatLoading('repos');
+      }
+
+      const totalStars = orgRepos.reduce((sum, repo) => sum + Number(repo && repo.stargazers_count ? repo.stargazers_count : 0), 0);
       const starOk = totalStars > 0;
       if (statsEls.stars && starOk) {
         animateCounterTo(statsEls.stars, totalStars);
@@ -766,8 +833,13 @@
         downloads = await fetchHfDownloads();
       } catch (_) {}
       if (downloads <= 0) {
-        const releaseResults = await Promise.allSettled(trackedRepos.map((repo) => fetchGitHubReleaseDownloads(repo)));
-        downloads = releaseResults.reduce((sum, item) => sum + (item.status === 'fulfilled' ? item.value : 0), 0);
+        const fallbackRepos = orgRepos
+          .map((repo) => repo && repo.name)
+          .filter((name) => typeof name === 'string' && name.length > 0);
+        if (fallbackRepos.length > 0) {
+          const orgReleaseResults = await Promise.allSettled(fallbackRepos.map((repo) => fetchGitHubReleaseDownloads(repo)));
+          downloads = orgReleaseResults.reduce((sum, item) => sum + (item.status === 'fulfilled' ? item.value : 0), 0);
+        }
       }
       const downloadsOk = downloads > 0;
       if (statsEls.downloads && downloadsOk) {
@@ -789,6 +861,7 @@
       const visitorNamespace = 'intellindust-ai-lab.github.io';
       const visitorKey = 'uv-homepage';
       const localMarker = 'uv-counted-homepage';
+      const visitorCacheKey = 'visitor_count_homepage';
       const getUrl = `https://api.countapi.xyz/get/${visitorNamespace}/${visitorKey}`;
       const hitUrl = `https://api.countapi.xyz/hit/${visitorNamespace}/${visitorKey}`;
       try {
@@ -806,6 +879,8 @@
           }
         }
 
+        if (visitors > 0) writeCache(visitorCacheKey, visitors);
+
         if (statsEls.visitors && visitors > 0) {
           animateCounterTo(statsEls.visitors, visitors);
         } else {
@@ -813,8 +888,14 @@
         }
         markMetric('visitors', visitors > 0);
       } catch (_) {
-        setStatLoading('visitors');
-        markMetric('visitors', false);
+        const cachedVisitors = readStaleCache(visitorCacheKey);
+        if (statsEls.visitors && Number(cachedVisitors) > 0) {
+          animateCounterTo(statsEls.visitors, Number(cachedVisitors));
+          markMetric('visitors', true);
+        } else {
+          setStatLoading('visitors');
+          markMetric('visitors', false);
+        }
       }
     };
 

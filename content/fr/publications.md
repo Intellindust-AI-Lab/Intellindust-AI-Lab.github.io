@@ -1,4 +1,4 @@
-## Publications phares
+## Publications sélectionnées
 
 <div class="card">
   <div class="pub-item">
@@ -7,9 +7,9 @@
       <h3>[SURE+] From Misclassifications to Outliers: Joint Reliability Assessment for Classification</h3>
       <p>arXiv 2026</p>
       <p>
-        <a href="https://intellindust-ai-lab.github.io/projects/SUREPlus/">[Page Projet]</a> &nbsp;
-        <a href="https://arxiv.org/abs/2603.03903">[Lien Article]</a> &nbsp;
-        <a href="https://github.com/Intellindust-AI-Lab/SUREPlus">[Dépôt Code]</a> &nbsp;
+        <a href="https://intellindust-ai-lab.github.io/projects/SUREPlus/">[Page du projet]</a> &nbsp;
+        <a href="https://arxiv.org/abs/2603.03903">[Article]</a> &nbsp;
+        <a href="https://github.com/Intellindust-AI-Lab/SUREPlus">[Code source]</a> &nbsp;
         <a class="github-button" href="https://github.com/Intellindust-AI-Lab/SUREPlus" aria-label="Star Intellindust-AI-Lab/SUREPlus on GitHub" data-icon="octicon-star" data-size="medium" data-show-count="true">[Star]</a>
       </p>
     </div>
@@ -21,7 +21,7 @@
       <h3>A Closer Look at Cross-Domain Few-Shot Object Detection: Fine-Tuning Matters and Parallel Decoder Helps</h3>
       <p>CVPR 2026</p>
       <p>
-        <span>[Page Projet] WIP</span> &nbsp;
+        <span>[Page du projet] WIP</span> &nbsp;
         <span>[PDF] WIP</span>
       </p>
     </div>
@@ -33,7 +33,7 @@
       <h3>MoVie: Broaden Your Views with Human Motion for Action Detection</h3>
       <p>CVPR 2026</p>
       <p>
-        <span>[Page Projet] WIP</span> &nbsp;
+        <span>[Page du projet] WIP</span> &nbsp;
         <span>[PDF] WIP</span>
       </p>
     </div>
@@ -45,9 +45,9 @@
       <h3>FSOD-VFM: Few-Shot Object Detection with Vision Foundation Models and Graph Diffusion</h3>
       <p>ICLR 2026</p>
       <p>
-        <a href="https://intellindust-ai-lab.github.io/projects/FSOD-VFM/">[Page Projet]</a> &nbsp;
-        <a href="https://arxiv.org/abs/2602.03137">[Lien Article]</a> &nbsp;
-        <a href="https://github.com/Intellindust-AI-Lab/FSOD-VFM">[Dépôt Code]</a> &nbsp;
+        <a href="https://intellindust-ai-lab.github.io/projects/FSOD-VFM/">[Page du projet]</a> &nbsp;
+        <a href="https://arxiv.org/abs/2602.03137">[Article]</a> &nbsp;
+        <a href="https://github.com/Intellindust-AI-Lab/FSOD-VFM">[Code source]</a> &nbsp;
         <a class="github-button" href="https://github.com/Intellindust-AI-Lab/FSOD-VFM" aria-label="Star Intellindust-AI-Lab/FSOD-VFM on GitHub" data-icon="octicon-star" data-size="medium" data-show-count="true">[Star]</a>
       </p>
     </div>
@@ -59,9 +59,9 @@
       <h3>SKEL-CF: Coarse-to-Fine Biomechanical Skeleton and Surface Mesh Recovery</h3>
       <p>arXiv 2025</p>
       <p>
-        <a href="https://pokerman8.github.io/SKEL-CF//">[Page Projet]</a> &nbsp;
-        <a href="https://arxiv.org/abs/2511.20157">[Lien Article]</a> &nbsp;
-        <a href="https://github.com/Intellindust-AI-Lab/SKEL-CF">[Dépôt Code]</a> &nbsp;
+        <a href="https://pokerman8.github.io/SKEL-CF//">[Page du projet]</a> &nbsp;
+        <a href="https://arxiv.org/abs/2511.20157">[Article]</a> &nbsp;
+        <a href="https://github.com/Intellindust-AI-Lab/SKEL-CF">[Code source]</a> &nbsp;
         <a class="github-button" href="https://github.com/Intellindust-AI-Lab/SKEL-CF" aria-label="Star Intellindust-AI-Lab/SKEL-CF on GitHub" data-icon="octicon-star" data-size="medium" data-show-count="true">[Star]</a>
       </p>
     </div>
@@ -73,9 +73,9 @@
       <h3>[DEIMv2] Real-Time Object Detection Meets DINOv3</h3>
       <p>arXiv 2025</p>
       <p>
-        <a href="https://intellindust-ai-lab.github.io/projects/DEIMv2/">[Page Projet]</a> &nbsp;
-        <a href="https://arxiv.org/pdf/2509.20787">[Lien Article]</a> &nbsp;
-        <a href="https://github.com/Intellindust-AI-Lab/DEIMv2">[Dépôt Code]</a> &nbsp;
+        <a href="https://intellindust-ai-lab.github.io/projects/DEIMv2/">[Page du projet]</a> &nbsp;
+        <a href="https://arxiv.org/pdf/2509.20787">[Article]</a> &nbsp;
+        <a href="https://github.com/Intellindust-AI-Lab/DEIMv2">[Code source]</a> &nbsp;
         <a class="github-button" href="https://github.com/Intellindust-AI-Lab/DEIMv2" aria-label="Star Intellindust-AI-Lab/DEIMv2 on GitHub" data-icon="octicon-star" data-size="medium" data-show-count="true">[Star]</a>
       </p>
     </div>
@@ -87,10 +87,10 @@
       <h3>DEIM: DETR with Improved Matching for Fast Convergence</h3>
       <p>CVPR 2025</p>
       <p>
-        <a href="https://www.shihuahuang.cn/DEIM/">[Page Projet]</a> &nbsp;
-        <a href="https://arxiv.org/abs/2412.04234">[Lien Article]</a> &nbsp;
-        <a href="https://www.shihuahuang.cn/DEIM/resrc/DEIM-Slides.pdf">[Présentation]</a> &nbsp;
-        <a href="https://github.com/Intellindust-AI-Lab/DEIM">[Dépôt Code]</a> &nbsp;
+        <a href="https://www.shihuahuang.cn/DEIM/">[Page du projet]</a> &nbsp;
+        <a href="https://arxiv.org/abs/2412.04234">[Article]</a> &nbsp;
+        <a href="https://www.shihuahuang.cn/DEIM/resrc/DEIM-Slides.pdf">[Diapositives]</a> &nbsp;
+        <a href="https://github.com/Intellindust-AI-Lab/DEIM">[Code source]</a> &nbsp;
         <a class="github-button" href="https://github.com/Intellindust-AI-Lab/DEIM" aria-label="Star Intellindust-AI-Lab/DEIM on GitHub" data-icon="octicon-star" data-size="medium" data-show-count="true">[Star]</a>
       </p>
     </div>
@@ -102,9 +102,9 @@
       <h3>SURE: SUrvey REcipes for building reliable and robust deep networks</h3>
       <p>CVPR 2024</p>
       <p>
-        <a href="https://yutingli0606.github.io/SURE/">[Page Projet]</a> &nbsp;
-        <a href="https://arxiv.org/pdf/2403.00543.pdf">[Lien Article]</a> &nbsp;
-        <a href="https://github.com/Intellindust-AI-Lab/SURE">[Dépôt Code]</a> &nbsp;
+        <a href="https://yutingli0606.github.io/SURE/">[Page du projet]</a> &nbsp;
+        <a href="https://arxiv.org/pdf/2403.00543.pdf">[Article]</a> &nbsp;
+        <a href="https://github.com/Intellindust-AI-Lab/SURE">[Code source]</a> &nbsp;
         <a class="github-button" href="https://github.com/Intellindust-AI-Lab/SURE" aria-label="Star Intellindust-AI-Lab/SURE on GitHub" data-icon="octicon-star" data-size="medium" data-show-count="true">[Star]</a>
       </p>
     </div>
