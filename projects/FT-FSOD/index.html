@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FT-FSOD | CVPR 2026</title>
+  <meta name="description" content="A Closer Look at Cross-Domain Few-Shot Object Detection: Fine-Tuning Matters and Parallel Decoder Helps.">
+  <meta property="og:title" content="FT-FSOD | CVPR 2026">
+  <meta property="og:description" content="Fine-Tuning Matters and Parallel Decoder Helps for Cross-Domain Few-Shot Object Detection.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="resrc/image9.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FT-FSOD | CVPR 2026">
+  <meta name="twitter:description" content="Cross-domain few-shot object detection with progressive fine-tuning and hybrid ensemble decoder.">
+  <meta name="twitter:image" content="resrc/image9.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="venue-chip">CVPR 2026</p>
+      <h1>A Closer Look at Cross-Domain Few-Shot Object Detection: Fine-Tuning Matters and Parallel Decoder Helps</h1>
+      <p class="authors">
+        Xuanlong Yu<sup>1</sup>, Youyang Sha<sup>1</sup>, Longfei Liu<sup>1</sup>, Xi Shen<sup>1</sup>, Di Yang<sup>2</sup>
+      </p>
+      <p class="affiliation">
+        <sup>1</sup>Intellindust AI Lab&nbsp;&nbsp;&middot;&nbsp;&nbsp;<sup>2</sup>Suzhou Institute for Advanced Research, USTC
+      </p>
+      <div class="hero-buttons">
+        <!-- TODO: set href to your arXiv URL and remove onclick + class arxiv-pending when ready -->
+        <a class="btn btn-icon ghost arxiv-pending" href="#" onclick="return false;" title="arXiv link will be added soon"><i class="fas fa-book" aria-hidden="true"></i> arXiv</a>
+        <a class="btn btn-icon primary" href="https://github.com/Intellindust-AI-Lab/FT-FSOD" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i> Code</a>
+      </div>
+    </div>
+    <div class="hero-logos">
+      <img src="resrc/cvpr26.png" alt="CVPR 2026 logo">
+      <img src="resrc/image2.png" alt="Intellindust AI Lab logo">
+      <img src="resrc/image3.png" alt="SIAR USTC logo">
+    </div>
+  </header>
+
+  <main>
+    <section class="section-card">
+      <h2>Motivation</h2>
+      <p>
+        Cross-domain few-shot object detection (CD-FSOD) suffers from unstable optimization and weak generalization due to scarce samples and significant domain shifts.
+        This work revisits fine-tuning of pretrained detectors with lightweight yet effective designs, aiming for stable gains under strict low-shot constraints.
+      </p>
+    </section>
+
+    <section class="section-card">
+      <h2>TL;DR</h2>
+      <ul class="contrib-list">
+        <li>Introduces a practical fine-tuning recipe for CD-FSOD with strong stability.</li>
+        <li>Proposes a hybrid ensemble decoder to improve query diversity and domain robustness.</li>
+        <li>Achieves SOTA performance on CD-FSOD, ODinW-13 and RF100-VL few-shot object detection benchmarks.</li>
+        <li>Provides OOD-focused analysis using a CD-Mixed test set to evaluate confidence behavior of the fine-tuned models.</li>
+      </ul>
+    </section>
+
+    <section class="section-card">
+      <h2>Main Method</h2>
+      <div class="two-col">
+        <article class="sub-card">
+          <h3>Hybrid Ensemble Decoder (HED)</h3>
+          <ul>
+            <li>Replaces a fully sequential decoder by a hybrid sequential-parallel structure.</li>
+            <li>In parallel stage, object queries inherit previous outputs while denoising queries are partially re-initialized.</li>
+            <li>Increases query diversity and improves detection robustness under domain shift.</li>
+          </ul>
+        </article>
+        <article class="sub-card">
+          <h3>Progressive Fine-Tuning</h3>
+          <ul>
+            <li>Uses plateau-aware learning rate scheduling, without task-specific hyper-parameter search.</li>
+            <li>Freezes the encoder at the beginning, then unfreezes it after the first optimization plateau.</li>
+            <li>Improves training stability and transferability across domains.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="media-card">
+        <h3>Pipeline Dynamic Demo</h3>
+        <video class="pipeline-video" src="resrc/pipeline.mp4" autoplay muted loop controls playsinline>
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2>Experimental Results</h2>
+      <div class="gallery">
+        <figure>
+          <img src="resrc/image6.png" alt="CD-FSOD detailed benchmark table">
+          <figcaption><strong>CD-FSOD benchmark</strong> across six diverse sub-datasets, including <i>ArTaxOr, Clipart1k, DIOR, DeepFish, NEU-DET and UODD</i>.</figcaption>
+        </figure>
+        <figure>
+          <img src="resrc/image7.png" alt="ODinW-13 benchmark table">
+          <figcaption><strong>ODinW-13 few-shot benchmark</strong> with 0/1/3/5/10-shot settings.</figcaption>
+        </figure>
+        <figure>
+          <img src="resrc/image8.png" alt="RF100-VL benchmark table">
+          <figcaption><strong>RF100-VL few-shot (10-shot) benchmark </strong> with 100 sub-datasets.</figcaption>
+        </figure>
+        <figure>
+          <img src="resrc/image5.png" alt="Robustness under OOD samples">
+          <figcaption><strong>OOD robustness analysis</strong> on the proposed <strong>CD-Mixed test set</strong>.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section-card resources">
+      <div>
+        <h2>Resources</h2>
+        <p><strong>Code:</strong> <a href="https://github.com/Intellindust-AI-Lab/FT-FSOD" target="_blank" rel="noopener noreferrer">github.com/Intellindust-AI-Lab/FT-FSOD</a></p>
+        <p><strong>Intellindust AI Lab:</strong> <a href="https://intellindust-ai-lab.github.io/" target="_blank" rel="noopener noreferrer">github.com/Intellindust-AI-Lab</a></p>
+      </div>
+      <img src="resrc/image1.png" alt="Project QR code">
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 FT-FSOD Authors</p>
+  </footer>
+</body>
+</html>
