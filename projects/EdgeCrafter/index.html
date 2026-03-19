@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EdgeCrafter: Compact ViTs for Edge Dense Prediction</title>
+  
+  <!-- Fonts: Plus Jakarta Sans for a clean, modern, tech-forward aesthetic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --primary: #4f46e5;      /* Indigo 600 */
+      --primary-hover: #4338ca; /* Indigo 700 */
+      --primary-light: #e0e7ff; /* Indigo 100 */
+      --accent: #0ea5e9;       /* Light Blue 500 */
+      --bg: #ffffff;
+      --bg-surface: #f8fafc;   /* Slate 50 */
+      --bg-surface-alt: #f1f5f9; /* Slate 100 */
+      --text-main: #0f172a;    /* Slate 900 */
+      --text-muted: #475569;   /* Slate 600 */
+      --text-light: #94a3b8;   /* Slate 400 */
+      --border: #e2e8f0;       /* Slate 200 */
+      --radius-sm: 0.5rem;
+      --radius-md: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, h4, h5, h6 {
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* ===== LAYOUT & UTILITIES ===== */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .container-sm {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section {
+      padding: 6rem 0;
+    }
+
+    .section-alt {
+      background-color: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .btn-primary {
+      background-color: var(--text-main);
+      color: white;
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-outline {
+      background-color: white;
+      color: var(--text-main);
+      border-color: var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background-color: var(--bg-surface);
+      transform: translateY(-2px);
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      position: relative;
+      padding: 6rem 0 4rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Background decorative elements */
+    .hero-bg-shape-1 {
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 50%;
+      height: 50%;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+      z-index: -1;
+    }
+
+    .hero-bg-shape-2 {
+      position: absolute;
+      bottom: 20%;
+      right: -10%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(circle, rgba(14, 165, 233, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+      z-index: -1;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      max-width: 1000px;
+      margin: 0 auto 1.5rem;
+      color: var(--text-main);
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      font-weight: 400;
+    }
+
+    /* Authors & Affiliations */
+    .authors {
+      font-size: 1.125rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    
+    .authors a {
+      margin: 0 0.5rem;
+      position: relative;
+    }
+
+    .authors a::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      bottom: -2px;
+      left: 0;
+      background-color: var(--primary);
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
+
+    .authors a:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    .affiliations {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .affiliations span {
+      margin: 0 0.5rem;
+    }
+
+    /* Teaser Image */
+    .teaser-container {
+      margin-top: 3rem;
+      position: relative;
+      border-radius: var(--radius-xl);
+      padding: 1rem;
+      background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--bg-surface-alt) 100%);
+    }
+
+    .teaser-image {
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      border: 1px solid var(--border);
+      width: 100%;
+      transition: var(--transition);
+    }
+    
+    .teaser-image:hover {
+      transform: scale(1.01);
+    }
+
+    .teaser-caption {
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ===== ABSTRACT & STATS ===== */
+    .abstract-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    @media (min-width: 992px) {
+      .abstract-container {
+        grid-template-columns: 3fr 2fr;
+      }
+    }
+
+    .section-header {
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-size: 2.25rem;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 4px;
+      background-color: var(--primary);
+      border-radius: 2px;
+    }
+
+    .abstract-text {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    /* Highlights Side-Panel */
+    .highlights-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .highlight-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .highlight-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    .highlight-icon {
+      flex-shrink: 0;
+      width: 3rem;
+      height: 3rem;
+      background-color: var(--primary-light);
+      color: var(--primary);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .highlight-icon svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .highlight-content h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+      color: var(--text-main);
+    }
+
+    .highlight-content p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, var(--text-main), #1e293b);
+      color: white;
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+
+    /* ===== METHODOLOGY ===== */
+    .method-block {
+      margin-bottom: 4rem;
+    }
+    
+    .method-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .method-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .method-title::before {
+      content: '';
+      display: block;
+      width: 8px;
+      height: 24px;
+      background-color: var(--primary);
+      border-radius: 4px;
+    }
+
+    .method-image-wrapper {
+      background: white;
+      padding: 1rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .method-image-wrapper:hover {
+      box-shadow: var(--shadow-lg);
+    }
+
+    .method-image-wrapper img {
+      border-radius: var(--radius-sm);
+      width: 100%;
+    }
+
+    /* ===== RESULTS ===== */
+    .results-intro {
+      text-align: center;
+      margin-bottom: 3rem;
+      font-size: 1.125rem;
+      color: var(--text-muted);
+    }
+
+    .result-group {
+      margin-bottom: 4rem;
+    }
+
+    .result-title {
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--text-main);
+    }
+
+    .result-image-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+    }
+
+    .result-image-card:hover {
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-4px);
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .results-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* ===== CITATION ===== */
+    .citation-section {
+      background-color: var(--text-main);
+      color: white;
+      padding: 5rem 0;
+      text-align: center;
+    }
+
+    .citation-section .section-title {
+      color: white;
+    }
+
+    .citation-section .section-title::after {
+      background-color: var(--accent);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .citation-box {
+      margin: 3rem auto 0;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .citation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .citation-label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .copy-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-sm);
+      color: white;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .copy-btn.copied {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: #10b981;
+      color: #10b981;
+    }
+
+    .citation-content {
+      padding: 1.5rem;
+      overflow-x: auto;
+    }
+
+    .citation-content pre {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #e2e8f0;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 2rem 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* ===== UTILITIES ===== */
+    .mb-8 { margin-bottom: 2rem; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HERO SECTION ===== -->
+  <header class="hero">
+    <div class="hero-bg-shape-1"></div>
+    <div class="hero-bg-shape-2"></div>
+    
+    <div class="container">
+      <!-- Title -->
+      <h1 class="hero-title">
+        EdgeCrafter: Compact ViTs for Edge Dense Prediction via <span class="text-gradient">Task-Specialized Distillation</span>
+      </h1>
+
+      <!-- Authors (Replace with actual names) -->
+      <div class="authors">
+        <a href="https://capsule2077.github.io/">Longfei Liu <sup>*</sup><sup>‡</sup></a>
+        <a href="#">Yongjie Hou <sup>*</sup></a>
+        <a href="#">Yang Li <sup>*</sup></a>
+        <a href="#">Qirui Wang <sup>*</sup></a><br>
+        <a href="#">Youyang Sha</a>
+        <a href="#">Yongjun Yu</a>
+        <a href="#">Yinzhi Wang</a>
+        <a href="#">Peizhe Ru</a>
+        <a href="https://xuanlong-yu.github.io/">Xuanlong Yu<sup>†</sup></a>
+        <a href="https://xishen0220.github.io/">Xi Shen <sup>†</sup></a> <br>
+
+      </div>
+
+      <a> * Equal Contribution &nbsp;&nbsp; ‡ Project Leader &nbsp;&nbsp; † Corresponding Author</a>
+      <!-- Affiliations (Replace with actual affiliations) -->
+      <div class="authors">
+        <a href="https://intellindust-ai-lab.github.io/">Intellindust AI Lab </a>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="btn-group">
+        <!-- Paper Link -->
+        <a href="#" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          Paper
+        </a>
+        
+        <!-- Code Det/Seg -->
+        <a href="https://github.com/Intellindust-AI-Lab/EdgeCrafter" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+          Code
+        </a>
+
+<!--        &lt;!&ndash; Code Pose &ndash;&gt;-->
+<!--        <a href="https://github.com/capsule2077/ECDetSeg" target="_blank" rel="noopener noreferrer" class="btn btn-outline">-->
+<!--          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">-->
+<!--            <circle cx="18" cy="5" r="3"></circle>-->
+<!--            <circle cx="6" cy="12" r="3"></circle>-->
+<!--            <circle cx="18" cy="19" r="3"></circle>-->
+<!--            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>-->
+<!--            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>-->
+<!--          </svg>-->
+<!--          Code (Pose)-->
+<!--        </a>-->
+
+
+      <!-- PROMINENT TEASER IMAGE -->
+      <div class="container-sm">
+        <div class="teaser-container">
+          <img src="images/teaser.png" alt="EdgeCrafter Teaser: Overview of performance and efficiency" class="teaser-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        </div>
+      </div>
+    </div>
+    </div>
+  </header>
+
+  <!-- ===== DEMO SECTION ===== -->
+  <section class="section" id="demo">
+    <div class="container container-sm">
+      <div class="section-header" style="text-align: center;">
+        <h2 class="section-title">Demo</h2>
+        <h3 class="result-title"> ECSeg-L Demo (34M Params, 111 GFLOPs) </h3>
+      </div>
+
+      <!-- 
+        DEMO PLACEHOLDER
+        Option 1: YouTube/Vimeo Video
+        Option 2: Hugging Face / Gradio Space
+        Option 3: Local MP4 Video
+        To use: Uncomment one of the options below and remove the placeholder div.
+      -->
+      <div class="demo-wrapper" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: var(--radius-lg); box-shadow: var(--shadow-xl);">
+        
+        <!-- OPTION 1: YouTube Embed (Uncomment and replace ID) -->
+        <!-- 
+        <iframe 
+          src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+        </iframe> 
+        -->
+
+        <!-- OPTION 2: Hugging Face Gradio (Uncomment and replace URL) -->
+        <!--
+        <iframe
+          src="https://huggingface.co/spaces/YOUR_ORG/YOUR_SPACE"
+          frameborder="0"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+        ></iframe>
+        -->
+
+        <!-- OPTION 3: Local MP4 Video -->
+        <video 
+          controls 
+          playsinline 
+          autoplay 
+          muted 
+          loop
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+          <source src="images/seg_demo.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABSTRACT & HIGHLIGHTS ===== -->
+  <section class="section section-alt" id="abstract">
+    <div class="container abstract-container">
+      
+      <!-- Abstract Text -->
+      <div>
+        <div class="section-header">
+          <h2 class="section-title">Abstract</h2>
+        </div>
+        <p class="abstract-text">
+          We introduce EdgeCrafter, a unified compact ViT framework
+for edge dense prediction centered on ECDet, a detection model built from a distilled compact
+backbone and an edge-friendly encoder–decoder design. We first adapt a large DINOv3-
+pretrained ViT to object detection and use it as a task-specialized teacher to distill rich
+representations into compact student backbones.
+<br><br>
+          On the COCO dataset, ECDet-S achieves 51.7 AP with fewer than 10M parameters using only COCO
+annotations. For instance segmentation, ECInsSeg achieves performance comparable to RF-
+DETR while using substantially fewer parameters. For pose estimation, ECPose-X reaches
+74.8 AP, significantly outperforming YOLO26Pose-X (71.6 AP) despite the latter’s reliance
+on extensive Objects365 pretraining.
+        </p>
+      </div>
+
+      <!-- Highlights / Stats Sidebar -->
+      <div>
+        <div class="highlights-grid">
+          <!-- Highlight 1 -->
+          <div class="highlight-card">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+              </svg>
+            </div>
+            <div class="highlight-content">
+              <h4>Unified Framework</h4>
+              <p>Supports object detection, instance segmentation, and human pose estimation seamlessly.</p>
+            </div>
+          </div>
+
+          <!-- Highlight 2 -->
+          <div class="highlight-card">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+            </div>
+            <div class="highlight-content">
+              <h4>State-of-the-Art</h4>
+              <p>Superior accuracy-to-parameter ratio across multiple challenging vision tasks.</p>
+            </div>
+          </div>
+          
+          <!-- Highlight 3 -->
+          <div class="highlight-card">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div class="highlight-content">
+              <h4>Real-Time Edge Inference</h4>
+              <p>Architectural design for practical, real-world applications.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Metric Cards -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-value">51.7</div>
+            <div class="stat-label">Detection mAP</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">10M</div>
+            <div class="stat-label">Parameters</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== METHODOLOGY ===== -->
+  <section class="section" id="methodology">
+    <div class="container container-sm">
+      <div class="section-header" style="text-align: center;">
+        <h2 class="section-title">Methodology</h2>
+      </div>
+
+      <!-- Distillation Pipeline -->
+      <div class="method-block">
+        <h3 class="method-title">Task-Specialized Distillation Pipeline</h3>
+        <div class="method-image-wrapper">
+          <img src="images/distill.png" alt="Distillation Pipeline Diagram" onerror="this.style.display='none';">
+        </div>
+      </div>
+
+      <!-- ECDet Architecture -->
+      <div class="method-block">
+        <h3 class="method-title">ECDet Architecture</h3>
+        <div class="method-image-wrapper">
+          <img src="images/ecdet.png" alt="ECDet Architecture Diagram" onerror="this.style.display='none';">
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ===== RESULTS ===== -->
+  <section class="section section-alt" id="results">
+    <div class="container">
+      <div class="section-header" style="text-align: center;">
+        <h2 class="section-title">Results</h2>
+      </div>
+
+      <!-- Detection Results -->
+      <div class="result-group">
+        <h3 class="result-title">Object Detection</h3>
+        <div class="result-image-card">
+          <img src="images/resdet.png" alt="Object Detection Results" style="width: 100%; display: block;" onerror="this.style.display='none';">
+        </div>
+      </div>
+
+      <!-- Pose and Seg Results (Side by Side) -->
+      <div class="result-group">
+        <h3 class="result-title">Pose Estimation</h3>
+        <div class="result-image-card">
+          <img src="images/respose.png" alt="Pose Estimation Results" style="width: 100%; display: block;" onerror="this.style.display='none';">
+        </div>
+      </div>
+
+      <div class="result-group">
+        <h3 class="result-title">Instance Segmentation</h3>
+        <div class="result-image-card">
+          <img src="images/resseg.png" alt="Instance Segmentation Results" style="width: 100%; display: block;" onerror="this.style.display='none';">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CITATION ===== -->
+  <section class="citation-section" id="citation">
+    <div class="container container-sm">
+      <h2 class="section-title" style="margin-bottom: 1rem;">Citation</h2>
+      <p style="color: var(--text-light); font-size: 1.1rem;">If you find our work useful, please consider citing:</p>
+
+      <div class="citation-box">
+        <div class="citation-header">
+          <span class="citation-label">BibTeX</span>
+          <button class="copy-btn" id="copyBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Copy</span>
+          </button>
+        </div>
+        <div class="citation-content">
+<pre id="bibtex">@article{liu2026edgecrafter,
+  title={EdgeCrafter: Compact ViTs for Edge Dense Prediction via Task-Specialized Distillation},
+  author={Liu, Longfei and Hou, Yongjie and Li, Yang and Wang, Qirui and Sha, Youyang and Yu, Yongjun and Wang, Yinzhi and Ru, Peizhe and Yu, Xuanlong and Shen, Xi},
+  journal={arXiv},
+  year={2026}
+}</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 EdgeCrafter Research Team. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // Copy Citation Logic
+    document.getElementById('copyBtn').addEventListener('click', function() {
+      const bibtex = document.getElementById('bibtex').innerText;
+      const btn = this;
+      
+      navigator.clipboard.writeText(bibtex).then(function() {
+        btn.classList.add('copied');
+        btn.querySelector('span').textContent = 'Copied!';
+        
+        // Reset after 2 seconds
+        setTimeout(function() {
+          btn.classList.remove('copied');
+          btn.querySelector('span').textContent = 'Copy';
+        }, 2000);
+      }).catch(function(err) {
+        console.error('Could not copy text: ', err);
+      });
+    });
+  </script>
+
+</body>
+</html>
