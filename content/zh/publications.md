@@ -2,6 +2,20 @@
 
 <div class="card">
   <div class="pub-item">
+    <img src="src/edgecrafter.png" alt="EdgeCrafter Thumbnail">
+    <div class="pub-details">
+      <h3>EdgeCrafter: Compact ViTs for Edge Dense Prediction via Task-Specialized Distillation</h3>
+      <p>arXiv 2026</p>
+      <p>
+        <a href="https://intellindust-ai-lab.github.io/projects/EdgeCrafter/">[项目主页]</a> &nbsp;
+        <a href="https://arxiv.org/abs/2603.18739">[论文链接]</a> &nbsp;
+        <a href="https://github.com/Intellindust-AI-Lab/EdgeCrafter">[代码仓库]</a> &nbsp;
+        <a class="github-button" href="https://github.com/Intellindust-AI-Lab/EdgeCrafter" aria-label="Star Intellindust-AI-Lab/EdgeCrafter on GitHub" data-icon="octicon-star" data-size="medium" data-show-count="true">[Star]</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="pub-item">
     <img src="projects/SUREPlus/CE_vs_CutMix_F1_surface.png" alt="SUREPlus Thumbnail">
     <div class="pub-details">
       <h3>[SURE+] From Misclassifications to Outliers: Joint Reliability Assessment for Classification</h3>
