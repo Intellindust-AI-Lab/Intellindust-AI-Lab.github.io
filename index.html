@@ -455,6 +455,8 @@
       revealObserver.observe(el);
     });
 
+    const CONTENT_CACHE_VERSION = '2026-03-23-2';
+
     const compactNumber = (value) => new Intl.NumberFormat(undefined, { notation: 'compact', maximumFractionDigits: 1 }).format(value);
     const nowMs = () => Date.now();
     const cacheKey = (key) => `cache:${key}`;
@@ -598,6 +600,8 @@
         followLine: 'Follow our <a href=\"https://github.com/Intellindust-AI-Lab\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub repos</a> for latest code, checkpoints, and updates.',
         dataStatusPartial: 'Some live metrics are temporarily unavailable.',
         loadingText: 'Loading...',
+        localOpenTitle: 'Local Preview Requires a Web Server',
+        localOpenBody: 'Opening `index.html` directly via `file://` blocks section loading in browsers. Run `./run_local.sh` and open `http://localhost:8000/index.html` instead.',
         footerText: '\u00a9 2025 Intellindust AI Lab. All rights reserved.'
       },
       fr: {
@@ -610,6 +614,8 @@
         followLine: 'Suivez nos <a href=\"https://github.com/Intellindust-AI-Lab\" target=\"_blank\" rel=\"noopener noreferrer\">dépôts GitHub</a> pour accéder à nos derniers codes, checkpoints et mises à jour.',
         dataStatusPartial: 'Certaines métriques en direct sont temporairement indisponibles.',
         loadingText: 'Chargement...',
+        localOpenTitle: 'L’aperçu local nécessite un serveur web',
+        localOpenBody: 'Ouvrir `index.html` directement via `file://` empêche le chargement des sections dans le navigateur. Lancez `./run_local.sh` puis ouvrez `http://localhost:8000/index.html`.',
         footerText: '\u00a9 2025 Intellindust AI Lab. Tous droits réservés.'
       },
       zh: {
@@ -622,8 +628,14 @@
         followLine: '欢迎关注我们的 <a href=\"https://github.com/Intellindust-AI-Lab\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub 仓库</a>，获取最新代码、权重与更新。',
         dataStatusPartial: '部分实时数据暂时不可用。',
         loadingText: '加载中...',
+        localOpenTitle: '本地预览需要通过 Web 服务器打开',
+        localOpenBody: '直接用 `file://` 打开 `index.html` 时，浏览器会拦截页面对各分区内容的加载。请运行 `./run_local.sh`，然后访问 `http://localhost:8000/index.html`。',
         footerText: '\u00a9 2025 Intellindust AI Lab。保留所有权利。'
       }
+    };
+    const getLocalOpenFallbackHtml = (locale) => {
+      const pack = i18n[locale] || i18n.en;
+      return `<div class="card"><h3>${pack.localOpenTitle || i18n.en.localOpenTitle}</h3><p>${pack.localOpenBody || i18n.en.localOpenBody}</p></div>`;
     };
     const renderDataStatus = () => {
       if (!apiStatusEl) return;
@@ -643,9 +655,9 @@
       const preferred = `content/${locale}/${section}.md`;
       const fallback = `content/en/${section}.md`;
       try {
-        return await fetchTextWithCache(`md_${locale}_${section}`, preferred, 10 * 60 * 1000);
+        return await fetchTextWithCache(`md_${CONTENT_CACHE_VERSION}_${locale}_${section}`, preferred, 10 * 60 * 1000);
       } catch (_) {
-        return fetchTextWithCache(`md_en_${section}`, fallback, 10 * 60 * 1000);
+        return fetchTextWithCache(`md_${CONTENT_CACHE_VERSION}_en_${section}`, fallback, 10 * 60 * 1000);
       }
     };
 
@@ -689,6 +701,14 @@
       const parser = window.marked || null;
       if (!parser) return;
       const sections = document.querySelectorAll('[data-md-section]');
+      if (window.location.protocol === 'file:') {
+        const fallbackHtml = getLocalOpenFallbackHtml(resolved);
+        sections.forEach((host) => {
+          host.innerHTML = fallbackHtml;
+        });
+        bindCardTilt(document);
+        return;
+      }
       await Promise.all(Array.from(sections).map(async (host) => {
         const section = host.dataset.mdSection;
         try {
@@ -850,35 +870,49 @@
       markMetric('downloads', downloadsOk);
     };
 
-    const fetchVisitorCounter = async (endpoint) => {
-      const res = await fetch(endpoint, { cache: 'no-store' });
-      if (!res.ok) throw new Error('visitor counter fetch failed');
-      const data = await res.json();
-      return Number(data && data.value ? data.value : 0);
+    const fetchVisitorCounter = async (endpoint, timeoutMs = 5000) => {
+      const ctrl = new AbortController();
+      const timer = window.setTimeout(() => ctrl.abort(), timeoutMs);
+      try {
+        const res = await fetch(endpoint, { cache: 'no-store', signal: ctrl.signal });
+        if (!res.ok) throw new Error('visitor counter fetch failed');
+        const data = await res.json();
+        return Number(data && (data.value || data.count) ? String(data.value || data.count).replace(/,/g, '') : 0);
+      } finally {
+        window.clearTimeout(timer);
+      }
     };
 
-    const loadVisitorCountNoCacheFirstHit = async () => {
-      const visitorNamespace = 'intellindust-ai-lab.github.io';
-      const visitorKey = 'uv-homepage';
+    const fetchCountApiVisitorCount = async () => {
+      const visitorNamespace = 'intellindust-ai-lab';
+      const visitorKey = 'homepage-visitors';
+      const legacyNamespace = 'intellindust-ai-lab.github.io';
+      const legacyKey = 'uv-homepage';
       const localMarker = 'uv-counted-homepage';
-      const visitorCacheKey = 'visitor_count_homepage';
       const getUrl = `https://api.countapi.xyz/get/${visitorNamespace}/${visitorKey}`;
       const hitUrl = `https://api.countapi.xyz/hit/${visitorNamespace}/${visitorKey}`;
+      const legacyGetUrl = `https://api.countapi.xyz/get/${legacyNamespace}/${legacyKey}`;
+      const counted = localStorage.getItem(localMarker) === '1';
+
+      if (!counted) {
+        const firstHit = await fetchVisitorCounter(hitUrl);
+        localStorage.setItem(localMarker, '1');
+        if (firstHit > 0) return firstHit;
+      }
+
+      const currentValue = await fetchVisitorCounter(getUrl);
+      if (currentValue > 0) return currentValue;
+
+      const healedValue = await fetchVisitorCounter(hitUrl);
+      if (healedValue > 0) return healedValue;
+
+      return fetchVisitorCounter(legacyGetUrl);
+    };
+
+    const loadVisitorCount = async () => {
+      const visitorCacheKey = 'visitor_count_homepage';
       try {
-        const counted = localStorage.getItem(localMarker) === '1';
-        let visitors = 0;
-
-        if (!counted) {
-          visitors = await fetchVisitorCounter(hitUrl);
-          localStorage.setItem(localMarker, '1');
-        } else {
-          visitors = await fetchVisitorCounter(getUrl);
-          // If key was reset remotely or returned an invalid low value, heal by one hit.
-          if (visitors <= 0) {
-            visitors = await fetchVisitorCounter(hitUrl);
-          }
-        }
-
+        const visitors = await fetchCountApiVisitorCount();
         if (visitors > 0) writeCache(visitorCacheKey, visitors);
 
         if (statsEls.visitors && visitors > 0) {
@@ -886,7 +920,7 @@
         } else {
           setStatLoading('visitors');
         }
-        markMetric('visitors', visitors > 0);
+        markMetric('visitors', true);
       } catch (_) {
         const cachedVisitors = readStaleCache(visitorCacheKey);
         if (statsEls.visitors && Number(cachedVisitors) > 0) {
@@ -903,7 +937,7 @@
     setStatLoading('downloads');
     setStatLoading('visitors');
     loadImpactStats();
-    loadVisitorCountNoCacheFirstHit();
+    loadVisitorCount();
 
     const setLanguage = async (lang) => {
       const locale = i18n[lang] ? lang : 'en';
