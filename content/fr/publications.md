@@ -35,8 +35,10 @@
       <h3>A Closer Look at Cross-Domain Few-Shot Object Detection: Fine-Tuning Matters and Parallel Decoder Helps</h3>
       <p>CVPR 2026</p>
       <p>
-        <span>[Page du projet] WIP</span> &nbsp;
-        <span>[PDF] WIP</span>
+        <a href="https://intellindust-ai-lab.github.io/projects/FT-FSOD/">[Page du projet]</a> &nbsp;
+        <a href="https://arxiv.org/pdf/2603.28182">[Article]</a> &nbsp;
+        <a href="https://github.com/Intellindust-AI-Lab/FT-FSOD">[Code source]</a> &nbsp;
+        <a class="github-button" href="https://github.com/Intellindust-AI-Lab/FT-FSOD" aria-label="Star Intellindust-AI-Lab/FT-FSOD on GitHub" data-icon="octicon-star" data-size="medium" data-show-count="true">[Star]</a>
       </p>
     </div>
   </div>
