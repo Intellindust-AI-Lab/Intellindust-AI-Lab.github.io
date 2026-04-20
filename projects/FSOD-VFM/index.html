@@ -12,13 +12,13 @@
   <meta property="og:description" content="FSOD-VFM: Few-Shot Object Detection with Vision Foundation Models and Graph Diffusion"/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://intellindust-ai-lab.github.io/projects/FSOD-VFM/"/>
-  <meta property="og:image" content="resrc/overv.png"/>
+  <meta property="og:image" content="resrc/DEIM.png"/>
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="FSOD-VFM"/>
   <meta name="twitter:description" content="FSOD-VFM: Few-Shot Object Detection with Vision Foundation Models and Graph Diffusion"/>
-  <meta name="twitter:image" content="resrc/overv.png"/>
+  <meta name="twitter:image" content="resrc/teaser_a.png"/>
 
   <!-- Fonts & CSS -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -57,6 +57,38 @@
             .hero a:hover {
               color: #1d4ed8 !important; /* blue hover */
             }
+    .award-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: 0.75rem;
+      padding: 0.7rem 1.1rem;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.12);
+      text-decoration: none;
+      color: #1a202c !important;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .award-link:hover {
+      transform: translateY(-2px);
+      border-color: #60a5fa;
+      box-shadow: 0 14px 32px rgba(37, 99, 235, 0.18);
+      color: #1a202c !important;
+    }
+    .award-link i {
+      color: #f59e0b;
+      font-size: 1rem;
+    }
+    .award-link .award-text {
+      font-size: 0.98rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .award-link .award-rank {
+      color: #dc2626;
+    }
 
     .btn-custom {
       margin: 0.3rem;
@@ -161,12 +193,18 @@
 <div class="hero">
   <h1>FSOD-VFM: Few-Shot Object Detection with Vision Foundation Models and Graph Diffusion</h1>
   <p class="lead">ICLR 2026</p>
+  <p>
+    <a href="https://github.com/ohMargin/NTIRE2026_CDFSOD" class="award-link" target="_blank" rel="noopener noreferrer">
+      <i class="fas fa-trophy"></i>
+      <span class="award-text"><span class="award-rank">3rd Place</span> CVPR NTIRE 2026 CDFSOD Challenge</span>
+    </a>
+  </p>
   <p class="author-list">
-    <a href="https://fcbfcb1998.github.io">Chen-Bin Feng</a><sup>*1,2</sup> &emsp;
+    <a href="https://scholar.google.com/citations?user=W0DvXaEAAAAJ&hl=en&oi=ao">Chen-Bin Feng</a><sup>*1,2</sup> &emsp;
     Youyang Sha<sup>*1</sup> &emsp;
-    <a href="https://capsule2077.github.io/">Longfei Liu</a>&emsp;
+    Longfei Liu<sup>1</sup> &emsp;
     Yongjun Yu<sup>1</sup> &emsp;
-    <a href="https://www.fst.um.edu.mo/personal/cmvong/">Chi Man Vong</a><sup>†2</sup> &emsp;
+    Chi Man Vong<sup>†2</sup> &emsp;
     <a href="https://xuanlong-yu.github.io/"> Xuanlong Yu<sup>†1</sup></a> &emsp;
     <a href="https://xishen0220.github.io/">Xi Shen<sup>†1</sup></a>
   </p>
@@ -176,10 +214,10 @@
     <sup>*</sup> Equal Contribution &nbsp; <sup>†</sup> Corresponding
   </p>
   <div class="d-flex justify-content-center flex-wrap">
-    <a href="https://arxiv.org/abs/2602.03137" class="btn btn-light btn-custom"><i class="fas fa-book"></i> arXiv</a>
+    <a href="https://arxiv.org/abs/2412.04234" class="btn btn-light btn-custom"><i class="fas fa-book"></i> arXiv</a>
     <a href="https://github.com/Intellindust-AI-Lab/FSOD-VFM" class="btn btn-light btn-custom"><i class="fab fa-github"></i> Code</a>
-    <!--  <a href="resrc/DEIM-Slides.pdf" class="btn btn-light btn-custom"><i class="fas fa-file-powerpoint"></i> Slides</a>-->
-    <a href="resrc/poster_fsod.pdf" class="btn btn-light btn-custom"><i class="fas fa-image"></i> Poster</a>
+    <!--  <a href="resrc/DEIM-Slides.pdf" class="btn btn-light btn-custom"><i class="fas fa-file-powerpoint"></i> Slides</a>
+    <a href="resrc/CVPR2025_DEIM_poster.pdf" class="btn btn-light btn-custom"><i class="fas fa-image"></i> Poster</a>-->
   </div>
 </div>
 
@@ -273,11 +311,11 @@
 </div>
 <div class="container section">
   <pre style="background-color: #f1f5f9; color: #1e293b; padding: 20px; border-radius: 5px; border: 1px solid #e2e8f0; font-size: 14px; text-align: left; white-space: pre-wrap; word-wrap: break-word;">
-@inproceedings{feng2025fsodvfm,
-  title={Few-Shot Object Detection with Vision Foundation Models and Graph Diffusion},
-  author={Feng, Chen-Bin and Sha, Youyang and Liu, Longfei and Yu, Yongjun and Vong, Chi Man and Yu, Xuanlong and Shen, Xi},
-  booktitle={The Fourteenth International Conference on Learning Representations},
-  year={2026}
+@article{huang2025FSOD-VFM,
+  title={FSOD-VFM: Few-Shot Object Detection with Vision Foundation Models and Graph Diffusion},
+  author={Huang, Shihua and Hou, Yongjie and Liu, Longfei and Yu, Xuanlong and Shen, Xi},
+  journal={arXiv},
+  year={2025}
 }
   </pre>
 </div>
