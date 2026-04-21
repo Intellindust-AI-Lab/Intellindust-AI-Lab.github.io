@@ -206,6 +206,65 @@ content="EdgeCrafter: Compact Vision Transformers for edge dense prediction incl
       font-weight: 400;
     }
 
+    .award-highlight {
+      position: relative;
+      max-width: 980px;
+      margin: 0 auto 2rem;
+      padding: 1rem 1.25rem;
+      border: 1px solid rgba(79, 70, 229, 0.18);
+      border-radius: 1.25rem;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(14, 165, 233, 0.08));
+      box-shadow: 0 18px 40px rgba(79, 70, 229, 0.08);
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      animation: awardFloat 4.5s ease-in-out infinite;
+    }
+
+    .award-highlight::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.4) 18%, transparent 36%);
+      transform: translateX(-140%);
+      animation: awardShine 4.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .award-highlight span {
+      position: relative;
+      display: block;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .award-highlight a {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .award-highlight a:hover {
+      color: var(--primary-hover);
+    }
+
+    @keyframes awardShine {
+      0% {
+        transform: translateX(-140%);
+      }
+      55%, 100% {
+        transform: translateX(140%);
+      }
+    }
+
+    @keyframes awardFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
     /* Authors & Affiliations */
     .authors {
       font-size: 1.125rem;
@@ -599,6 +658,11 @@ content="EdgeCrafter: Compact Vision Transformers for edge dense prediction incl
         <span class="text-gradient">EdgeCrafter</span><br>
        <span style="font-size: 0.8em;">Compact ViTs for Edge Dense Prediction via Task-Specialized Distillation</span>
       </h1>
+
+      <div class="award-highlight">
+        <span>Our previous version <a href="https://intellindust-ai-lab.github.io/projects/DEIMv2/">DEIMv2</a> was used by two winning teams at the <a href="https://arxiv.org/abs/2604.13244">CVPR 2026 Maritime Computer Vision Workshop</a>, taking home 2nd place in Thermal Object Detection Challenge and 3rd place in Vision-to-Chart Data Association Challenge.</span>
+      </div>
+
 
       <!-- Authors (Replace with actual names) -->
       <div class="authors">
