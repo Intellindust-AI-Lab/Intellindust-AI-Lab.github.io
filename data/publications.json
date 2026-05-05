@@ -1,0 +1,101 @@
+[
+  {
+    "title": "EdgeCrafter: Compact ViTs for Edge Dense Prediction via Task-Specialized Distillation",
+    "venue": "arXiv 2026",
+    "image": "src/edgecrafter.png",
+    "alt": "EdgeCrafter Thumbnail",
+    "actions": [
+      { "type": "project", "href": "https://intellindust-ai-lab.github.io/projects/EdgeCrafter/" },
+      { "type": "paper", "href": "https://arxiv.org/abs/2603.18739" },
+      { "type": "code", "href": "https://github.com/Intellindust-AI-Lab/EdgeCrafter", "repo": "Intellindust-AI-Lab/EdgeCrafter" }
+    ]
+  },
+  {
+    "title": "[SURE+] From Misclassifications to Outliers: Joint Reliability Assessment for Classification",
+    "venue": "arXiv 2026",
+    "image": "projects/SUREPlus/CE_vs_CutMix_F1_surface.png",
+    "alt": "SUREPlus Thumbnail",
+    "actions": [
+      { "type": "project", "href": "https://intellindust-ai-lab.github.io/projects/SUREPlus/" },
+      { "type": "paper", "href": "https://arxiv.org/abs/2603.03903" },
+      { "type": "code", "href": "https://github.com/Intellindust-AI-Lab/SUREPlus", "repo": "Intellindust-AI-Lab/SUREPlus" }
+    ]
+  },
+  {
+    "title": "A Closer Look at Cross-Domain Few-Shot Object Detection: Fine-Tuning Matters and Parallel Decoder Helps",
+    "venue": "CVPR 2026",
+    "image": "src/hed.png",
+    "alt": "HED Thumbnail",
+    "actions": [
+      { "type": "project", "href": "https://intellindust-ai-lab.github.io/projects/FT-FSOD/" },
+      { "type": "paper", "href": "https://arxiv.org/pdf/2603.28182" },
+      { "type": "code", "href": "https://github.com/Intellindust-AI-Lab/FT-FSOD", "repo": "Intellindust-AI-Lab/FT-FSOD" }
+    ]
+  },
+  {
+    "title": "MoVie: Broaden Your Views with Human Motion for Action Detection",
+    "venue": "CVPR 2026",
+    "image": "src/movie.png",
+    "alt": "MoVie Thumbnail",
+    "actions": [
+      { "type": "project", "status": "wip" },
+      { "type": "pdf", "status": "wip" }
+    ]
+  },
+  {
+    "title": "FSOD-VFM: Few-Shot Object Detection with Vision Foundation Models and Graph Diffusion",
+    "venue": "ICLR 2026",
+    "image": "projects/FSOD-VFM/resrc/overv.png",
+    "alt": "FSOD Thumbnail",
+    "actions": [
+      { "type": "project", "href": "https://intellindust-ai-lab.github.io/projects/FSOD-VFM/" },
+      { "type": "paper", "href": "https://arxiv.org/abs/2602.03137" },
+      { "type": "code", "href": "https://github.com/Intellindust-AI-Lab/FSOD-VFM", "repo": "Intellindust-AI-Lab/FSOD-VFM" }
+    ]
+  },
+  {
+    "title": "SKEL-CF: Coarse-to-Fine Biomechanical Skeleton and Surface Mesh Recovery",
+    "venue": "arXiv 2025",
+    "image": "src/skel_cf.gif",
+    "alt": "SKEL Thumbnail",
+    "actions": [
+      { "type": "project", "href": "https://pokerman8.github.io/SKEL-CF//" },
+      { "type": "paper", "href": "https://arxiv.org/abs/2511.20157" },
+      { "type": "code", "href": "https://github.com/Intellindust-AI-Lab/SKEL-CF", "repo": "Intellindust-AI-Lab/SKEL-CF" }
+    ]
+  },
+  {
+    "title": "[DEIMv2] Real-Time Object Detection Meets DINOv3",
+    "venue": "arXiv 2025",
+    "image": "src/deimv2.png",
+    "alt": "DEIMv2 Thumbnail",
+    "actions": [
+      { "type": "project", "href": "https://intellindust-ai-lab.github.io/projects/DEIMv2/" },
+      { "type": "paper", "href": "https://arxiv.org/pdf/2509.20787" },
+      { "type": "code", "href": "https://github.com/Intellindust-AI-Lab/DEIMv2", "repo": "Intellindust-AI-Lab/DEIMv2" }
+    ]
+  },
+  {
+    "title": "DEIM: DETR with Improved Matching for Fast Convergence",
+    "venue": "CVPR 2025",
+    "image": "src/deim.png",
+    "alt": "DEIM Thumbnail",
+    "actions": [
+      { "type": "project", "href": "https://www.shihuahuang.cn/DEIM/" },
+      { "type": "paper", "href": "https://arxiv.org/abs/2412.04234" },
+      { "type": "slides", "href": "https://www.shihuahuang.cn/DEIM/resrc/DEIM-Slides.pdf" },
+      { "type": "code", "href": "https://github.com/Intellindust-AI-Lab/DEIM", "repo": "Intellindust-AI-Lab/DEIM" }
+    ]
+  },
+  {
+    "title": "SURE: SUrvey REcipes for building reliable and robust deep networks",
+    "venue": "CVPR 2024",
+    "image": "src/sure.jpeg",
+    "alt": "SURE Thumbnail",
+    "actions": [
+      { "type": "project", "href": "https://yutingli0606.github.io/SURE/" },
+      { "type": "paper", "href": "https://arxiv.org/pdf/2403.00543.pdf" },
+      { "type": "code", "href": "https://github.com/Intellindust-AI-Lab/SURE", "repo": "Intellindust-AI-Lab/SURE" }
+    ]
+  }
+]
