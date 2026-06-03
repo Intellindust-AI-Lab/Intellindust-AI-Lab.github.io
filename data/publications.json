@@ -39,7 +39,7 @@
     "alt": "MoVie Thumbnail",
     "actions": [
       { "type": "project", "href": "https://walker1126.github.io/MoVie-project/" },
-      { "type": "pdf", "status": "wip" }
+      { "type": "pdf", "href": "https://openaccess.thecvf.com/content/CVPR2026/papers/Yang_MoVie_Broaden_Your_Views_with_Human_Motion_for_Action_Detection_CVPR_2026_paper.pdf" }
     ]
   },
   {
