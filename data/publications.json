@@ -38,7 +38,7 @@
     "image": "src/movie.png",
     "alt": "MoVie Thumbnail",
     "actions": [
-      { "type": "project", "status": "wip" },
+      { "type": "project", "href": "https://walker1126.github.io/MoVie-project/" },
       { "type": "pdf", "status": "wip" }
     ]
   },
