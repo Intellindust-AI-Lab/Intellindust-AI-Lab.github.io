@@ -55,7 +55,7 @@
   },
   {
     "title": "SKEL-CF: Coarse-to-Fine Biomechanical Skeleton and Surface Mesh Recovery",
-    "venue": "arXiv 2025",
+    "venue": "The European Conference on Computer Vision (ECCV), 2026",
     "image": "src/skel_cf.gif",
     "alt": "SKEL Thumbnail",
     "actions": [
