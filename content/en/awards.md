@@ -1,6 +1,6 @@
 ## Awards & Honors
 
-<div class="card">
+<div class="award-grid">
   <div class="award-item"><img src="src/osr_1st_eccv24.png" alt="Open-set Recognition ECCV 2024"><div class="award-details"><h3>1st place in Open-set Recognition challenge</h3><p>Computer Vision Workshop, ECCV 2024</p></div></div>
   <div class="award-item"><img src="src/low_light_1st_cvpr24.jpg" alt="Low-light Detection CVPR 2024"><div class="award-details"><h3>1st place in Low-light Object Detection challenge</h3><p>Physics-Based Vision meets Deep Learning Workshop, CVPR 2024</p></div></div>
   <div class="award-item"><img src="src/low_light_3rd_cvpr24.jpg" alt="Low-light Segmentation CVPR 2024"><div class="award-details"><h3>3rd place in Low-light Instance Segmentation challenge</h3><p>Physics-Based Vision meets Deep Learning Workshop, CVPR 2024</p></div></div>

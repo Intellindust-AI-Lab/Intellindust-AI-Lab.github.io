@@ -1,5 +1,16 @@
 [
   {
+    "title": "SKEL-CF: Coarse-to-Fine Biomechanical Skeleton and Surface Mesh Recovery",
+    "venue": "ECCV 2026",
+    "image": "src/skel_cf.gif",
+    "alt": "SKEL Thumbnail",
+    "actions": [
+      { "type": "project", "href": "https://pokerman8.github.io/SKEL-CF//" },
+      { "type": "paper", "href": "https://arxiv.org/abs/2511.20157" },
+      { "type": "code", "href": "https://github.com/Intellindust-AI-Lab/SKEL-CF", "repo": "Intellindust-AI-Lab/SKEL-CF" }
+    ]
+  },
+  {
     "title": "EdgeCrafter: Compact ViTs for Edge Dense Prediction via Task-Specialized Distillation",
     "venue": "arXiv 2026",
     "image": "src/edgecrafter.png",
@@ -51,17 +62,6 @@
       { "type": "project", "href": "https://intellindust-ai-lab.github.io/projects/FSOD-VFM/" },
       { "type": "paper", "href": "https://arxiv.org/abs/2602.03137" },
       { "type": "code", "href": "https://github.com/Intellindust-AI-Lab/FSOD-VFM", "repo": "Intellindust-AI-Lab/FSOD-VFM" }
-    ]
-  },
-  {
-    "title": "SKEL-CF: Coarse-to-Fine Biomechanical Skeleton and Surface Mesh Recovery",
-    "venue": "ECCV 2026",
-    "image": "src/skel_cf.gif",
-    "alt": "SKEL Thumbnail",
-    "actions": [
-      { "type": "project", "href": "https://pokerman8.github.io/SKEL-CF//" },
-      { "type": "paper", "href": "https://arxiv.org/abs/2511.20157" },
-      { "type": "code", "href": "https://github.com/Intellindust-AI-Lab/SKEL-CF", "repo": "Intellindust-AI-Lab/SKEL-CF" }
     ]
   },
   {

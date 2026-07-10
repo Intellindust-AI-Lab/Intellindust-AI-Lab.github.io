@@ -1,5 +1,5 @@
 ## Selected Publications
 
-<div class="card" data-publications-list>
-  <p>Loading publications...</p>
+<div class="publication-grid" data-publications-list>
+  <p class="loading-state">Loading publications...</p>
 </div>

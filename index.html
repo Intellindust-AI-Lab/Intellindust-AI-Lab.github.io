@@ -3,46 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Intellindust AI Lab develops efficient, robust computer vision systems for real-world edge intelligence.">
+  <meta name="theme-color" content="#06111b">
+  <meta property="og:title" content="Intellindust AI Lab">
+  <meta property="og:description" content="Vision AI research and deployment for real-world edge intelligence.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://intellindust-ai-lab.github.io/">
+  <meta property="og:image" content="https://intellindust-ai-lab.github.io/src/logo.jpg">
   <title>Intellindust AI Lab</title>
+  <link rel="canonical" href="https://intellindust-ai-lab.github.io/">
+  <link rel="icon" href="src/logo.jpg" type="image/jpeg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/site.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css?v=20260710-7">
 </head>
 <body>
-  <header class="reveal">
-    <div class="lang-switch" role="group" aria-label="Language switch">
-      <button class="lang-btn active" data-lang="en" type="button">EN</button>
-      <button class="lang-btn" data-lang="fr" type="button">FR</button>
-      <button class="lang-btn" data-lang="zh" type="button">中文</button>
-    </div>
-    <h1 data-i18n="heroTitle">Intellindust AI Lab</h1>
-    <p class="hero-sub" data-i18n="heroSub">Pioneering vision AI for edge intelligence with fast, efficient, and robust models deployed in real-world environments.</p>
-    <div class="hero-stats">
-      <a class="stat-link" href="https://github.com/orgs/Intellindust-AI-Lab/repositories" target="_blank" rel="noopener noreferrer" aria-label="Open Intellindust AI Lab repositories on GitHub">
-        <div class="stat"><strong data-stat="stars">Loading...</strong><span data-i18n="statStars">GitHub Stars</span></div>
+  <a class="skip-link" href="#main-content" data-i18n="skipToContent">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>
+
+  <nav class="site-nav" data-i18n-aria-label="primaryNavLabel" aria-label="Primary navigation">
+    <div class="nav-shell">
+      <a class="brand" href="#top" aria-label="Intellindust AI Lab home">
+        <img src="src/logo.jpg" alt="" width="36" height="36">
+        <span>Intellindust AI Lab</span>
       </a>
-      <a class="stat-link" href="https://github.com/orgs/Intellindust-AI-Lab/repositories" target="_blank" rel="noopener noreferrer" aria-label="Open Intellindust AI Lab repositories on GitHub">
-        <div class="stat"><strong data-stat="repos">Loading...</strong><span data-i18n="statRepos">Open Repositories</span></div>
-      </a>
+
+      <div class="nav-links">
+        <a href="#about" data-i18n="navAbout">About</a>
+        <a href="#research" data-i18n="navResearch">Research</a>
+        <a href="#awards" data-i18n="navAwards">Awards</a>
+        <a href="#publications" data-i18n="navPublications">Publications</a>
+        <a href="#contact" data-i18n="navContact">Contact</a>
+      </div>
+
+      <div class="nav-actions">
+        <a class="nav-github" href="https://github.com/Intellindust-AI-Lab" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <div class="lang-switch" role="group" data-i18n-aria-label="languageSwitchLabel" aria-label="Language switch">
+          <button class="lang-btn active" data-lang="en" type="button" aria-pressed="true">EN</button>
+          <button class="lang-btn" data-lang="fr" type="button" aria-pressed="false">FR</button>
+          <button class="lang-btn" data-lang="zh" type="button" aria-pressed="false">中文</button>
+        </div>
+      </div>
     </div>
-    <p class="hero-follow" data-i18n-html="followLine">Follow our <a href="https://github.com/Intellindust-AI-Lab" target="_blank" rel="noopener noreferrer">GitHub repos</a> for latest code, checkpoints, and updates.</p>
-    <p class="status-strip" data-api-status hidden></p>
+  </nav>
+
+  <header id="top" class="hero reveal">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow" data-i18n="heroEyebrow">Vision systems / Edge intelligence</p>
+        <h1 data-i18n="heroTitle">Intellindust AI Lab</h1>
+        <p class="hero-sub" data-i18n="heroSub">Pioneering vision AI for edge intelligence with fast, efficient, and robust models deployed in real-world environments.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#publications" data-i18n="explorePublications">Explore publications</a>
+          <a class="button button-secondary" href="https://github.com/Intellindust-AI-Lab" target="_blank" rel="noopener noreferrer" data-i18n="viewGitHub">View GitHub</a>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <p class="panel-label" data-i18n="impactLabel">Open-source activity</p>
+        <div class="hero-stats">
+          <a class="stat-link" href="https://github.com/orgs/Intellindust-AI-Lab/repositories" target="_blank" rel="noopener noreferrer" aria-label="Open Intellindust AI Lab repositories on GitHub">
+            <span class="stat"><strong data-stat="stars">Loading...</strong><span data-i18n="statStars">GitHub Stars</span></span>
+          </a>
+          <a class="stat-link" href="https://github.com/orgs/Intellindust-AI-Lab/repositories" target="_blank" rel="noopener noreferrer" aria-label="Open Intellindust AI Lab repositories on GitHub">
+            <span class="stat"><strong data-stat="repos">Loading...</strong><span data-i18n="statRepos">Open Repositories</span></span>
+          </a>
+        </div>
+        <p class="hero-follow" data-i18n-html="followLine">Follow our <a href="https://github.com/Intellindust-AI-Lab" target="_blank" rel="noopener noreferrer">GitHub repos</a> for latest code, checkpoints, and updates.</p>
+        <p class="status-strip" data-api-status aria-live="polite" hidden></p>
+      </div>
+    </div>
   </header>
 
-  <main class="page">
-    <section class="reveal md-section" data-md-section="about"><div class="card">Loading...</div></section>
-    <section class="reveal md-section" data-md-section="research"><div class="card">Loading...</div></section>
-    <section class="reveal md-section" data-md-section="awards"><div class="card">Loading...</div></section>
-    <section class="reveal md-section" data-md-section="publications"><div class="card">Loading...</div></section>
-    <section class="reveal md-section" data-md-section="contact"><div class="card">Loading...</div></section>
+  <main id="main-content" class="page">
+    <section id="about" class="reveal md-section" data-md-section="about"><div class="card">Loading...</div></section>
+    <section id="research" class="reveal md-section" data-md-section="research"><div class="card">Loading...</div></section>
+    <section id="awards" class="reveal md-section" data-md-section="awards"><div class="card">Loading...</div></section>
+    <section id="publications" class="reveal md-section" data-md-section="publications"><div class="card">Loading...</div></section>
+    <section id="contact" class="reveal md-section" data-md-section="contact"><div class="card">Loading...</div></section>
 
     <footer>
-      <p data-i18n="footerText">&copy; 2025 Intellindust AI Lab. All rights reserved.</p>
+      <p>&copy; <span data-current-year>2026</span> <span data-i18n="footerText">Intellindust AI Lab. All rights reserved.</span></p>
     </footer>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="assets/site.js"></script>
+  <script src="assets/site.js?v=20260710-6"></script>
 </body>
 </html>
