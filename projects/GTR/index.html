@@ -100,16 +100,14 @@
         <h1>TL;DR</h1>
         <p class="text">
             Vision foundation models such as <a href="https://arxiv.org/abs/2508.10104" target="_blank">DINOv3</a>
-            provide excellent dense features, but their quadratic self-attention makes high-resolution
-            dense prediction expensive. Recent linear-time vision backbones recover accuracy by interleaving
-            softmax-attention layers among their recurrent ones — reintroducing the quadratic component they
-            set out to remove. <b>GTR</b> (<b>G</b>ated <b>T</b>oken <b>R</b>ecurrence) asks whether that
-            hybridization is necessary: <em>can a pure GLA backbone — every global token-mixing block
-            recurrent, no softmax attention anywhere — deliver the accuracy, transferability and realized
-            GPU efficiency that modern dense prediction demands?</em> The answer is yes — with the right
-            distillation objective, a 2D-aware scan design, and a kernel that makes recurrence fast in practice.
-            And not just for boxes: the same distilled backbone transfers unchanged to
-            <a href="#results">instance segmentation, human pose estimation, and oriented detection</a>.
+            provide strong dense representations, but quadratic self-attention limits high-resolution
+            inference. Existing linear-time backbones often recover accuracy by reintroducing
+            softmax-attention layers, compromising their efficiency advantage. <b>GTR</b> asks whether a
+            purely recurrent vision backbone can avoid this trade-off. With DINOv3 distillation, 2D-aware
+            token scanning, and a hardware-efficient GLA kernel, GTR achieves accurate and practical dense
+            prediction without softmax attention in any global token-mixing block. The same backbone
+            transfers directly across <a href="#results">object detection, instance segmentation, human
+            pose estimation, and oriented detection</a>.
         </p>
 
         <div class="gtr-cards">
