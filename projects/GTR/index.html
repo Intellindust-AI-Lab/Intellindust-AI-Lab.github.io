@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GTR: Gated Token Recurrence for Efficient Object Detection at Any Resolution</title>
-    <meta name="description" content="GTR distills a detection-specialized DINOv3 teacher into a recurrent gated-linear-attention backbone — 58.1 AP on COCO at 1.9 ms, with linear scaling to 16K-resolution inputs.">
+    <meta name="description" content="GTR is a pure gated-linear-attention backbone for dense prediction — no interleaved softmax attention. 58.4 box AP on COCO at 1.9 ms, with linear scaling to 16K-resolution inputs.">
     <meta name="referrer" content="no-referrer-when-downgrade">
     <meta name="robots" content="all">
     <meta content="en_EN" property="og:locale">
@@ -47,12 +47,13 @@
                     <h1 class="title"><span class="gtr-grad">GTR</span>: Gated Token Recurrence for Efficient Object Detection at Any Resolution</h1>
                     <p class="author">Anonymous Authors &nbsp;<span class="aff">&middot;&nbsp; code &amp; models released upon publication</span></p>
                     <p class="abstract">
-                        GTR distills a detection-specialized DINOv3 teacher into a recurrent
-                        gated-linear-attention backbone. It keeps foundation-model representation
-                        quality while replacing quadratic self-attention with linear-time token
-                        recurrence — reaching <b>58.1 box AP</b> on COCO below <b>2&nbsp;ms</b>,
-                        and scaling to 16K-resolution inputs where windowed-attention detectors
-                        run out of memory.
+                        GTR is a dense-prediction framework built on a <b>pure gated-linear-attention
+                        backbone</b> — every global token-mixing block is GLA, with no softmax
+                        attention interleaved. A detection-specialized DINOv3 teacher is distilled
+                        into it in one stage, reaching <b>58.4 box AP</b> on COCO below <b>2&nbsp;ms</b>,
+                        transferring directly to segmentation, pose and oriented detection, and
+                        scaling to 16K-resolution inputs where windowed-attention detectors run
+                        out of memory.
                     </p>
                 </div>
 
@@ -75,8 +76,8 @@
         <!-- headline stats -->
         <div class="gtr-stats">
             <div class="gtr-stat">
-                <div class="value"><span data-count="58.1">0</span></div>
-                <div class="label">COCO box AP (GTR-X) — 52.7 / 55.6 / 57.7 / 58.1 across S/M/L/X</div>
+                <div class="value"><span data-count="58.4">0</span></div>
+                <div class="label">COCO box AP (GTR-X) — 52.7 / 55.6 / 57.7 / 58.4 across S/M/L/X</div>
             </div>
             <div class="gtr-stat">
                 <div class="value"><span data-count="1.14">0</span><span class="unit">ms</span></div>
@@ -100,10 +101,15 @@
         <p class="text">
             Vision foundation models such as <a href="https://arxiv.org/abs/2508.10104" target="_blank">DINOv3</a>
             provide excellent dense features, but their quadratic self-attention makes high-resolution
-            detection expensive. <b>GTR</b> (<b>G</b>ated <b>T</b>oken <b>R</b>ecurrence) asks a simple question:
-            <em>can detection-specialized foundation-model representations be transferred into a recurrent,
-            linear-complexity backbone without giving up accuracy?</em> The answer is yes — with the right
+            dense prediction expensive. Recent linear-time vision backbones recover accuracy by interleaving
+            softmax-attention layers among their recurrent ones — reintroducing the quadratic component they
+            set out to remove. <b>GTR</b> (<b>G</b>ated <b>T</b>oken <b>R</b>ecurrence) asks whether that
+            hybridization is necessary: <em>can a pure GLA backbone — every global token-mixing block
+            recurrent, no softmax attention anywhere — deliver the accuracy, transferability and realized
+            GPU efficiency that modern dense prediction demands?</em> The answer is yes — with the right
             distillation objective, a 2D-aware scan design, and a kernel that makes recurrence fast in practice.
+            And not just for boxes: the same distilled backbone transfers unchanged to
+            <a href="#results">instance segmentation, human pose estimation, and oriented detection</a>.
         </p>
 
         <div class="gtr-cards">
@@ -116,10 +122,11 @@
             </div>
             <div class="gtr-card reveal">
                 <div class="icon-wrap"><i class="fa-solid fa-arrows-rotate"></i></div>
-                <h3>Recurrence made 2D</h3>
-                <p>Alternating left↔right and top↕bottom scan directions remove the directional bias
-                   of 1D recurrence, and a lightweight C2f pyramid feeds a query-based DETR decoder —
-                   giving a <b>global receptive field from the very first block</b>.</p>
+                <h3>Pure GLA, made 2D</h3>
+                <p>All 12 blocks are GLA — <b>no softmax attention is interleaved</b>. Alternating
+                   left↔right and top↕bottom scan directions remove the directional bias of 1D
+                   recurrence, and a lightweight C2f pyramid feeds a query-based DETR decoder,
+                   giving a global receptive field from the very first block.</p>
             </div>
             <div class="gtr-card reveal">
                 <div class="icon-wrap"><i class="fa-solid fa-gauge-high"></i></div>
@@ -147,17 +154,25 @@
     <div class="container blog main" id="frontier">
         <h1>Accuracy–Latency Frontier</h1>
         <p class="text">
-            All 56 detectors below were re-measured under one unified protocol: FP16, batch size one,
-            single RTX 4090, compiled forward path, post-processing included for models that need NMS.
-            Hover any point for details, or filter by model scale — GTR variants (green squares) sit on the
-            upper-left frontier in every group. Exact numbers, including AP<sub>50/75/S/M/L</sub>, are in the
-            <a href="#results">results table</a>.
+            All 116 models below — detection, instance segmentation, human pose and oriented
+            detection — were re-measured under one unified protocol: FP16, batch size one,
+            single RTX 4090, compiled forward path, post-processing included for models that need it.
+            Hover any point for details, switch task, or filter by model scale — GTR variants
+            (green squares) sit on the upper-left frontier in every group. Exact numbers are in the
+            <a href="#results">results tables</a>.
         </p>
 
         <div class="gtr-chart-card reveal">
             <div class="gtr-chart-head">
-                <span class="gtr-chart-title">COCO box AP vs. minimum latency</span>
-                <span class="gtr-chart-sub">val2017 · 640×640 · lower-right is slower, higher is better</span>
+                <span class="gtr-chart-title" id="gtr-chart-title">COCO box AP vs. minimum latency</span>
+                <span class="gtr-chart-sub" id="gtr-chart-sub">val2017 · 640×640 · lower-right is slower, higher is better</span>
+            </div>
+            <div class="gtr-chip-row" id="gtr-chart-tasks">
+                <span class="chip-label">Task</span>
+                <button class="gtr-chip active" data-task="det" aria-pressed="true">Detection</button>
+                <button class="gtr-chip" data-task="seg" aria-pressed="false">Segmentation</button>
+                <button class="gtr-chip" data-task="pose" aria-pressed="false">Pose</button>
+                <button class="gtr-chip" data-task="obb" aria-pressed="false">Oriented (DOTA)</button>
             </div>
             <div class="gtr-chip-row" id="gtr-chart-chips">
                 <span class="chip-label">Scale</span>
@@ -179,10 +194,10 @@
                 </span>
                 <span class="item">
                     <svg width="14" height="14" aria-hidden="true"><path d="M7 1 L13 12 L1 12 Z" fill="#eb6834"/></svg>
-                    YOLO family
+                    YOLO / CNN family
                 </span>
             </div>
-            <div class="gtr-chart-note">
+            <div class="gtr-chart-note" id="gtr-chart-note-text">
                 The green line connects GTR-S/M/L/X. Mean and median latencies stay within 0.016&nbsp;ms of the
                 minimum for every GTR variant — the compiled path is stable, not a timing outlier.
             </div>
@@ -194,8 +209,9 @@
     <div class="container blog main">
         <h1>How GTR Works</h1>
         <p class="text">
-            GTR is a DETR-like detector with three components: a <b>12-layer gated-linear-attention (GLA)
-            backbone</b> that replaces quadratic self-attention with a data-dependent recurrent state, a
+            GTR is a DETR-like detector with three components: a <b>12-layer pure gated-linear-attention
+            (GLA) backbone</b> — every global token-mixing block is GLA, with no softmax-attention layer
+            interleaved — that replaces quadratic self-attention with a data-dependent recurrent state, a
             <b>lightweight three-scale projector</b> that fuses features tapped from blocks 4/8/12 into a
             stride-8/16/32 pyramid, and a <b>query-based detection decoder</b> with grouped-query training.
             Consecutive blocks scan the patch grid left→right, right→left, top→bottom, and bottom→top,
@@ -204,11 +220,9 @@
     </div>
 
     <div class="container blog extra-large gray reveal">
-        <img src="assets/figures/gtr_pipeline.png" alt="GTR architecture overview">
+        <img class="gtr-shrink" src="assets/figures/gtr_pipeline.png" alt="GTR architecture overview">
         <p class="caption">
-            <b>Overview of GTR.</b> A 12-layer GLA backbone alternates two-dimensional scan directions
-            (top right) and exposes intermediate features to a lightweight three-scale projector; the
-            resulting pyramid is decoded by a query-based detection head.
+            <b>Overview of GTR.</b>
         </p>
     </div>
 
@@ -225,42 +239,29 @@
             <div class="gtr-loss">
                 <h4><i class="fa-solid fa-eye-slash"></i> &nbsp;Masked token prediction</h4>
                 <div class="math-line">$\mathcal{L}_{\mathrm{mask}}=\frac{1}{|\Omega_m|}\sum_{i\in\Omega_m}\big\|\phi(\mathbf{Y}_{\mathrm{stu}}^{i})-\mathbf{Y}_{\mathrm{tea}}^{i}\big\|_2^2$</div>
-                <p>Recover the teacher's representation at <b>hidden</b> positions from visible context —
-                   the classic masked-distillation signal.</p>
             </div>
             <div class="gtr-loss">
                 <h4><i class="fa-solid fa-crosshairs"></i> &nbsp;Visible Representation Alignment</h4>
                 <div class="math-line">$\mathcal{L}_{\mathrm{vra}}=\frac{1}{|\Omega_v|}\sum_{i\in\Omega_v}\big\|\phi(\mathbf{Y}_{\mathrm{stu}}^{i})-\mathbf{Y}_{\mathrm{tea}}^{i}\big\|_2^2$</div>
-                <p><b>New in GTR.</b> An order-dependent recurrent student drifts on <b>visible</b> tokens even
-                   when masked prediction converges — VRA pins the features the detector actually consumes.</p>
             </div>
             <div class="gtr-loss">
                 <h4><i class="fa-solid fa-diagram-project"></i> &nbsp;Intermediate Gram matching</h4>
                 <div class="math-line">$\mathcal{L}_{\mathrm{gram}}=\frac{1}{K|\Omega_v|}\sum_{k,\,i}\Big[1-\big\langle\overline{\mathbf{A}}^{k}_{\mathrm{tea}}(i,:),\overline{\mathbf{A}}^{k}_{\mathrm{stu}}(i,:)\big\rangle\Big]$</div>
-                <p>Match pairwise cosine-affinity structure at blocks 4/8/12 — transferring the token-to-token
-                   relations that dense prediction depends on.</p>
             </div>
         </div>
     </div>
 
     <div class="container blog extra-large gray reveal">
-        <img src="assets/figures/distillation_pipeline.png" alt="Masked DINOv3 representation distillation pipeline">
+        <img class="gtr-shrink" src="assets/figures/distillation_pipeline.png" alt="Masked DINOv3 representation distillation pipeline">
         <p class="caption">
-            <b>Masked DINOv3 representation distillation.</b> The frozen detection-specialized teacher
-            processes the complete image; the trainable GTR student receives masked patches. Intermediate
-            visible-token relations and final representations at both masked and visible positions provide
-            the distillation targets.
+            <b>Masked DINOv3 representation distillation.</b>
         </p>
     </div>
 
     <div class="container blog main gray reveal">
         <img src="assets/figures/vra_drift.png" alt="Visible representation drift during distillation">
         <p class="caption">
-            <b>Why VRA matters.</b> Without VRA, a ViT student drifts only mildly on visible tokens, but the
-            GLA student drifts substantially and persistently — its recurrent token mixing gives no free
-            alignment. Adding VRA suppresses the drift, with a markedly larger effect on the GLA student.
-            Ablations agree: masked prediction alone reaches 49.0 AP; adding VRA and Gram supervision lifts
-            it to <b>51.9 AP (+2.9)</b>.
+            <b>Why VRA matters.</b>
         </p>
     </div>
 
@@ -276,12 +277,9 @@
     </div>
 
     <div class="container blog extra-large gray reveal">
-        <img class="gtr-zoom" src="assets/figures/erf.jpg" alt="Stage-wise effective receptive fields of GTR-S and RF-DETR-S">
+        <img class="gtr-zoom gtr-shrink" src="assets/figures/erf.jpg" alt="Stage-wise effective receptive fields of GTR-S and RF-DETR-S">
         <p class="caption">
-            <b>Stage-wise effective receptive fields</b> <span class="gtr-zoom-hint">(hover over the figure to magnify)</span>.
-            Columns show blocks 3/6/9/12 plus a zoom of the
-            central 128×128 region. The horizontal and vertical structures in GTR's maps reflect its two scan
-            axes; RF-DETR's Stage-1 support is limited to one attention window.
+            <b>Stage-wise effective receptive fields.</b>
         </p>
     </div>
 
@@ -323,34 +321,17 @@
     <!-- ======================= Results ======================= -->
     <div class="container blog main" id="results">
         <h1>Results</h1>
-        <h2>COCO Object Detection</h2>
+        <h2><span class="gtr-grad-ink">One Backbone, Four Dense Tasks</span></h2>
         <p class="text">
-            With Objects365 pre-training and 30 COCO epochs, GTR forms a strong frontier at every scale:
-            <b>GTR-M</b> ranks first in AP, AP<sub>75</sub>, AP<sub>S</sub> and AP<sub>M</sub> in its group;
-            <b>GTR-L</b> is first in latency <em>and</em> five of six AP metrics (57.7 AP at 1.738 ms —
-            0.6 AP above D-FINE-L while 1.30× faster); <b>GTR-X</b> is the fastest extra-large model at
-            1.931 ms. Best value per column is marked with a green dot; GTR rows are highlighted.
-        </p>
-
-        <div class="gtr-tabs" data-tabs="table" role="tablist" aria-label="Model scale">
-            <button class="gtr-tab active" data-tab="S" role="tab" aria-selected="true">Small</button>
-            <button class="gtr-tab" data-tab="M" role="tab" aria-selected="false">Medium</button>
-            <button class="gtr-tab" data-tab="L" role="tab" aria-selected="false">Large</button>
-            <button class="gtr-tab" data-tab="X" role="tab" aria-selected="false">X-Large</button>
-        </div>
-        <div id="gtr-table-host"></div>
-        <p class="gtr-table-note">
-            Latency: minimum per-image time, FP16, batch 1, RTX 4090 (compilation and warm-up excluded;
-            NMS included where required). Epochs marked * add a no-strong-augmentation phase;
-            "—" indicates undisclosed schedules. GTR uses 30 COCO epochs after Objects365 pre-training.
-        </p>
-    </div>
-
-    <div class="container blog main">
-        <h2>One Backbone, Four Dense Tasks</h2>
-        <p class="text">
-            The same distilled backbone transfers beyond boxes without any extra supervision:
-            instance segmentation, human pose estimation, and oriented detection on DOTA-v1.0.
+            The same distilled backbone serves four dense-prediction tasks.
+            <b>Detection</b>: GTR-M ranks first in AP, AP<sub>75</sub>, AP<sub>S</sub> and AP<sub>M</sub>
+            in its group; GTR-L is first in latency <em>and</em> five of six AP metrics; GTR-X reaches
+            58.4 AP as the fastest extra-large model. <b>Instance segmentation</b>: first in mask AP in
+            all four scale groups. <b>Human pose</b>: first in keypoint AP in all four groups.
+            <b>Oriented detection</b> on DOTA-v1.0: 80.9 AP<sub>50</sub> — +1.1 AP over Oriented-DETR
+            (Swin-T) at 4.1× lower latency. Each tab below pairs the full comparison table with
+            qualitative results; the best value per column within each group carries a green dot,
+            GTR rows are highlighted.
         </p>
 
         <div class="gtr-tabs" data-tabs="qual" role="tablist" aria-label="Task">
@@ -363,40 +344,67 @@
 
     <div class="container blog extra-large">
         <div class="gtr-panel active" data-group="qual" data-panel="det">
-            <div class="gtr-metric-row">
-                <span class="gtr-metric">box AP <b>52.7 / 55.6 / 57.7 / 58.1</b> (S/M/L/X)</span>
-                <span class="gtr-metric">latency <b>1.14 / 1.35 / 1.74 / 1.93 ms</b></span>
-                <span class="gtr-metric">strongest AP<sub>S</sub> in S/M/L groups</span>
-            </div>
+            <div id="gtr-det-table"></div>
+            <p class="gtr-table-note">
+                COCO val2017 box AP. Latency: minimum per-image time, FP16, batch 1, RTX 4090
+                (compilation and warm-up excluded; NMS included where required). Epochs marked *
+                add a no-strong-augmentation phase; "—" indicates undisclosed schedules. GTR uses
+                30 COCO epochs after Objects365 pre-training (50 for GTR-X). Best per column within
+                each scale group is marked with a green dot.
+            </p>
             <img src="assets/figures/results_detection.jpg" alt="Qualitative object detection results on COCO">
             <p class="caption"><b>COCO val2017 qualitative results.</b> Dense scenes, small objects, heavy occlusion and night-time scenes.</p>
         </div>
         <div class="gtr-panel" data-group="qual" data-panel="seg">
-            <div class="gtr-metric-row">
-                <span class="gtr-metric">mask AP <b>44.4 / 47.2 / 49.0 / 49.5</b> (S/M/L/X)</span>
-                <span class="gtr-metric">first in mask AP in <b>all four</b> scale groups</span>
-                <span class="gtr-metric">+1.3 / +1.9 / +1.9 / +0.7 over RF-DETR-Seg — without SAM2 pseudo-masks</span>
-            </div>
+            <div id="gtr-seg-table"></div>
+            <p class="gtr-table-note">
+                COCO val2017 mask AP; same latency protocol as the detection table. † — pre-trained on
+                Objects365 with SAM2-generated pseudo-masks (35× the COCO box count) before COCO
+                fine-tuning; GTR uses neither. Non-latency baseline entries are taken from EdgeCrafter.
+                Best per column within each scale group is marked with a green dot.
+            </p>
             <img src="assets/figures/results_segmentation.jpg" alt="Qualitative instance segmentation results on COCO">
             <p class="caption"><b>COCO instance segmentation.</b> GTR-X is both the fastest and the most accurate X-scale model (2.253 ms, 1.36× faster than RF-DETR-Seg-X).</p>
         </div>
         <div class="gtr-panel" data-group="qual" data-panel="pose">
-            <div class="gtr-metric-row">
-                <span class="gtr-metric">keypoint AP <b>70.5 / 73.8 / 74.6 / 74.8</b> (S/M/L/X)</span>
-                <span class="gtr-metric">AR <b>76.2 / 79.4 / 80.0 / 80.2</b></span>
-            </div>
+            <div id="gtr-pose-table"></div>
+            <p class="gtr-table-note">
+                COCO val2017 keypoint metrics; same latency protocol as the detection table.
+                † — pre-trained with additional Objects365 supervision; GTR does not.
+                "—" — not reported. Non-latency baseline entries are taken from EdgeCrafter.
+                Best per column within each scale group is marked with a green dot.
+            </p>
             <img src="assets/figures/results_pose.jpg" alt="Qualitative human pose estimation results on COCO">
             <p class="caption"><b>COCO human pose estimation.</b> The distilled representation transfers directly to keypoint prediction.</p>
         </div>
         <div class="gtr-panel" data-group="qual" data-panel="obb">
-            <div class="gtr-metric-row">
-                <span class="gtr-metric">DOTA-v1.0 AP<sub>50</sub> <b>80.3</b> at 3.763 ms</span>
-                <span class="gtr-metric">+0.5 AP over Oriented-DETR (Swin-T)</span>
-            </div>
+            <div id="gtr-obb-table"></div>
+            <p class="gtr-table-note">
+                Overall AP<sub>50</sub> on the DOTA-v1.0 test set; same latency protocol as the
+                detection table. Non-latency baseline entries are taken from RiO-DETR, which is itself
+                omitted because no public implementation was available to time. Best per column within
+                each detector family is marked with a green dot.
+            </p>
             <img src="assets/figures/results_obb_1.jpg" alt="Oriented object detection results on DOTA, part 1">
             <img src="assets/figures/results_obb_2.jpg" alt="Oriented object detection results on DOTA, part 2" style="margin-top: 10px;">
             <p class="caption"><b>DOTA-v1.0 oriented detection.</b> Dense aerial layouts with arbitrary object orientation — a hard localization stress test for a recurrent backbone.</p>
         </div>
+    </div>
+
+    <div class="container blog main">
+        <h2>Accuracy Scales with Input Resolution</h2>
+        <p class="text">
+            Linear complexity is only useful if the extra spatial detail is actually exploited. Sweeping
+            GTR-S from 640×640 to 1024×1024 — same 30-epoch recipe throughout — accuracy improves
+            <b>monotonically from 52.73 to 55.26 AP</b>, with the largest gain on small objects
+            (AP<sub>S</sub> 35.06 → 40.61). GTR does not merely tolerate larger inputs; it converts them
+            into accuracy.
+        </p>
+        <div id="gtr-res-table"></div>
+        <p class="gtr-table-note">
+            GTR-S on COCO val2017, 30 epochs at every resolution. The 640×640 row is the baseline used in
+            all other tables on this page. Best value per accuracy column is marked with a green dot.
+        </p>
     </div>
 
 
@@ -428,19 +436,14 @@
     <div class="container blog extra-large gray reveal">
         <img class="gtr-zoom" src="assets/figures/gram_ablation.jpg" alt="Token affinity visualization with and without Gram supervision">
         <p class="caption">
-            <b>Token-affinity rows at blocks 4/8/12</b> <span class="gtr-zoom-hint">(hover to magnify)</span>
-            for a teacher-selected query (green square).
-            With $\mathcal{L}_{\mathrm{gram}}$, student affinity patterns closely track the teacher;
-            without it, responses become diffuse or spatially displaced.
+            <b>Token-affinity rows at blocks 4/8/12.</b>
         </p>
     </div>
 
     <div class="container blog extra-large gray reveal">
         <img class="gtr-zoom" src="assets/figures/mae.jpg" alt="Masked distillation qualitative visualization">
         <p class="caption">
-            <b>Masked input (left) → teacher response (middle) → distilled GLA student (right)</b>
-            <span class="gtr-zoom-hint">(hover to magnify)</span>, at 50%
-            masking. The student reproduces teacher-like spatial responses even for hidden regions.
+            <b>Masked input (left) → teacher response (middle) → distilled GLA student (right).</b>
         </p>
     </div>
 

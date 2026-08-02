@@ -68,6 +68,14 @@ div.container.blog#first-content.gtr-hero .blog-title {
   -webkit-text-fill-color: transparent;
 }
 
+/* same idea on white background: one backbone (GTR green) flowing into many tasks (blue) */
+.gtr-grad-ink {
+  background: linear-gradient(92deg, #0d6a49 0%, #159d6e 42%, #2a78d6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 div.container.blog#first-content.gtr-hero h1.title {
   line-height: 1.18;
 }
@@ -156,6 +164,12 @@ div.container.blog#first-content.gtr-hero p.author .aff {
   margin-top: 6px;
   line-height: 1.4;
 }
+
+/* schematic figures read fine below full column width */
+div.container.blog img.gtr-shrink { width: 75%; }
+
+/* figure captions sit centred under their figure */
+div.container.blog p.caption { text-align: center; }
 
 /* ---------- Scroll reveal ---------- */
 .reveal {
@@ -381,13 +395,6 @@ div.container.blog#first-content.gtr-hero p.author .aff {
   padding: 6px 0;
   overflow-x: auto;
 }
-.gtr-loss p {
-  font-family: "Charter", serif;
-  font-size: 0.9em;
-  line-height: 1.5;
-  color: #52514e;
-  margin: 4px 0 0 0;
-}
 
 /* ---------- Tabs ---------- */
 .gtr-tabs {
@@ -447,6 +454,15 @@ div.container.blog#first-content.gtr-hero p.author .aff {
 table tr.gtr-ours td {
   background: rgba(27, 175, 122, 0.10) !important;
   font-weight: 600;
+}
+table tr.gtr-group-row td {
+  background: #e6e6e2 !important;
+  text-align: left !important;
+  font-size: 78%;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #52514e;
 }
 table td.best { font-weight: 700; }
 table td.best::after {
@@ -531,12 +547,6 @@ img.gtr-zoom {
   will-change: transform;
   pointer-events: none;
   user-select: none;
-}
-.gtr-zoom-hint {
-  font-family: "Poppins", sans-serif;
-  font-size: 0.85em;
-  font-style: italic;
-  color: #898781;
 }
 @media (prefers-reduced-motion: reduce) {
   #gtr-lens { transition: none; }
