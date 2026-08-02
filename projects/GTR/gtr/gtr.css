@@ -226,15 +226,6 @@ div.container.blog p.caption { text-align: center; }
   margin: 0 0 8px 0;
   color: #1a1a19;
 }
-.gtr-card p {
-  font-family: "Charter", serif;
-  font-size: 0.93em;
-  line-height: 1.55;
-  color: #52514e;
-  margin: 0;
-}
-.gtr-card p b { color: #22221f; }
-
 /* ---------- Chart card ---------- */
 .gtr-chart-card {
   background: #ffffff;

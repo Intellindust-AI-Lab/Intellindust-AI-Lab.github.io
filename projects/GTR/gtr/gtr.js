@@ -138,7 +138,7 @@
     { m: "YOLO26-Pose-X",  f: "yolo", g: "X", p: 57.6, gf: 201.7, lat: 2.774,  ap: 71.6, ap50: 91.6, ap75: 78.9, apm: 67.4, apl: 79.5, ar: 77.2 },
     { m: "DETRPose-X",     f: "detr", o365: 1,        g: "X", p: 73.3, gf: 239.5, lat: 4.129,  ap: 73.3, ap50: 90.5, ap75: 79.4, apm: 67.5, apl: 82.7, ar: 79.4 },
     { m: "ECPose-X",       f: "detr", g: "X", p: 50.6, gf: 172.2, lat: 3.275,  ap: 74.8, ap50: 92.2, ap75: 81.5, apm: 68.0, apl: 85.4, ar: 80.1, lbl: [8, 12] },
-    { m: "GTR-X",   f: "gtr", g: "X", p: 47.5, gf: 144.8, lat: 2.412,  ap: 74.8, ap50: 92.0, ap75: 81.6, apm: 68.1, apl: 84.9, ar: 80.2, lbl: [-10, -12] }
+    { m: "GTR-X",   f: "gtr", g: "X", p: 47.5, gf: 144.8, lat: 2.412,  ap: 74.8, ap50: 92.0, ap75: 81.6, apm: 68.1, apl: 84.9, ar: 80.2, lbl: [8, -18] }
   ];
 
   /* ---------------- DOTA-v1.0 oriented object detection (from the paper) ---------------- */
@@ -432,7 +432,7 @@
       yTitle: "DOTA-v1.0 AP50",
       x: { min: 0.6, max: 18, log: true, ticks: [0.7, 1, 2, 5, 10, 15], fmt: String },
       y: { min: 77.3, max: 80.7, ticks: [77.5, 78, 78.5, 79, 79.5, 80, 80.5], fmt: function (v) { return v.toFixed(1); } },
-      note: "GTR-X reaches 80.3 AP<sub>50</sub> at 3.763&nbsp;ms — DETR-family accuracy at a fraction of DETR-family latency (the other DETR-based models need 9.3–15.5&nbsp;ms)."
+      note: "GTR-X reaches 80.9 AP<sub>50</sub> at 3.763&nbsp;ms — DETR-family accuracy at a fraction of DETR-family latency (the other DETR-based models need 9.3–15.5&nbsp;ms)."
     }
   };
 
