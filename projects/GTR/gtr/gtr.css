@@ -401,8 +401,14 @@ div.container.blog p.caption { text-align: center; }
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  padding: 8px 0 16px 0;
+  padding: 8px 0 10px 0;
 }
+
+/* the task tabs end one container and their panels open the next — drop the
+   doubled padding at that seam so the tab row sits close to what it controls */
+#results { padding-bottom: 0; }
+#results + div.container.blog.extra-large { padding-top: 0; }
+.gtr-panel .gtr-chip-row { margin-top: 8px; }
 .gtr-tab {
   font-family: "Poppins", sans-serif;
   font-size: 0.86em;
