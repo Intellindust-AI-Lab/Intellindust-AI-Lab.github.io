@@ -1,5 +1,16 @@
 [
   {
+    "title": "EdgeCrafter: Compact ViTs for Edge Dense Prediction via Task-Specialized Distillation",
+    "venue": "TMLR 2026",
+    "image": "src/edgecrafter.png",
+    "alt": "EdgeCrafter Thumbnail",
+    "actions": [
+      { "type": "project", "href": "https://intellindust-ai-lab.github.io/projects/EdgeCrafter/" },
+      { "type": "paper", "href": "https://arxiv.org/abs/2603.18739" },
+      { "type": "code", "href": "https://github.com/Intellindust-AI-Lab/EdgeCrafter", "repo": "Intellindust-AI-Lab/EdgeCrafter" }
+    ]
+  },
+  {
     "title": "SKEL-CF: Coarse-to-Fine Biomechanical Skeleton and Surface Mesh Recovery",
     "venue": "ECCV 2026",
     "image": "src/skel_cf.gif",
@@ -8,17 +19,6 @@
       { "type": "project", "href": "https://pokerman8.github.io/SKEL-CF//" },
       { "type": "paper", "href": "https://arxiv.org/abs/2511.20157" },
       { "type": "code", "href": "https://github.com/Intellindust-AI-Lab/SKEL-CF", "repo": "Intellindust-AI-Lab/SKEL-CF" }
-    ]
-  },
-  {
-    "title": "EdgeCrafter: Compact ViTs for Edge Dense Prediction via Task-Specialized Distillation",
-    "venue": "arXiv 2026",
-    "image": "src/edgecrafter.png",
-    "alt": "EdgeCrafter Thumbnail",
-    "actions": [
-      { "type": "project", "href": "https://intellindust-ai-lab.github.io/projects/EdgeCrafter/" },
-      { "type": "paper", "href": "https://arxiv.org/abs/2603.18739" },
-      { "type": "code", "href": "https://github.com/Intellindust-AI-Lab/EdgeCrafter", "repo": "Intellindust-AI-Lab/EdgeCrafter" }
     ]
   },
   {
