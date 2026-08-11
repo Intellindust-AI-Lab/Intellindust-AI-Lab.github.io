@@ -101,7 +101,61 @@
     margin-top: 12px;
     font-weight: 600;
     color: #6a5acd; /* 浅色文字，与紫色背景协调 */
-}
+  }
+
+  .related-project-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 210px;
+    padding: 1.75rem;
+    color: #212529;
+    text-align: left;
+    text-decoration: none;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .related-project-card:hover {
+    color: #212529;
+    transform: translateY(-5px);
+    border-color: rgba(13, 110, 253, 0.4);
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.14);
+  }
+
+  .related-project-card:focus-visible {
+    outline: 3px solid rgba(13, 110, 253, 0.35);
+    outline-offset: 4px;
+  }
+
+  .related-project-kicker {
+    margin-bottom: 0.75rem;
+    color: #0d6efd;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .related-project-card h4 {
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+  }
+
+  .related-project-card p {
+    margin-bottom: 1.5rem;
+    color: #6c757d;
+    line-height: 1.6;
+  }
+
+  .related-project-link {
+    margin-top: auto;
+    color: #0d6efd;
+    font-weight: 700;
+  }
   </style>
 </head>
 <body>
@@ -198,6 +252,40 @@
         <h5>Slides</h5>
       </div>
     </div>-- >
+  </div>
+</div>
+
+<!-- Related Projects -->
+<div class="container section text-center" id="related-projects">
+  <h3>Related Projects</h3>
+  <p class="text-muted">Explore related work across the DEIM model family.</p>
+  <div class="row g-4 mt-2 justify-content-center">
+    <div class="col-lg-4 col-md-6 col-12">
+      <a href="https://www.shihuahuang.cn/DEIM/" target="_blank" rel="noopener noreferrer" class="related-project-card" aria-label="Visit the DEIM project page">
+        <span class="related-project-kicker">Predecessor</span>
+        <h4>DEIM</h4>
+        <p>DETR with Improved Matching for Fast Convergence</p>
+        <span class="related-project-link">View project</span>
+      </a>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-12">
+      <a href="https://intellindust-ai-lab.github.io/projects/EdgeCrafter/" target="_blank" rel="noopener noreferrer" class="related-project-card" aria-label="Visit the EdgeCrafter project page">
+        <span class="related-project-kicker">Latest work</span>
+        <h4>EdgeCrafter</h4>
+        <p>Compact ViTs for Edge Dense Prediction via Task-Specialized Distillation</p>
+        <span class="related-project-link">View project</span>
+      </a>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-12">
+      <a href="https://wleilei.github.io/ov-deim-project-page/" target="_blank" rel="noopener noreferrer" class="related-project-card" aria-label="Visit the OV-DEIM project page">
+        <span class="related-project-kicker">Related work</span>
+        <h4>OV-DEIM</h4>
+        <p>Real-time DETR-Style Open-Vocabulary Object Detection with GridSynthetic Augmentation</p>
+        <span class="related-project-link">View project</span>
+      </a>
+    </div>
   </div>
 </div>
 

@@ -7,7 +7,7 @@
     <title>SURE+ | From Misclassifications to Outliers</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         :root {
@@ -559,6 +559,14 @@
             color: var(--text-light);
         }
 
+        .related-project-card {
+            width: min(100%, 560px);
+        }
+
+        .related-project-card i {
+            color: var(--primary);
+        }
+
         /* Two column layout */
         .two-column {
             display: grid;
@@ -826,6 +834,23 @@
                 </div>
             </div>
             <!-- </div> -->
+        </div>
+    </section>
+
+    <!-- Related Project -->
+    <section class="section abstract" id="related-projects">
+        <div class="container">
+            <h2 class="section-title">Related Project</h2>
+            <p class="section-subtitle">Explore the earlier SURE work on reliable and robust deep networks</p>
+
+            <div class="pdf-viewer">
+                <a href="https://yutingli0606.github.io/SURE/" class="pdf-card related-project-card" target="_blank"
+                    rel="noopener noreferrer" aria-label="Visit the SURE project page">
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                    <h4>SURE</h4>
+                    <span>SUrvey REcipes for building reliable and robust deep networks</span>
+                </a>
+            </div>
         </div>
     </section>
 

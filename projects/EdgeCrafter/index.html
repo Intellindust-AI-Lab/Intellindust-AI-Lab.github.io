@@ -553,6 +553,77 @@ content="EdgeCrafter: Compact Vision Transformers for edge dense prediction incl
       }
     }
 
+    /* ===== RELATED PROJECTS ===== */
+    .related-projects-intro {
+      max-width: 720px;
+      margin: 0 auto 2.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .related-projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .related-project-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 220px;
+      padding: 2rem;
+      color: var(--text-main);
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .related-project-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(79, 70, 229, 0.35);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .related-project-card:focus-visible {
+      outline: 3px solid rgba(79, 70, 229, 0.35);
+      outline-offset: 4px;
+    }
+
+    .related-project-kicker {
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .related-project-card h3 {
+      margin-bottom: 0.75rem;
+      font-size: 1.5rem;
+    }
+
+    .related-project-card p {
+      margin-bottom: 1.5rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .related-project-link {
+      margin-top: auto;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    @media (max-width: 767px) {
+      .related-projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* ===== CITATION ===== */
     .citation-section {
       background-color: var(--text-main);
@@ -926,6 +997,32 @@ DETR while using substantially fewer parameters. For pose estimation, ECPose-X r
         <div class="result-image-card">
           <img src="images/resseg.png" alt="Instance Segmentation Results" style="width: 100%; display: block;" onerror="this.style.display='none';">
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RELATED PROJECTS ===== -->
+  <section class="section" id="related-projects">
+    <div class="container">
+      <div class="section-header" style="text-align: center;">
+        <h2 class="section-title">Related Projects</h2>
+      </div>
+      <p class="related-projects-intro">Explore the earlier work that led to EdgeCrafter.</p>
+
+      <div class="related-projects-grid">
+        <a href="https://www.shihuahuang.cn/DEIM/" target="_blank" rel="noopener noreferrer" class="related-project-card" aria-label="Visit the DEIM project page">
+          <span class="related-project-kicker">Earlier work</span>
+          <h3>DEIM</h3>
+          <p>DETR with Improved Matching for Fast Convergence</p>
+          <span class="related-project-link">View project</span>
+        </a>
+
+        <a href="https://intellindust-ai-lab.github.io/projects/DEIMv2/" target="_blank" rel="noopener noreferrer" class="related-project-card" aria-label="Visit the DEIMv2 project page">
+          <span class="related-project-kicker">Previous generation</span>
+          <h3>DEIMv2</h3>
+          <p>Real-Time Object Detection Meets DINOv3</p>
+          <span class="related-project-link">View project</span>
+        </a>
       </div>
     </div>
   </section>
