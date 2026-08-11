@@ -147,7 +147,60 @@
     margin-top: 12px;
     font-weight: 600;
     color: #1a202c;
-}
+  }
+
+  .related-project-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 210px;
+    padding: 1.75rem;
+    color: #1a202c;
+    text-align: left;
+    text-decoration: none;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .related-project-card:hover {
+    color: #1a202c;
+    transform: translateY(-4px);
+    border-color: #60a5fa;
+    box-shadow: 0 14px 32px rgba(37, 99, 235, 0.14);
+  }
+
+  .related-project-card:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.3);
+    outline-offset: 4px;
+  }
+
+  .related-project-venue {
+    margin-bottom: 0.75rem;
+    color: #2563eb;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .related-project-card h4 {
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+  }
+
+  .related-project-card p {
+    margin-bottom: 1.5rem;
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  .related-project-link {
+    margin-top: auto;
+    color: #2563eb;
+    font-weight: 700;
+  }
 
   /* PDF容器样式 */
   .pdf-container {
@@ -266,6 +319,21 @@
   <h3>Experimental Results of CD-FSOD</h3>
   <div class="pdf-container">
     <img src="resrc/exp3.png" alt="Experimental Results3" class="img-fluid img-hover">
+  </div>
+</div>
+
+<!-- Related Project -->
+<div class="container section text-center" id="related-projects">
+  <h3>Related Project</h3>
+  <div class="row justify-content-center mt-3">
+    <div class="col-lg-8 col-md-10 col-12">
+      <a href="https://intellindust-ai-lab.github.io/projects/FT-FSOD/" target="_blank" rel="noopener noreferrer" class="related-project-card" aria-label="Visit the FT-FSOD project page">
+        <span class="related-project-venue">CVPR 2026</span>
+        <h4>FT-FSOD</h4>
+        <p>A Closer Look at Cross-Domain Few-Shot Object Detection: Fine-Tuning Matters and Parallel Decoder Helps</p>
+        <span class="related-project-link">View project</span>
+      </a>
+    </div>
   </div>
 </div>
 
