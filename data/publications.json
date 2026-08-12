@@ -65,6 +65,17 @@
     ]
   },
   {
+    "title": "OV-DEIM: Real-time DETR-Style Open-Vocabulary Object Detection with GridSynthetic Augmentation",
+    "venue": "arXiv 2026",
+    "image": "src/ov-deim.png",
+    "alt": "Overview of the OV-DEIM architecture and GridSynthetic augmentation",
+    "actions": [
+      { "type": "project", "href": "https://wleilei.github.io/ov-deim-project-page/" },
+      { "type": "paper", "href": "https://arxiv.org/abs/2603.07022" },
+      { "type": "code", "href": "https://github.com/wleilei/OV-DEIM", "repo": "wleilei/OV-DEIM" }
+    ]
+  },
+  {
     "title": "[DEIMv2] Real-Time Object Detection Meets DINOv3",
     "venue": "arXiv 2025",
     "image": "src/deimv2.png",
