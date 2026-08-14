@@ -306,37 +306,6 @@ content="EdgeCrafter: Compact Vision Transformers for edge dense prediction incl
       margin: 0 0.5rem;
     }
 
-    /* Teaser Image */
-    .teaser-container {
-      margin-top: 3rem;
-      position: relative;
-      border-radius: var(--radius-xl);
-      padding: 1rem;
-      background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--bg-surface-alt) 100%);
-
-    }
-
-    .teaser-image {
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-xl);
-      border: 1px solid var(--border);
-      width: 100%;
-      transition: var(--transition);
-    }
-    
-    .teaser-image:hover {
-      transform: scale(1.1);
-    }
-
-    .teaser-caption {
-      margin-top: 1.5rem;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
     /* ===== ABSTRACT & STATS ===== */
     .abstract-container {
       display: grid;
@@ -515,47 +484,12 @@ content="EdgeCrafter: Compact Vision Transformers for edge dense prediction incl
       color: var(--text-muted);
     }
 
-    .result-group {
-      margin-bottom: 4rem;
-    }
-
     .result-title {
       text-align: center;
       font-size: 1.25rem;
       font-weight: 600;
       margin-bottom: 1.5rem;
       color: var(--text-main);
-    }
-
-    .result-image-card {
-      background: white;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-md);
-      transition: var(--transition);
-    }
-
-    .result-image-card:hover {
-      box-shadow: var(--shadow-xl);
-      transform: translateY(-4px);
-    }
-
-    .result-image-card--natural-width {
-      max-width: 736px;
-      margin-inline: auto;
-    }
-
-    .results-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    @media (min-width: 768px) {
-      .results-grid {
-        grid-template-columns: 1fr 1fr;
-      }
     }
 
     /* ===== RELATED PROJECTS ===== */
@@ -720,6 +654,7 @@ content="EdgeCrafter: Compact Vision Transformers for edge dense prediction incl
     /* ===== UTILITIES ===== */
     .mb-8 { margin-bottom: 2rem; }
   </style>
+  <link rel="stylesheet" href="results-explorer.css">
 </head>
 <body>
 
@@ -801,9 +736,50 @@ content="EdgeCrafter: Compact Vision Transformers for edge dense prediction incl
 <!--        </a>-->
       </div>
 
-      <!-- PROMINENT TEASER IMAGE -->
-      <div class="teaser-container">
-        <img src="images/sota-comparison.png" alt="EdgeCrafter accuracy and efficiency compared with state-of-the-art dense prediction models on COCO" class="teaser-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <!-- Interactive accuracy-efficiency comparison -->
+      <div class="frontier-shell" id="frontierExplorer" aria-labelledby="frontierTitle">
+        <div class="frontier-heading">
+          <div>
+            <span class="frontier-kicker">COCO val2017</span>
+            <h2 class="frontier-title" id="frontierTitle">Accuracy-Efficiency Frontier</h2>
+            <p class="frontier-description">Compare EdgeCrafter with representative real-time baselines. Change the efficiency axis, focus a model scale, or inspect any point for its exact benchmark values.</p>
+          </div>
+        </div>
+
+        <div class="frontier-toolbar" aria-label="Chart controls">
+          <div class="control-group">
+            <span class="control-label">Efficiency axis</span>
+            <div class="segmented-control">
+              <button type="button" class="segmented-button" data-frontier-axis="params" aria-pressed="true">Parameters</button>
+              <button type="button" class="segmented-button" data-frontier-axis="gflops" aria-pressed="false">GFLOPs</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Scale focus</span>
+            <div class="segmented-control">
+              <button type="button" class="segmented-button" data-frontier-scale="all" aria-pressed="true">All</button>
+              <button type="button" class="segmented-button" data-frontier-scale="S" aria-pressed="false">S</button>
+              <button type="button" class="segmented-button" data-frontier-scale="M" aria-pressed="false">M</button>
+              <button type="button" class="segmented-button" data-frontier-scale="L" aria-pressed="false">L</button>
+              <button type="button" class="segmented-button" data-frontier-scale="X" aria-pressed="false">X</button>
+            </div>
+          </div>
+
+          <button type="button" class="toggle-button" data-frontier-competitors aria-pressed="true">
+            <span>Competitors on</span>
+          </button>
+        </div>
+
+        <div class="frontier-fallback" data-frontier-fallback>
+          <div class="frontier-fallback-grid">
+            <div><strong>Object Detection</strong><span>ECDet-S: 51.7 AP, or 53.6 AP with Objects365</span></div>
+            <div><strong>Human Pose Estimation</strong><span>ECPose-X: 74.8 AP, or 75.9 AP with Objects365</span></div>
+            <div><strong>Instance Segmentation</strong><span>ECInsSeg-X: 48.4 AP, or 49.8 AP with Objects365</span></div>
+          </div>
+        </div>
+        <div class="frontier-charts" data-frontier-charts aria-live="polite"></div>
+        <div class="frontier-insight" data-frontier-insight>Objects365 consistently improves all EdgeCrafter model scales.</div>
       </div>
     </div>
   </header>
@@ -923,12 +899,12 @@ content="EdgeCrafter: Compact Vision Transformers for edge dense prediction incl
         <!-- Metric Cards -->
         <div class="stats-row">
           <div class="stat-card">
-            <div class="stat-value">53.6</div>
-            <div class="stat-label">Detection mAP</div>
+            <div class="stat-value">51.7 AP</div>
+            <div class="stat-label">ECDet-S · COCO only</div>
           </div>
           <div class="stat-card">
-            <div class="stat-value">10M</div>
-            <div class="stat-label">Parameters</div>
+            <div class="stat-value">53.6 AP</div>
+            <div class="stat-label">ECDet-S · +Objects365</div>
           </div>
         </div>
       </div>
@@ -968,28 +944,73 @@ content="EdgeCrafter: Compact Vision Transformers for edge dense prediction incl
       <div class="section-header" style="text-align: center;">
         <h2 class="section-title">Results</h2>
       </div>
+      <p class="results-intro">Explore the complete camera-ready benchmark tables by task, model scale, supervision, and metric.</p>
 
-      <!-- Detection Results -->
-      <div class="result-group">
-        <h3 class="result-title">Object Detection</h3>
-        <div class="result-image-card result-image-card--natural-width">
-          <img src="images/table-2-object-detection.png" alt="Table 2: Performance comparison of real-time object detectors on COCO val2017" style="width: 100%; display: block;" onerror="this.style.display='none';">
-        </div>
-      </div>
+      <div class="results-explorer" id="benchmarkExplorer">
+        <div class="benchmark-toolbar" aria-label="Benchmark filters">
+          <div class="benchmark-filter-set">
+            <div class="control-group">
+              <span class="control-label">Task</span>
+              <div class="segmented-control">
+                <button type="button" class="segmented-button" data-table-task="detection" aria-pressed="true">Detection</button>
+                <button type="button" class="segmented-button" data-table-task="pose" aria-pressed="false">Pose</button>
+                <button type="button" class="segmented-button" data-table-task="segmentation" aria-pressed="false">Segmentation</button>
+              </div>
+            </div>
 
-      <!-- Pose and Seg Results (Side by Side) -->
-      <div class="result-group">
-        <h3 class="result-title">Pose Estimation</h3>
-        <div class="result-image-card">
-          <img src="images/table-3-pose-estimation.png" alt="Table 3: Performance comparison of real-time pose estimation methods on COCO val2017" style="width: 100%; display: block;" onerror="this.style.display='none';">
-        </div>
-      </div>
+            <div class="control-group">
+              <span class="control-label">Model scale</span>
+              <div class="segmented-control">
+                <button type="button" class="segmented-button" data-table-scale="all" aria-pressed="false">All</button>
+                <button type="button" class="segmented-button" data-table-scale="S" aria-pressed="true">S</button>
+                <button type="button" class="segmented-button" data-table-scale="M" aria-pressed="false">M</button>
+                <button type="button" class="segmented-button" data-table-scale="L" aria-pressed="false">L</button>
+                <button type="button" class="segmented-button" data-table-scale="X" aria-pressed="false">X</button>
+              </div>
+            </div>
 
-      <div class="result-group">
-        <h3 class="result-title">Instance Segmentation</h3>
-        <div class="result-image-card">
-          <img src="images/table-4-instance-segmentation.png" alt="Table 4: Performance comparison of real-time instance segmentation models on COCO val2017" style="width: 100%; display: block;" onerror="this.style.display='none';">
+            <div class="control-group">
+              <span class="control-label">Supervision</span>
+              <div class="segmented-control">
+                <button type="button" class="segmented-button" data-table-supervision="all" aria-pressed="true">All</button>
+                <button type="button" class="segmented-button" data-table-supervision="coco" aria-pressed="false">COCO only</button>
+                <button type="button" class="segmented-button" data-table-supervision="extra" aria-pressed="false">Extra sup.</button>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div class="benchmark-overview">
+          <div>
+            <span class="benchmark-kicker">Interactive leaderboard</span>
+            <h3 class="benchmark-heading" data-table-heading>Object Detection</h3>
+            <p class="benchmark-summary" data-table-summary>Box AP on COCO val2017 · S scale · all supervision settings</p>
+          </div>
+          <span class="benchmark-count" data-table-count aria-live="polite">14 methods</span>
+        </div>
+
+        <div class="benchmark-fallback" data-table-fallback>
+          <strong>EdgeCrafter AP summary</strong>
+          <table class="benchmark-fallback-table">
+            <thead><tr><th>Scale</th><th>Detection</th><th>Pose</th><th>Segmentation</th></tr></thead>
+            <tbody>
+              <tr><td>S</td><td>51.7 / 53.6</td><td>68.9 / 69.7</td><td>43.0 / 43.9</td></tr>
+              <tr><td>M</td><td>54.3 / 56.7</td><td>72.4 / 73.1</td><td>45.2 / 46.9</td></tr>
+              <tr><td>L</td><td>57.0 / 59.0</td><td>73.5 / 74.5</td><td>47.1 / 48.8</td></tr>
+              <tr><td>X</td><td>57.9 / 59.9</td><td>74.8 / 75.9</td><td>48.4 / 49.8</td></tr>
+            </tbody>
+          </table>
+          <p class="benchmark-note">Each cell reports COCO-only AP / Objects365 AP.</p>
+        </div>
+
+        <div class="benchmark-table-shell" data-table-shell hidden>
+          <table class="benchmark-table" data-benchmark-table>
+            <caption>Object detection benchmark results</caption>
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="benchmark-note"><span data-table-note>Latency is measured on an NVIDIA T4 with batch size 1 under FP16 using TensorRT 10.6.</span> <a href="https://arxiv.org/abs/2603.18739" target="_blank" rel="noopener noreferrer">Methodology and protocol details</a>.</p>
       </div>
     </div>
   </section>
@@ -1077,6 +1098,8 @@ content="EdgeCrafter: Compact Vision Transformers for edge dense prediction incl
       });
     });
   </script>
+  <script src="results-data.js"></script>
+  <script src="results-explorer.js"></script>
 
 </body>
 </html>
