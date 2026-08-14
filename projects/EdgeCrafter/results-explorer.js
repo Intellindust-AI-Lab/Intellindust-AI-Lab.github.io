@@ -20,7 +20,7 @@
         series('ecdet-o365', 'ECDet +O365', 'ECDet-', 'O365', true, 'var(--chart-o365)', true),
         series('rtdetrv4', 'RT-DETRv4', 'RT-DETRv4-', 'COCO only', false, 'var(--chart-baseline-1)'),
         series('yolo26-det', 'YOLO26 +O365', 'YOLO26-', 'O365', false, 'var(--chart-baseline-2)', true),
-        series('rfdetr-det', 'RF-DETR +O365', 'RF-DETR-', 'O365', false, 'var(--chart-baseline-3)', true)
+        series('rfdetr-det', 'RF-DETR +O365', 'RF-DETR-', 'O365', false, 'var(--chart-baseline-3)')
       ]
     },
     pose: {
@@ -47,7 +47,7 @@
         series('ecinsseg-coco', 'ECInsSeg', 'ECInsSeg-', 'COCO only', true, 'var(--chart-edge)'),
         series('ecinsseg-o365', 'ECInsSeg +O365', 'ECInsSeg-', 'O365', true, 'var(--chart-o365)', true),
         series('yolo26-seg', 'YOLO26-Seg +O365+SAM2', 'YOLO26-Seg-', 'O365+SAM2', false, 'var(--chart-baseline-2)', true),
-        series('rfdetr-seg', 'RF-DETR-Seg +O365+SAM2', 'RF-DETR-Seg-', 'O365+SAM2', false, 'var(--chart-baseline-3)', true)
+        series('rfdetr-seg', 'RF-DETR-Seg +O365+SAM2', 'RF-DETR-Seg-', 'O365+SAM2', false, 'var(--chart-baseline-3)')
       ]
     }
   };
