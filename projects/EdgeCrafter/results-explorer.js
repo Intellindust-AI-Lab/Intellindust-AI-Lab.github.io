@@ -6,7 +6,6 @@
 
   const SVG_NS = 'http://www.w3.org/2000/svg';
   const SCALE_ORDER = { S: 0, M: 1, L: 2, X: 3 };
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const tasks = {
     detection: {
@@ -284,14 +283,6 @@
         'data-featured': definition.featured
       });
       if (definition.dashed) path.setAttribute('stroke-dasharray', '5 5');
-      if (!reducedMotion && !definition.dashed) {
-        path.setAttribute('pathLength', '1');
-        path.style.strokeDasharray = '1';
-        path.style.strokeDashoffset = '1';
-        requestAnimationFrame(() => {
-          path.style.strokeDashoffset = '0';
-        });
-      }
       svg.appendChild(path);
 
       rows.forEach((row, pointIndex) => {
