@@ -167,8 +167,15 @@
 
 .frontier-charts {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.frontier-card:last-child {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: calc(50% - 0.625rem);
+  margin-inline: auto;
 }
 
 .frontier-card {
@@ -669,19 +676,6 @@
   }
   to {
     transform: scale(1);
-  }
-}
-
-@media (max-width: 1050px) {
-  .frontier-charts {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .frontier-card:last-child {
-    grid-column: 1 / -1;
-    max-width: calc(50% - 0.5rem);
-    width: 100%;
-    margin-inline: auto;
   }
 }
 
