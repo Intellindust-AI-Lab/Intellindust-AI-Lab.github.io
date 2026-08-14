@@ -541,6 +541,11 @@ content="EdgeCrafter: Compact Vision Transformers for edge dense prediction incl
       transform: translateY(-4px);
     }
 
+    .result-image-card--natural-width {
+      max-width: 736px;
+      margin-inline: auto;
+    }
+
     .results-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -794,15 +799,12 @@ content="EdgeCrafter: Compact Vision Transformers for edge dense prediction incl
 <!--          </svg>-->
 <!--          Code (Pose)-->
 <!--        </a>-->
-
+      </div>
 
       <!-- PROMINENT TEASER IMAGE -->
-      <div class="container-sm">
-        <div class="teaser-container">
-          <img src="images/teaser.png" alt="EdgeCrafter Teaser: Overview of performance and efficiency" class="teaser-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-        </div>
+      <div class="teaser-container">
+        <img src="images/sota-comparison.png" alt="EdgeCrafter accuracy and efficiency compared with state-of-the-art dense prediction models on COCO" class="teaser-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
       </div>
-    </div>
     </div>
   </header>
 
@@ -870,16 +872,7 @@ content="EdgeCrafter: Compact Vision Transformers for edge dense prediction incl
           <h2 class="section-title">Abstract</h2>
         </div>
         <p class="abstract-text">
-          We introduce EdgeCrafter, a unified compact ViT framework
-for edge dense prediction centered on ECDet, a detection model built from a distilled compact
-backbone and an edge-friendly encoder–decoder design. We first adapt a large DINOv3-
-pretrained ViT to object detection and use it as a task-specialized teacher to distill rich
-representations into compact student backbones.
-<br><br>
-          On the COCO dataset, ECDet-S achieves 51.7 AP with fewer than 10M parameters using only COCO
-annotations. For instance segmentation, ECInsSeg achieves performance comparable to RF-
-DETR while using substantially fewer parameters. For pose estimation, ECPose-X reaches
-74.8 AP, significantly outperforming YOLO26Pose-X (71.6 AP).
+          Deploying high performance dense prediction models on resource-constrained edge devices remains challenging due to strict limits on computation and memory. In practice, lightweight systems for object detection, instance segmentation, and pose estimation are still dominated by CNN-based architectures such as YOLO, while compact Vision Transformers (ViTs) often struggle to achieve similarly strong accuracy–efficiency trade-offs, even with large scale pretraining. We argue that this gap is largely due to insufficient task-specific representation learning in small-scale ViTs, rather than an inherent mismatch between ViTs and edge dense prediction. To address this issue, we introduce EdgeCrafter, a unified compact ViT framework for edge dense prediction centered on ECDet, a detection model built from a distilled compact backbone and an edge-friendly encoder–decoder design. We first adapt a large DINOv3-pretrained ViT to object detection and use it as a task-specialized teacher to distill rich representations into compact student backbones on ImageNet-1K and COCO images. We further improve efficiency by replacing standard patch embedding with a lightweight convolutional stem and constructing multi-scale features with simple interpolation and linear projection instead of costly feature pyramids. The resulting detection-distilled representation transfers directly to instance segmentation and human pose estimation through lightweight task-specific prediction modules. Using no task annotations beyond COCO, ECDet-S reaches 51.7 box AP with fewer than 10M parameters, while ECInsSeg-X and ECPose-X reach 48.4 mask AP and 74.8 keypoint AP. As a complementary but more compute-intensive setting, Objects365 detection pretraining consistently improves all scales, with the X variants reaching 59.9 box AP, 49.8 mask AP, and 75.9 keypoint AP. These results show that compact ViTs, when paired with task-specialized distillation and edge-aware design, can be a practical and competitive option for edge dense prediction.
         </p>
       </div>
 
@@ -930,7 +923,7 @@ DETR while using substantially fewer parameters. For pose estimation, ECPose-X r
         <!-- Metric Cards -->
         <div class="stats-row">
           <div class="stat-card">
-            <div class="stat-value">51.7</div>
+            <div class="stat-value">53.6</div>
             <div class="stat-label">Detection mAP</div>
           </div>
           <div class="stat-card">
@@ -979,8 +972,8 @@ DETR while using substantially fewer parameters. For pose estimation, ECPose-X r
       <!-- Detection Results -->
       <div class="result-group">
         <h3 class="result-title">Object Detection</h3>
-        <div class="result-image-card">
-          <img src="images/resdet.png" alt="Object Detection Results" style="width: 100%; display: block;" onerror="this.style.display='none';">
+        <div class="result-image-card result-image-card--natural-width">
+          <img src="images/table-2-object-detection.png" alt="Table 2: Performance comparison of real-time object detectors on COCO val2017" style="width: 100%; display: block;" onerror="this.style.display='none';">
         </div>
       </div>
 
@@ -988,14 +981,14 @@ DETR while using substantially fewer parameters. For pose estimation, ECPose-X r
       <div class="result-group">
         <h3 class="result-title">Pose Estimation</h3>
         <div class="result-image-card">
-          <img src="images/respose.png" alt="Pose Estimation Results" style="width: 100%; display: block;" onerror="this.style.display='none';">
+          <img src="images/table-3-pose-estimation.png" alt="Table 3: Performance comparison of real-time pose estimation methods on COCO val2017" style="width: 100%; display: block;" onerror="this.style.display='none';">
         </div>
       </div>
 
       <div class="result-group">
         <h3 class="result-title">Instance Segmentation</h3>
         <div class="result-image-card">
-          <img src="images/resseg.png" alt="Instance Segmentation Results" style="width: 100%; display: block;" onerror="this.style.display='none';">
+          <img src="images/table-4-instance-segmentation.png" alt="Table 4: Performance comparison of real-time instance segmentation models on COCO val2017" style="width: 100%; display: block;" onerror="this.style.display='none';">
         </div>
       </div>
     </div>
