@@ -82,15 +82,15 @@
   /* ---------------- GTR-S resolution sweep on COCO val2017 (from the paper) ----------------
      Fine-tuned at each resolution from the complete Objects365 pre-trained detector weights. */
   var RES_DATA = [
-    { m: "640 × 640",     g: "res", gf: 33.8,  mem: 0.096, lat: 1.225, rate: 816.3, ap: 53.6, ap50: 71.1, ap75: 58.3, aps: 36.4, apm: 58.3, apl: 70.2 },
-    { m: "704 × 704",     g: "res", gf: 40.4,  mem: 0.121, lat: 1.317, rate: 759.3, ap: 54.3, ap50: 71.7, ap75: 59.1, aps: 37.5, apm: 59.0, apl: 70.2 },
-    { m: "768 × 768",     g: "res", gf: 47.8,  mem: 0.138, lat: 1.421, rate: 703.7, ap: 55.1, ap50: 72.5, ap75: 60.2, aps: 38.7, apm: 59.6, apl: 70.7 },
-    { m: "832 × 832",     g: "res", gf: 55.8,  mem: 0.142, lat: 1.550, rate: 645.2, ap: 55.5, ap50: 72.9, ap75: 60.6, aps: 39.8, apm: 60.0, apl: 70.8 },
-    { m: "896 × 896",     g: "res", gf: 64.5,  mem: 0.156, lat: 1.714, rate: 583.4, ap: 56.0, ap50: 73.3, ap75: 61.2, aps: 41.4, apm: 60.0, apl: 70.5 },
-    { m: "960 × 960",     g: "res", gf: 73.7,  mem: 0.172, lat: 1.784, rate: 560.5, ap: 56.2, ap50: 73.5, ap75: 61.6, aps: 40.7, apm: 60.4, apl: 70.0 },
-    { m: "1024 × 1024",   g: "res", gf: 83.7,  mem: 0.171, lat: 1.844, rate: 542.3, ap: 56.6, ap50: 73.9, ap75: 61.9, aps: 42.1, apm: 60.8, apl: 70.4 },
-    { m: "1152 × 1152",   g: "res", gf: 105.4, mem: 0.224, lat: 2.157, rate: 463.6, ap: 56.7, ap50: 74.0, ap75: 62.1, aps: 41.9, apm: 60.8, apl: 70.3 },
-    { m: "1280 × 1280",   g: "res", gf: 129.8, mem: 0.249, lat: 2.529, rate: 395.4, ap: 57.0, ap50: 74.4, ap75: 62.5, aps: 42.4, apm: 61.0, apl: 70.0 }
+    { m: "640×640",     g: "res", gf: 33.8,  mem: 0.096, lat: 1.225, rate: 816.3, ap: 53.6, ap50: 71.1, ap75: 58.3, aps: 36.4, apm: 58.3, apl: 70.2 },
+    { m: "704×704",     g: "res", gf: 40.4,  mem: 0.121, lat: 1.317, rate: 759.3, ap: 54.3, ap50: 71.7, ap75: 59.1, aps: 37.5, apm: 59.0, apl: 70.2 },
+    { m: "768×768",     g: "res", gf: 47.8,  mem: 0.138, lat: 1.421, rate: 703.7, ap: 55.1, ap50: 72.5, ap75: 60.2, aps: 38.7, apm: 59.6, apl: 70.7 },
+    { m: "832×832",     g: "res", gf: 55.8,  mem: 0.142, lat: 1.550, rate: 645.2, ap: 55.5, ap50: 72.9, ap75: 60.6, aps: 39.8, apm: 60.0, apl: 70.8 },
+    { m: "896×896",     g: "res", gf: 64.5,  mem: 0.156, lat: 1.714, rate: 583.4, ap: 56.0, ap50: 73.3, ap75: 61.2, aps: 41.4, apm: 60.0, apl: 70.5 },
+    { m: "960×960",     g: "res", gf: 73.7,  mem: 0.172, lat: 1.784, rate: 560.5, ap: 56.2, ap50: 73.5, ap75: 61.6, aps: 40.7, apm: 60.4, apl: 70.0 },
+    { m: "1024×1024",   g: "res", gf: 83.7,  mem: 0.171, lat: 1.844, rate: 542.3, ap: 56.6, ap50: 73.9, ap75: 61.9, aps: 42.1, apm: 60.8, apl: 70.4 },
+    { m: "1152×1152",   g: "res", gf: 105.4, mem: 0.224, lat: 2.157, rate: 463.6, ap: 56.7, ap50: 74.0, ap75: 62.1, aps: 41.9, apm: 60.8, apl: 70.3 },
+    { m: "1280×1280",   g: "res", gf: 129.8, mem: 0.249, lat: 2.529, rate: 395.4, ap: 57.0, ap50: 74.4, ap75: 62.5, aps: 42.4, apm: 61.0, apl: 70.0 }
   ];
 
   var COLORS = { gtr: "#1baf7a", detr: "#2a78d6", yolo: "#eb6834" };

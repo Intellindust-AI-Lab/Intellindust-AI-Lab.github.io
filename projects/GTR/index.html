@@ -28,17 +28,6 @@
                 <div>
                     <h1 class="title"><span class="gtr-grad">GTR</span>: Gated Token Recurrence for Efficient Dense Prediction</h1>
                     <p class="author">Anonymous Authors &nbsp;<span class="aff">&middot;&nbsp; code &amp; models released upon publication</span></p>
-                    <p class="abstract">
-                        GTR is a <b>softmax-free, single-scale recurrent vision backbone</b>: every global
-                        token-mixing block is gated linear attention, with scan directions alternating
-                        across depth and Spatial SwiGLU for local mixing. It learns from a
-                        detection-specialized DINOv3 teacher through <b>a single squared
-                        &ell;<sub>2</sub> loss</b> on final patch tokens — no masking, no intermediate
-                        supervision. With Objects365 pre-training, GTR-L reaches <b>58.9 box AP</b> on
-                        COCO at a <b>1.908&nbsp;ms</b> median forward pass; the same backbone design
-                        serves <b>six dense-prediction tasks</b> and runs below 8.8&nbsp;ms on
-                        <span class="gtr-hw">DRIVE AGX Thor</span>.
-                    </p>
                 </div>
 
                 <div class="info">
