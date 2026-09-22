@@ -420,12 +420,15 @@ div.container.blog img.gtr-shrink { width: 75%; }
 .gtr-metric b { font-weight: 600; }
 
 /* ---------- Results table ---------- */
+/* the six task tables: plain white rows (no zebra striping), GTR rows in bold black */
+.gtr-panel table tbody tr,
+.gtr-panel table tbody tr:nth-child(2n+1) { background-color: #fff; }
 table tr.gtr-ours td {
-  background: rgba(27, 175, 122, 0.10) !important;
-  font-weight: 600;
+  color: #000;
+  font-weight: 700;
 }
 table tr.gtr-group-row td {
-  background: #e6e6e2 !important;
+  background: #fff !important;
   text-align: left !important;
   font-size: 78%;
   font-weight: 600;
