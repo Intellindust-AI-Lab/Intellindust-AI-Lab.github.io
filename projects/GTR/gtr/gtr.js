@@ -178,6 +178,7 @@
     { m: "RiO-DETR-x",    f: "detr", g: "detr", bb: "HGNetv2-B5", p: 62.5, gf: 527,   lat: null,   ap50: 81.8, o365: 1 },
     { m: "RiO-DETR-m",    f: "detr", g: "detr", bb: "HGNetv2-B2", p: 18.6, gf: 158,   lat: null,   ap50: 81.5 },
     { m: "RiO-DETR-x",    f: "detr", g: "detr", bb: "HGNetv2-B5", p: 62.5, gf: 527,   lat: null,   ap50: 81.8 },
+    { m: "GTR-S",         f: "gtr",  g: "detr", bb: "GLA",        p: 12.1, gf: 82.8,  lat: 1.946,  ap50: 80.1, lbl: [8, 14] },
     { m: "GTR-X",         f: "gtr",  g: "detr", bb: "GLA",        p: 46.3, gf: 324,   lat: 3.960,  ap50: 81.3, lbl: [-10, -12] }
   ];
 
@@ -200,7 +201,7 @@
     { m: "YOLO26m-depth", f: "yolo", g: "M", p: 23.3, gf: 130.7, lat: 1.307, d1: 0.921, absrel: 0.089, rmse: 0.364 },
     { m: "GTR-M",         f: "gtr",  g: "M", p: 19.4, gf: 93.2,  lat: 1.508, d1: 0.952, absrel: 0.069, rmse: 0.319, lbl: [-10, -12] },
     { m: "YOLO26l-depth", f: "yolo", g: "L", p: 27.7, gf: 157.2, lat: 1.747, d1: 0.930, absrel: 0.083, rmse: 0.351 },
-    { m: "GTR-L",         f: "gtr",  g: "L", p: 33.9, gf: 136.6, lat: 1.948, d1: 0.951, absrel: 0.068, rmse: 0.328, lbl: [8, 12] },
+    { m: "GTR-L",         f: "gtr",  g: "L", p: 33.9, gf: 136.6, lat: 1.948, d1: 0.951, absrel: 0.069, rmse: 0.328, lbl: [8, 12] },
     { m: "YOLO26x-depth", f: "yolo", g: "X", p: 57.0, gf: 302.0, lat: 2.730, d1: 0.933, absrel: 0.080, rmse: 0.344, lbl: [-10, 12] },
     { m: "GTR-X",         f: "gtr",  g: "X", p: 41.1, gf: 159.4, lat: 2.158, d1: 0.954, absrel: 0.067, rmse: 0.317, lbl: [-10, -12] }
   ];

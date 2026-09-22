@@ -27,7 +27,26 @@
             <div class="blog-intro">
                 <div>
                     <h1 class="title"><span class="gtr-grad">GTR</span>: Gated Token Recurrence for Efficient Dense Prediction</h1>
-                    <p class="author">Anonymous Authors &nbsp;<span class="aff">&middot;&nbsp; code &amp; models released upon publication</span></p>
+                    <p class="author">
+                        <a href="https://scholar.google.com/citations?user=oUxIu7IAAAAJ&amp;hl=en" target="_blank">Zhe Feng</a><sup>1</sup>,
+                        <a href="https://scholar.google.com/citations?user=IqJmMfgAAAAJ&amp;hl=en" target="_blank">Longfei Liu</a><sup>2</sup>,
+                        Wei Liu<sup>3</sup>,
+                        Kai Chen<sup>4</sup>,
+                        Jiangang Kong<sup>3</sup>,
+                        Wei Zhou<sup>3</sup>,
+                        Yifeng Qian<sup>4</sup>,
+                        <a href="https://scholar.google.com/citations?user=goM0yAIAAAAJ&amp;hl=en" target="_blank">Dexiong Chen</a><sup>5</sup>,
+                        <a href="https://scholar.google.com/citations?user=o3Q56qsAAAAJ&amp;hl=en" target="_blank">Xuanlong Yu</a><sup>2</sup>,
+                        <a href="https://scholar.google.com/citations?user=nKSXus4AAAAJ&amp;hl=en" target="_blank">Xi Shen</a><sup>2,&#9993;</sup>
+                    </p>
+                    <p class="author"><span class="aff">
+                        <sup>1</sup>Institute of Automation, Chinese Academy of Sciences &nbsp;&middot;&nbsp;
+                        <sup>2</sup>Intellindust &nbsp;&middot;&nbsp;
+                        <sup>3</sup>Didi International Business Group &nbsp;&middot;&nbsp;
+                        <sup>4</sup>Didi Research &nbsp;&middot;&nbsp;
+                        <sup>5</sup>The Hong Kong University of Science and Technology<br>
+                        <sup>&#9993;</sup>Corresponding author
+                    </span></p>
                 </div>
 
                 <div class="info">
@@ -258,8 +277,9 @@
             <b>Instance segmentation</b>: first in mask AP in all four scale groups, without SAM2
             pseudo-mask pre-training. <b>Pose</b>: first in keypoint AP in all four groups, beating
             ECPose by 0.7–1.7 AP at lower latency. <b>Oriented detection</b>: 81.3 AP<sub>50</sub> on
-            DOTA-v1.0 at 3.960&nbsp;ms — the best accuracy <em>and</em> latency among latency-measured
-            DETR-based models (the others need 9.3–15.5&nbsp;ms). <b>Semantic segmentation</b>: higher
+            DOTA-v1.0 at 3.960&nbsp;ms (GTR-X) and 80.1 at 1.946&nbsp;ms (GTR-S) — the best accuracy
+            <em>and</em> latency among latency-measured DETR-based models (the baselines need
+            9.3–15.5&nbsp;ms). <b>Semantic segmentation</b>: higher
             Cityscapes mIoU than size-matched YOLO26-sem at S/M/L, and 83.6 mIoU at lower latency at X.
             <b>Depth</b>: better NYU δ<sub>1</sub>, AbsRel and RMSE than the evaluated YOLO26-depth
             variants at every scale, without NYU-specific fine-tuning. Each tab pairs the full
@@ -409,11 +429,11 @@
         <p class="text">If you find GTR useful, please consider citing:</p>
         <div class="gtr-bib-wrap">
             <button class="gtr-copy" id="gtr-copy-bib">Copy</button>
-<pre><code id="gtr-bibtex">@article{gtr2026,
-    title  = {{GTR}: Gated Token Recurrence for Efficient Dense Prediction},
-    author = {Anonymous},
-    note   = {Under double-blind review},
-    year   = {2026}
+<pre><code id="gtr-bibtex">@article{gtr,
+    title   = {{GTR}: Gated Token Recurrence for Efficient Dense Prediction},
+    author  = {Feng, Zhe and Liu, Longfei and Liu, Wei and Chen, Kai and Kong, Jiangang and Zhou, Wei and Qian, Yifeng and Chen, Dexiong and Yu, Xuanlong and Shen, Xi},
+    journal = {arXiv preprint arXiv:XXXX.XXXXX},
+    year    = {2026}
 }</code></pre>
         </div>
     </div>

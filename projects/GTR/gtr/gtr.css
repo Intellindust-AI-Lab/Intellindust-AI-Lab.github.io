@@ -88,6 +88,15 @@ div.container.blog#first-content.gtr-hero p.author .aff {
   font-size: 0.85em;
   opacity: 0.65;
 }
+div.container.blog#first-content.gtr-hero p.author a {
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.45);
+  text-underline-offset: 3px;
+}
+div.container.blog#first-content.gtr-hero p.author sup {
+  font-size: 0.7em;
+  line-height: 0;
+}
 
 /* hero buttons */
 .gtr-hero .info .gtr-buttons {
