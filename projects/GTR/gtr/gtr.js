@@ -439,6 +439,7 @@
       keys: ["lat", "miou"],
       numStart: 3,
       groups: SCALES,
+      switcher: true,
       cells: function (r) {
         return [name(r), String(r.p), String(r.gf), f3(r.lat), f1(r.miou)];
       }
@@ -450,6 +451,7 @@
       minKeys: ["lat", "absrel", "rmse"],
       numStart: 3,
       groups: SCALES,
+      switcher: true,
       cells: function (r) {
         return [name(r), String(r.p), String(r.gf), f3(r.lat),
                 r.d1.toFixed(3), r.absrel.toFixed(3), r.rmse.toFixed(3)];
