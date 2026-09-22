@@ -290,15 +290,15 @@
 
     <div class="container blog extra-large">
         <div class="gtr-tabs" data-tabs="qual" role="tablist" aria-label="Task">
-            <button class="gtr-tab active" data-tab="det" role="tab" aria-selected="true"><i class="fa-solid fa-object-group"></i>&nbsp;Detection</button>
+            <button class="gtr-tab" data-tab="det" role="tab" aria-selected="false"><i class="fa-solid fa-object-group"></i>&nbsp;Detection</button>
             <button class="gtr-tab" data-tab="seg" role="tab" aria-selected="false"><i class="fa-solid fa-draw-polygon"></i>&nbsp;Instance</button>
             <button class="gtr-tab" data-tab="pose" role="tab" aria-selected="false"><i class="fa-solid fa-person-running"></i>&nbsp;Pose</button>
             <button class="gtr-tab" data-tab="obb" role="tab" aria-selected="false"><i class="fa-solid fa-satellite"></i>&nbsp;Oriented</button>
             <button class="gtr-tab" data-tab="semseg" role="tab" aria-selected="false"><i class="fa-solid fa-road"></i>&nbsp;Semantic</button>
-            <button class="gtr-tab" data-tab="depth" role="tab" aria-selected="false"><i class="fa-solid fa-mountain-sun"></i>&nbsp;Depth</button>
+            <button class="gtr-tab active" data-tab="depth" role="tab" aria-selected="true"><i class="fa-solid fa-mountain-sun"></i>&nbsp;Depth</button>
         </div>
 
-        <div class="gtr-panel active" data-group="qual" data-panel="det">
+        <div class="gtr-panel" data-group="qual" data-panel="det">
             <div id="gtr-det-table"></div>
             <img loading="lazy" decoding="async" src="assets/figures/results_detection.jpg" alt="Qualitative object detection results of GTR-X on COCO">
         </div>
@@ -318,7 +318,7 @@
             <div id="gtr-semseg-table"></div>
             <img loading="lazy" decoding="async" src="assets/figures/results_semseg.jpg" alt="Qualitative semantic segmentation results of GTR-X on Cityscapes">
         </div>
-        <div class="gtr-panel" data-group="qual" data-panel="depth">
+        <div class="gtr-panel active" data-group="qual" data-panel="depth">
             <div id="gtr-depth-table"></div>
             <img loading="lazy" decoding="async" src="assets/figures/results_depth_nuscenes.jpg" alt="Night-time monocular depth predictions of GTR-L on nuScenes surround-view images">
             <img loading="lazy" decoding="async" src="assets/figures/results_depth_dtu.jpg" alt="Colored point clouds reconstructed from zero-shot GTR-L depth on DTU" style="margin-top: 10px;">
